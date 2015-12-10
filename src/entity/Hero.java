@@ -28,7 +28,7 @@ public class Hero extends Living implements Renderable {
 	@Override
 	public void draw(Graphics2D g) {
 		g.setColor(Color.RED);
-		g.fillOval(x, y, 20, 20);
+		g.fillRect(x, y, 20, 40);
 	}
 
 	@Override
