@@ -1,9 +1,9 @@
 package entity;
 
-public class Creep extends Living {
+public class Creep extends Moving {
 
-	public Creep(double a) {
-		super(a);
+	public Creep(double a,int r) {
+		super(a,r);
 		// TODO Auto-generated constructor stub
 	}
 

@@ -8,23 +8,24 @@ import java.awt.event.KeyEvent;
 
 import render.Renderable;
 
-public class Hero extends Living implements Renderable {
+public class Hero extends Moving implements Renderable {
 
-	public Hero(double a) {
-		super(a);
+	public Hero(double a,int r) {
+		super(a,r);
 		// TODO Auto-generated constructor stub
 	}
-
+	
+	@Override
 	public void update() {
 		if (InputUtility.getKeyPressed(KeyEvent.VK_LEFT)) {
 			angle += 0.02;
-			this.x = 350 + (int) ((Math.sin(angle) * 300));
-			this.y = 500 + (int) ((Math.cos(angle) * 300));
+			this.x = 350 + (int) ((Math.sin(angle) * radius));
+			this.y = 500 + (int) ((Math.cos(angle) * radius));
 
 		} else if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
 			angle -= 0.02;
-			this.x = 350 + (int) ((Math.sin(angle) * 300));
-			this.y = 500 + (int) ((Math.cos(angle) * 300));
+			this.x = 350 + (int) ((Math.sin(angle) * radius));
+			this.y = 500 + (int) ((Math.cos(angle) * radius));
 		}
 	}
 
