@@ -9,19 +9,22 @@ import java.awt.event.KeyEvent;
 import render.Renderable;
 
 public class Hero extends Living implements Renderable {
-	
-	public Hero(int x) {
-		super(x);
+
+	public Hero(double a) {
+		super(a);
 		// TODO Auto-generated constructor stub
 	}
 
 	public void update() {
 		if (InputUtility.getKeyPressed(KeyEvent.VK_LEFT)) {
-			x -= 5;
-			y =  (-1)*(int)(Math.sqrt(Math.pow(320, 2) - Math.pow(x - 330, 2))) + 460;
+			angle += 0.02;
+			this.x = 350 + (int) ((Math.sin(angle) * 300));
+			this.y = 500 + (int) ((Math.cos(angle) * 300));
+
 		} else if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
-			x += 5;
-			y =  (-1)*(int)(Math.sqrt(Math.pow(320, 2) - Math.pow(x - 330, 2))) + 460;		
+			angle -= 0.02;
+			this.x = 350 + (int) ((Math.sin(angle) * 300));
+			this.y = 500 + (int) ((Math.cos(angle) * 300));
 		}
 	}
 

@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
@@ -13,12 +14,12 @@ public class Main {
 		JFrame f = new JFrame("Ez Game");
 		GameScreen screen = new GameScreen(700, 400);
 		Planet earth = new Planet(50, 200, 300);
-		Hero human = new Hero(350);
+		Hero human = new Hero(179.139);
 		
 		// Temp
 		RenderableHolder.getInstance().add(earth);
 		RenderableHolder.getInstance().add(human);
-
+		
 		f.add(screen);
 		f.pack();
 		//f.setResizable(false);
@@ -33,7 +34,7 @@ public class Main {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			System.out.println(human.x +" "+human.y);
+			System.out.println(human.x +" "+human.y+" "+human.angle);
 			human.update();
 			screen.repaint();
 		}

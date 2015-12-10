@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import render.Renderable;
+import render.Resource;
 
 public class Planet implements Renderable {
 	protected int x,y,radius;
@@ -16,8 +17,9 @@ public class Planet implements Renderable {
 	
 	@Override
 	public void draw(Graphics2D g) {
-		g.setColor(Color.BLUE);
-		g.fillOval(x,y,2*radius,2*radius);
+		//g.setColor(Color.BLUE);
+		//g.fillOval(x,y,2*radius,2*radius);
+		g.drawImage(Resource.planet,null,x,y);
 	}
 
 	@Override
