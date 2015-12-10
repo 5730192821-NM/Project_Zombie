@@ -16,8 +16,8 @@ public class Main {
 		GameScreen screen = new GameScreen(700, 400);
 		Planet earth = new Planet(50, 200, 300);
 		Hero human = new Hero(0,320);
-		Meteoroid bomb = new Meteoroid(0,400,true);
-		Meteoroid bomb2 = new Meteoroid(0,500,false);
+		Meteoroid bomb = new Meteoroid(179.139,400,true);
+		Meteoroid bomb2 = new Meteoroid(179.139,500,false);
 
 		
 		// Temp
@@ -40,8 +40,7 @@ public class Main {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			//System.out.println(human.x +" "+human.y+" "+human.angle);
-			System.out.println(human.angle-180);
+			System.out.println(human.x +" "+human.y+" "+human.angle);
 			bomb.update();
 			bomb2.update();
 			human.update();

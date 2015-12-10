@@ -8,15 +8,20 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Resource {
-	public static BufferedImage planet;
+	public static BufferedImage planet = getImage("res/earth.png");
+	public static BufferedImage hero = getImage("res/Hero_1.png");
+	public static BufferedImage hero_f = getImage("res/Hero_1.2.png");
 
-	static {
+	static BufferedImage getImage(String directory) {
+		BufferedImage b;
 		try {
 			ClassLoader loader = Resource.class.getClassLoader();
-			planet = ImageIO.read(loader.getResource("res/earth.png"));
-		} catch (IOException e) {
-			planet = null;
+			b = ImageIO.read(loader.getResource(directory));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
+		return b;
 	}
 	
 }

@@ -16,5 +16,4 @@ public class Moving {
 		this.x = 350 + (int) ((Math.sin(angle) * radius));
 		this.y = 500 + (int) ((Math.cos(angle) * radius));
 	}
-
 }
