@@ -8,8 +8,8 @@ public class Moving {
 	public Moving(double a,int r) {
 		this.angle = a;
 		this.radius = r;
-		this.x = 350 + (int) ((Math.sin(angle) * radius));
-		this.y = 500 + (int) ((Math.cos(angle) * radius));
+		this.x = 350 - (int) ((Math.sin(angle) * radius));
+		this.y = 500 - (int) ((Math.cos(angle) * radius));
 	}
 	
 	public void update() {
