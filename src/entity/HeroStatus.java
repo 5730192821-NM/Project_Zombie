@@ -3,6 +3,7 @@ package entity;
 import java.awt.Graphics2D;
 
 import render.Renderable;
+import render.Resource;
 
 public class HeroStatus implements Renderable {
 
@@ -70,6 +71,7 @@ public class HeroStatus implements Renderable {
 
 	@Override
 	public void draw(Graphics2D g) {
+		g.drawImage(Resource.statusBG, null, 0,0);
 		// TODO Auto-generated method stub
 
 	}
