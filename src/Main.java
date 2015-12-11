@@ -7,9 +7,9 @@ import render.GameScreen;
 import render.RenderableHolder;
 import entity.Hero;
 import entity.HeroStatus;
+import entity.IceSkill;
 import entity.Land;
-import entity.Meteoroid;
-import entity.Planet;
+
 import entity.SkillStatus;
 
 public class Main {
@@ -17,27 +17,21 @@ public class Main {
 	public static void main(String[] args) {
 		JFrame f = new JFrame("Ez Game");
 		GameScreen screen = new GameScreen(800, 600);
-		//Planet earth = new Planet(50, 200, 300);
 		Land land1 = new Land(0,0);
 		Hero human = new Hero(20,315);
 		HeroStatus heroStatus = new HeroStatus();
 		SkillStatus skillStatus = new SkillStatus();
-		//Meteoroid bomb = new Meteoroid(179.139,400,true);
-		//Meteoroid bomb2 = new Meteoroid(179.139,500,false);
 
 		
 		// Temp
-		//RenderableHolder.getInstance().add(earth);
 		RenderableHolder.getInstance().add(human);
 		RenderableHolder.getInstance().add(land1);
 		RenderableHolder.getInstance().add(heroStatus);
 		RenderableHolder.getInstance().add(skillStatus);
-		//RenderableHolder.getInstance().add(bomb);
-		//RenderableHolder.getInstance().add(bomb2);
 		
 		f.add(screen);
 		f.pack();
-		//f.setResizable(false);
+		f.setResizable(false);
 		f.setVisible(true);
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -50,8 +44,6 @@ public class Main {
 				e.printStackTrace();
 			}
 			System.out.println(human.x +" "+human.y + " " + land1.x);
-			//bomb.update();
-			//bomb2.update();
 			land1.update();
 			human.update();
 			screen.repaint();

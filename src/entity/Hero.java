@@ -11,6 +11,7 @@ import java.awt.image.AffineTransformOp;
 import javax.annotation.PostConstruct;
 
 import render.Renderable;
+import render.RenderableHolder;
 import render.Resource;
 
 public class Hero extends Moving implements Renderable {
@@ -19,7 +20,8 @@ public class Hero extends Moving implements Renderable {
 	private int gravity=1,velocityY;
 	private boolean isJumped;
 	private boolean isMid;
-	//direction 1 : LEFT direction 2 : RIGHT
+	private boolean isSkill;
+	//direction 1 : RIGHT direction 2 : LEFT
 	
 	public Hero(int x,int y) {
 		super(x,y);
@@ -27,6 +29,7 @@ public class Hero extends Moving implements Renderable {
 		isJumped=false;
 		velocityY=0;
 		isMid=false;
+		isSkill=false;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -61,13 +64,26 @@ public class Hero extends Moving implements Renderable {
 		}
 		if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
 			direction=1;
-			if(x<500 || Land.isEnd()){
+			if(x<400 || Land.isEnd()){
 				if(x<720)
 					x+=5;
 			}
 			else
 				Land.setX(5);
 		}
+		if(isSkill){
+			IceSkill.update();
+			if(!IceSkill.isPlaying()){
+				isSkill=false;
+			}
+		}
+		else if(InputUtility.getKeyPressed(KeyEvent.VK_SPACE)){
+			IceSkill ice = new IceSkill(x, y,direction);
+			RenderableHolder.getInstance().add(ice);
+			ice.play();
+			isSkill=true;
+		}
+		
 	}
 
 	@Override
