@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import render.Renderable;
@@ -72,6 +73,8 @@ public class HeroStatus implements Renderable {
 	@Override
 	public void draw(Graphics2D g) {
 		g.drawImage(Resource.statusBG, null, 0,0);
+		g.setColor(Color.WHITE);
+		g.drawString("SCORE: " + score, 100, 80);
 		// TODO Auto-generated method stub
 
 	}
