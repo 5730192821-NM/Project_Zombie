@@ -61,6 +61,7 @@ public class Hero extends Moving implements Renderable {
 			direction=2;
 			if(x+20>0)
 				x-=5;
+			isMid=false;
 		}
 		if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
 			direction=1;
@@ -68,10 +69,15 @@ public class Hero extends Moving implements Renderable {
 				if(x<720)
 					x+=5;
 			}
-			else
+			else{
+				isMid=true;
 				Land.setX(5);
+			}
 		}
 		if(isSkill){
+			if(x>=400 && isMid){
+				IceSkill.setX(5);
+			}
 			IceSkill.update();
 			if(!IceSkill.isPlaying()){
 				isSkill=false;
@@ -83,7 +89,7 @@ public class Hero extends Moving implements Renderable {
 			ice.play();
 			isSkill=true;
 		}
-		
+		isMid=false;
 	}
 
 	@Override

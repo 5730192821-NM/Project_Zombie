@@ -24,6 +24,10 @@ public class IceSkill implements Renderable{
 		}
 	}
 	
+	public static void setX(int x){
+		IceSkill.x -= x; 
+	}
+	
 	public static boolean isPlaying(){
 		return isPlaying;
 	}
