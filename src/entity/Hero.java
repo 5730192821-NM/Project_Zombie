@@ -77,9 +77,17 @@ public class Hero extends Moving implements Renderable {
 		if(isSkill){
 			if(x>=400 && isMid){
 				IceSkill.setX(5);
+				FireSkill.setX(5);
+				MeteorSkill.setX(5);
+				PoisonSkill.setX(5);
+				SpikeSkill.setX(5);
 			}
 			IceSkill.update();
-			if(!IceSkill.isPlaying()){
+			FireSkill.update();
+			MeteorSkill.update();
+			PoisonSkill.update();
+			SpikeSkill.update();
+			if(!IceSkill.isPlaying() && !FireSkill.isPlaying() && !MeteorSkill.isPlaying() && !PoisonSkill.isPlaying() && !SpikeSkill.isPlaying()){
 				isSkill=false;
 			}
 		}
@@ -87,6 +95,30 @@ public class Hero extends Moving implements Renderable {
 			IceSkill ice = new IceSkill(x, y,direction);
 			RenderableHolder.getInstance().add(ice);
 			ice.play();
+			isSkill=true;
+		}
+		else if(InputUtility.getKeyPressed(KeyEvent.VK_F)){
+			FireSkill fire = new FireSkill(x, y,direction);
+			RenderableHolder.getInstance().add(fire);
+			fire.play();
+			isSkill=true;
+		}
+		else if(InputUtility.getKeyPressed(KeyEvent.VK_D)){
+			MeteorSkill meteor = new MeteorSkill(x, y,direction);
+			RenderableHolder.getInstance().add(meteor);
+			meteor.play();
+			isSkill=true;
+		}
+		else if(InputUtility.getKeyPressed(KeyEvent.VK_S)){
+			PoisonSkill poison = new PoisonSkill(x, y,direction);
+			RenderableHolder.getInstance().add(poison);
+			poison.play();
+			isSkill=true;
+		}
+		else if(InputUtility.getKeyPressed(KeyEvent.VK_A)){
+			SpikeSkill spike = new SpikeSkill(x, y,direction);
+			RenderableHolder.getInstance().add(spike);
+			spike.play();
 			isSkill=true;
 		}
 		isMid=false;

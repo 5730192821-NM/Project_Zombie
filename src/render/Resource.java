@@ -15,6 +15,11 @@ public class Resource {
 	public static BufferedImage skillBox = getImage("res/skill.png");
 	public static BufferedImage land1 = getImage("res/land1.png");
 	public static BufferedImage ice1 = getImage("res/ice1.png");
+	public static BufferedImage fire1 = getImage("res/fire1.png");
+	public static BufferedImage meteor1 = getImage("res/meteor1.png");
+	public static BufferedImage meteor1_2 = getImage("res/meteor1.2.png");
+	public static BufferedImage poison1 = getImage("res/poison1.png");
+	public static BufferedImage spike1 = getImage("res/spike1.png");
 
 	static BufferedImage getImage(String directory) {
 		BufferedImage b;
