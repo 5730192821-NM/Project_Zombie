@@ -5,12 +5,12 @@ import javax.swing.JFrame;
 
 import render.GameScreen;
 import render.RenderableHolder;
+import ui.HeroStatus;
+import ui.Pause;
+import ui.SkillStatus;
 import entity.Hero;
-import entity.HeroStatus;
 import entity.IceSkill;
 import entity.Land;
-
-import entity.SkillStatus;
 
 public class Main {
 
@@ -18,9 +18,10 @@ public class Main {
 		JFrame f = new JFrame("Ez Game");
 		GameScreen screen = new GameScreen(800, 600);
 		Land land1 = new Land(0,0);
-		Hero human = new Hero(20,315);
+		Hero human = new Hero(20,315,land1);
 		HeroStatus heroStatus = new HeroStatus();
 		SkillStatus skillStatus = new SkillStatus();
+		Pause button = new Pause();
 
 		
 		// Temp
@@ -28,6 +29,7 @@ public class Main {
 		RenderableHolder.getInstance().add(land1);
 		RenderableHolder.getInstance().add(heroStatus);
 		RenderableHolder.getInstance().add(skillStatus);
+		RenderableHolder.getInstance().add(button);
 		
 		f.add(screen);
 		f.pack();
@@ -43,7 +45,6 @@ public class Main {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
-			System.out.println(human.x +" "+human.y + " " + land1.x);
 			land1.update();
 			human.update();
 			screen.repaint();

@@ -15,6 +15,7 @@ public class Resource {
 	public static BufferedImage skillBox = getImage("res/skill.png");
 	public static BufferedImage land1 = getImage("res/land1.png");
 	public static BufferedImage ice1 = getImage("res/ice1.png");
+	public static BufferedImage pause = getImage("res/pause.png");
 
 	static BufferedImage getImage(String directory) {
 		BufferedImage b;

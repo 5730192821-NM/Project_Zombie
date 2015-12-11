@@ -21,15 +21,19 @@ public class Hero extends Moving implements Renderable {
 	private boolean isJumped;
 	private boolean isMid;
 	private boolean isSkill;
+	private Land land;
+	private Skill [] skill = new Skill[6];
+	
 	//direction 1 : RIGHT direction 2 : LEFT
 	
-	public Hero(int x,int y) {
+	public Hero(int x,int y,Land l) {
 		super(x,y);
 		temp=y;
 		isJumped=false;
 		velocityY=0;
 		isMid=false;
 		isSkill=false;
+		this.land = l;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -65,26 +69,28 @@ public class Hero extends Moving implements Renderable {
 		}
 		if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
 			direction=1;
-			if(x<400 || Land.isEnd()){
+			if(x<400 || land.isEnd()){
 				if(x<720)
 					x+=5;
 			}
 			else{
 				isMid=true;
-				Land.setX(5);
+				land.setX(5);
 			}
 		}
 		if(isSkill){
 			if(x>=400 && isMid){
-				IceSkill.setX(5);
+				skill[0].setX(5);
 			}
-			IceSkill.update();
-			if(!IceSkill.isPlaying()){
+			skill[0].update();
+			if(!skill[0].isPlaying()){
 				isSkill=false;
 			}
 		}
 		else if(InputUtility.getKeyPressed(KeyEvent.VK_SPACE)){
+			// need more skill to adapt
 			IceSkill ice = new IceSkill(x, y,direction);
+			skill[0] = ice;
 			RenderableHolder.getInstance().add(ice);
 			ice.play();
 			isSkill=true;
