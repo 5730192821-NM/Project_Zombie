@@ -13,6 +13,7 @@ public class Resource {
 	public static BufferedImage hero_f = getImage("res/Hero_1.2.png");
 	public static BufferedImage statusBG = getImage("res/herostatus.png");
 	public static BufferedImage skillBox = getImage("res/skill.png");
+	public static BufferedImage land1 = getImage("res/land1.png");
 
 	static BufferedImage getImage(String directory) {
 		BufferedImage b;

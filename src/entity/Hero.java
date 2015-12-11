@@ -8,15 +8,25 @@ import java.awt.event.KeyEvent;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 
+import javax.annotation.PostConstruct;
+
 import render.Renderable;
 import render.Resource;
 
 public class Hero extends Moving implements Renderable {
 
-	private int frameCount=0,count=0,direction=1;
+	private int frameCount=0,count=0,direction=1,temp;
+	private int gravity=1,velocityY;
+	private boolean isJumped;
+	private boolean isMid;
+	//direction 1 : LEFT direction 2 : RIGHT
 	
-	public Hero(double a,int r) {
-		super(a,r);
+	public Hero(int x,int y) {
+		super(x,y);
+		temp=y;
+		isJumped=false;
+		velocityY=0;
+		isMid=false;
 		// TODO Auto-generated constructor stub
 	}
 	
@@ -29,34 +39,44 @@ public class Hero extends Moving implements Renderable {
 				frameCount%=4;
 		}
 		count++;
+		if (InputUtility.getKeyPressed(KeyEvent.VK_UP)){
+			if(!isJumped){
+				isJumped=true;
+				velocityY=-17;
+			}
+		}
+		if(isJumped){
+			velocityY+=gravity;
+			y+=velocityY;
+			if(y>temp){
+				y=temp;
+				isJumped=false;
+				velocityY=0;
+			}
+		}
 		if (InputUtility.getKeyPressed(KeyEvent.VK_LEFT)) {
 			direction=2;
-			angle -= Math.toRadians(2);
-			/*angle += 0.02;
-			this.x = 350 + (int) ((Math.sin(angle) * radius));
-			this.y = 500 + (int) ((Math.cos(angle) * radius));*/
-
-		} else if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
+			if(x+20>0)
+				x-=5;
+		}
+		if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
 			direction=1;
-			angle += Math.toRadians(2);/*
-			angle -= 0.02;
-			this.x = 350 + (int) ((Math.sin(angle) * radius));
-			this.y = 500 + (int) ((Math.cos(angle) * radius));*/
+			if(x<500 || Land.isEnd()){
+				if(x<720)
+					x+=5;
+			}
+			else
+				Land.setX(5);
 		}
 	}
 
 	@Override
 	public void draw(Graphics2D g) {
-		AffineTransform backup = g.getTransform();
-		AffineTransform trans = new AffineTransform();
-		trans.rotate(angle, 350, 500);
-		g.transform(trans);
 		if(direction==2){
-		g.drawImage(Resource.hero.getSubimage(Resource.hero.getWidth()/4*frameCount, 0, Resource.hero.getWidth()/4, Resource.hero.getHeight() ), null, x, y);
+			g.drawImage(Resource.hero.getSubimage(Resource.hero.getWidth()/4*frameCount, 0, Resource.hero.getWidth()/4, Resource.hero.getHeight() ), null, x, y);
 		} else if(direction==1){
 			g.drawImage(Resource.hero_f.getSubimage(Resource.hero_f.getWidth()/4*(3-frameCount), 0, Resource.hero_f.getWidth()/4, Resource.hero.getHeight() ), null, x, y);
 		}
-		g.setTransform(backup);
 	}
 
 	@Override
@@ -69,6 +89,10 @@ public class Hero extends Moving implements Renderable {
 	public int getZ() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	public boolean getIsMid(){
+		return isMid;
 	}
 
 }

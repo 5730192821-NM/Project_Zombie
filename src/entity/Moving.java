@@ -1,19 +1,14 @@
 package entity;
 
-public class Moving {
+public abstract class Moving {
 
-	public int x, y,radius;
-	public double angle;
+	public int x;
+	public int y;
 
-	public Moving(double a,int r) {
-		this.angle = a;
-		this.radius = r;
-		this.x = 350 - (int) ((Math.sin(angle) * radius));
-		this.y = 500 - (int) ((Math.cos(angle) * radius));
+	public Moving(int x,int y) {
+		this.x = x;
+		this.y = y;
 	}
 	
-	public void update() {
-		this.x = 350 - (int) ((Math.sin(angle) * radius));
-		this.y = 500 - (int) ((Math.cos(angle) * radius));
-	}
+	public abstract void update();
 }
