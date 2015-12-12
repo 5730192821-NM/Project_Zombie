@@ -1,25 +1,32 @@
 package entity;
 
-public abstract class Skill {
-	
-	protected boolean isPlaying = false;
-	protected int x, y;
-	
-	public Skill(int x, int y, int direction) {
-		if (direction == 1)
-			this.x = x + 300;
-		else
-			this.x = x - 270;
-		this.y = 320;
-	}
+import render.Renderable;
 
-	public abstract void setX(int i);
+public abstract class Skill implements Renderable {
+
+	protected boolean isPlaying = false;
+	protected int x, y, frameCount, count, frameWidth, frameHeight;
 
 	public abstract void update();
+	
+	public void setX(int x){
+		this.x -= x; 
+	}
+	
+	public void play() {
+		isPlaying = true;
+		frameCount = 0;
+		count = 0;
+	}
+
+	public void stop() {
+		isPlaying = false;
+		frameCount = 0;
+		count = 0;
+	}
 
 	public boolean isPlaying() {
 		return isPlaying;
 	}
-	
-	
+
 }

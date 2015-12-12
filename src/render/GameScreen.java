@@ -13,6 +13,11 @@ import javax.swing.JComponent;
 
 public class GameScreen extends JComponent {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public GameScreen(int x, int y) {
 		this.setPreferredSize(new Dimension(x, y));
 		this.requestFocus();
