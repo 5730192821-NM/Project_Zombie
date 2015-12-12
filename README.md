@@ -4,9 +4,9 @@
 Ez Game.
 
 # Goal :
-# 11 - Initialize Class (Pass)
-# 12 - Casting Skill (Doing)
-# 13 - Adding Monster && Stage
-# 14 - Build Mainmenu && Interaction ****Game Should Finish****
-# 15 - Fix Bug & Documents
-# 16 - ****Present****
+1. 11 - Initialize Class (Pass)
+2. 12 - Casting Skill (Doing)
+3. 13 - Adding Monster && Stage
+4. 14 - Build Mainmenu && Interaction ****Game Should Finish****
+5. 15 - Fix Bug & Documents
+6. 16 - ****Present****
