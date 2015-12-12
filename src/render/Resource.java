@@ -1,14 +1,17 @@
 package render;
 
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 
 import javax.imageio.ImageIO;
 
 public class Resource {
 	
+	public static final Font standardFont = new Font("Tahoma", Font.BOLD, 30);
+	
 	//Hero
-	public static BufferedImage hero = getImage("res/Hero_1.png");
-	public static BufferedImage hero_f = getImage("res/Hero_1.2.png");
+	public static BufferedImage hero = getImage("res/Hero_2.png");
+	public static BufferedImage hero_f = getImage("res/Hero_2_2.png");
 	
 	//UI
 	public static BufferedImage statusBG = getImage("res/herostatus.png");

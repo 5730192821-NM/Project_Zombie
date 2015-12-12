@@ -13,7 +13,7 @@ public class GameLogic {
 
 	public GameLogic (){
 		this.land = new Land(0,0);
-		this.hero = new Hero(20,315,this.land);
+		this.hero = new Hero(20,370,this.land);
 		this.heroStatus = new HeroStatus();
 	    this.skillStatus = new SkillStatus();
 		this.pauseButton = new PauseButton();

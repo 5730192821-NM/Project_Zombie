@@ -1,7 +1,6 @@
 import javax.swing.JFrame;
 
 import render.*;
-import ui.*;
 import entity.*;
 
 public class Main {

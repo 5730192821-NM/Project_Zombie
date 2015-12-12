@@ -28,6 +28,11 @@ public class RenderableHolder {
 			}
 		});*/
 	}
+	
+	public void remove(Renderable o) {
+		entities.remove(o);
+	}
+
 
 	public List<Renderable> getRenderableList() {
 		return entities;

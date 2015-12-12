@@ -10,74 +10,88 @@ import render.*;
 
 public class Hero extends Moving implements Renderable {
 
-	private int frameCount=0,count=0,direction=1,temp;
-	private int gravity=1,velocityY;
+	private int frameCount = 0, count = 0, direction = 1, temp;
+	private int gravity = 1, velocityY;
 	private boolean isJumped;
 	private boolean isMid;
 	private boolean isSkill;
 	private Land land;
-	private Skill [] skills = new Skill[5];
-	//direction 1 : RIGHT direction 2 : LEFT
+	private Skill[] skills = new Skill[5];
+	private static Word [] words = new Word[5];
 	
-	public Hero(int x,int y,Land land) {
-		super(x,y);
+	// direction 1 : RIGHT direction 2 : LEFT
+
+	public Hero(int x, int y, Land land) {
+		super(x, y);
 		this.land = land;
-		temp=y;
-		isJumped=false;
-		velocityY=0;
-		isMid=false;
-		isSkill=false;
+		temp = y;
+		isJumped = false;
+		velocityY = 0;
+		isMid = false;
+		isSkill = false;
+
+		skills[0] = new IceSkill(x, y, direction);
+		skills[1] = new FireSkill(x, y, direction);
+		skills[2] = new MeteorSkill(x, y, direction);
+		skills[3] = new PoisonSkill(x, y, direction);
+		skills[4] = new SpikeSkill(x, y, direction);
 		
-		skills[0] = new IceSkill(x,y,direction);
-		skills[1] = new FireSkill(x,y,direction);
-		skills[2] = new MeteorSkill(x,y,direction);
-		skills[3] = new PoisonSkill(x,y,direction);
-		skills[4] = new SpikeSkill(x,y,direction);
+		words[0] = new Word("ICE");
+		words[1] = new Word("FIRE");
+		words[2] = new Word("METEOR");
+		words[3] = new Word("POISONS");
+		words[4] = new Word("SPIKE");
 	}
-	
+
 	@Override
 	public void update() {
-		if(count==10){
-			count=0;
+		// Idle Animation Controller
+		if (count == 10) {
+			count = 0;
 			frameCount++;
-			if(frameCount>3)
-				frameCount%=4;
+			if (frameCount > 5)
+				frameCount %= 6;
 		}
 		count++;
-		if (InputUtility.getKeyPressed(KeyEvent.VK_UP)){
-			if(!isJumped){
-				isJumped=true;
-				velocityY=-17;
+
+		// Jump
+		if (InputUtility.getKeyPressed(KeyEvent.VK_UP)) {
+			if (!isJumped) {
+				isJumped = true;
+				velocityY = -17;
 			}
 		}
-		if(isJumped){
-			velocityY+=gravity;
-			y+=velocityY;
-			if(y>temp){
-				y=temp;
-				isJumped=false;
-				velocityY=0;
+		if (isJumped) {
+			velocityY += gravity;
+			y += velocityY;
+			if (y > temp) {
+				y = temp;
+				isJumped = false;
+				velocityY = 0;
 			}
 		}
+
+		// Moving
 		if (InputUtility.getKeyPressed(KeyEvent.VK_LEFT)) {
-			direction=2;
-			if(x+20>0)
-				x-=5;
-			isMid=false;
+			direction = 2;
+			if (x + 20 > 0)
+				x -= 5;
+			isMid = false;
 		}
 		if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
-			direction=1;
-			if(x<400 || land.isEnd()){
-				if(x<720)
-					x+=5;
-			}
-			else{
-				isMid=true;
+			direction = 1;
+			if (x < 400 || land.isEnd()) {
+				if (x < 720)
+					x += 5;
+			} else {
+				isMid = true;
 				land.setX(5);
 			}
 		}
-		if(isSkill){
-			if(x>=400 && isMid){
+
+		// Casting Skill
+		if (isSkill) {
+			if (x >= 400 && isMid) {
 				skills[0].setX(5);
 				skills[1].setX(5);
 				skills[2].setX(5);
@@ -89,49 +103,65 @@ public class Hero extends Moving implements Renderable {
 			skills[2].update();
 			skills[3].update();
 			skills[4].update();
-			if(!skills[0].isPlaying() && !skills[1].isPlaying() && !skills[2].isPlaying() && !skills[3].isPlaying() && !skills[4].isPlaying()){
-				isSkill=false;
+
+			if (!skills[0].isPlaying() && !skills[1].isPlaying()
+					&& !skills[2].isPlaying() && !skills[3].isPlaying()
+					&& !skills[4].isPlaying()) {
+				isSkill = false;
 			}
-		}
-		else if(InputUtility.getKeyPressed(KeyEvent.VK_SPACE)){
-			skills[0] = new IceSkill(x,y,direction);
+		} else if (InputUtility.getKeyPressed(KeyEvent.VK_I)) {
+			casting(words[0]);
+			skills[0] = new IceSkill(x, y, direction);
 			RenderableHolder.getInstance().add(skills[0]);
 			skills[0].play();
-			isSkill=true;
-		}
-		else if(InputUtility.getKeyPressed(KeyEvent.VK_F)){
-			skills[1] = new FireSkill(x,y,direction);
+			isSkill = true;
+		} else if (InputUtility.getKeyPressed(KeyEvent.VK_F)) {
+			casting(words[1]);			
+			skills[1] = new FireSkill(x, y, direction);
 			RenderableHolder.getInstance().add(skills[1]);
 			skills[1].play();
-			isSkill=true;
-		}
-		else if(InputUtility.getKeyPressed(KeyEvent.VK_D)){
-			skills[2] = new MeteorSkill(x, y,direction);
+			isSkill = true;
+		} else if (InputUtility.getKeyPressed(KeyEvent.VK_M)) {
+			casting(words[2]);			
+			skills[2] = new MeteorSkill(x, y, direction);
 			RenderableHolder.getInstance().add(skills[2]);
 			skills[2].play();
-			isSkill=true;
-		}
-		else if(InputUtility.getKeyPressed(KeyEvent.VK_S)){
-			skills[3] = new PoisonSkill(x, y,direction);
+			isSkill = true;
+		} else if (InputUtility.getKeyPressed(KeyEvent.VK_P)) {
+			casting(words[3]);			
+			skills[3] = new PoisonSkill(x, y, direction);
 			RenderableHolder.getInstance().add(skills[3]);
 			skills[3].play();
-			isSkill=true;
-		}
-		else if(InputUtility.getKeyPressed(KeyEvent.VK_A)){
-			skills[4] = new SpikeSkill(x, y,direction);
+			isSkill = true;
+		} else if (InputUtility.getKeyPressed(KeyEvent.VK_S)) {
+			casting(words[4]);			
+			skills[4] = new SpikeSkill(x, y, direction);
 			RenderableHolder.getInstance().add(skills[4]);
 			skills[4].play();
-			isSkill=true;
-		}
-		isMid=false;
+			isSkill = true;
+		} 
+		isMid = false;
 	}
 
 	@Override
 	public void draw(Graphics2D g) {
-		if(direction==2){
-			g.drawImage(Resource.hero.getSubimage(Resource.hero.getWidth()/4*frameCount, 0, Resource.hero.getWidth()/4, Resource.hero.getHeight() ), null, x, y);
-		} else if(direction==1){
-			g.drawImage(Resource.hero_f.getSubimage(Resource.hero_f.getWidth()/4*(3-frameCount), 0, Resource.hero_f.getWidth()/4, Resource.hero.getHeight() ), null, x, y);
+		if (direction == 2) {
+			g.drawImage(Resource.hero.getSubimage(Resource.hero.getWidth() / 6
+					* frameCount, 0, Resource.hero.getWidth() / 6,
+					Resource.hero.getHeight()), null, x, y);
+		} else if (direction == 1) {
+			g.drawImage(Resource.hero_f.getSubimage(Resource.hero_f.getWidth()
+					/ 6 * (5 - frameCount), 0, Resource.hero_f.getWidth() / 6,
+					Resource.hero.getHeight()), null, x, y);
+		}
+	}
+	
+	//not proper
+	private static void casting(Word w) {
+		for (Word e : words){
+			e.setVisible(false);
+			if (w.isEqual(e))
+				e.setVisible(true);
 		}
 	}
 
@@ -144,8 +174,8 @@ public class Hero extends Moving implements Renderable {
 	public int getZ() {
 		return 0;
 	}
-	
-	public boolean getIsMid(){
+
+	public boolean getIsMid() {
 		return isMid;
 	}
 
