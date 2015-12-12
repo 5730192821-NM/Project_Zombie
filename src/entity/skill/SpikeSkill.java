@@ -1,21 +1,21 @@
-package entity;
+package entity.skill;
 
 import java.awt.Graphics2D;
 
 import render.Renderable;
 import render.Resource;
 
-public class IceSkill extends Skill implements Renderable {
-	
-	public IceSkill(int x, int y, int direction) {
+public class SpikeSkill extends Skill implements Renderable {
+
+	public SpikeSkill(int x, int y, int direction) {
 		if (direction == 1)
-			this.x = x + 300;
+			this.x = x - 220;
 		else
-			this.x = x - 270;
-		this.y = 320;
+			this.x = x - 240;
+		this.y = 328;
 		try {
-			frameWidth = Resource.ice1.getWidth() / 7;
-			frameHeight = Resource.ice1.getHeight();
+			frameWidth = Resource.spike1.getWidth() / 9;
+			frameHeight = Resource.spike1.getHeight();
 		} catch (NullPointerException e) {
 			frameWidth = 0;
 			frameHeight = 0;
@@ -28,7 +28,7 @@ public class IceSkill extends Skill implements Renderable {
 			if (count == 10) {
 				count = 0;
 				frameCount++;
-				if (frameCount == 7)
+				if (frameCount == 9)
 					stop();
 			}
 			count++;
@@ -37,9 +37,9 @@ public class IceSkill extends Skill implements Renderable {
 
 	@Override
 	public void draw(Graphics2D g) {
-		if (isPlaying && (Resource.ice1 != null)) {
+		if (isPlaying && (Resource.spike1 != null)) {
 			g.drawImage(
-					Resource.ice1.getSubimage(Resource.ice1.getWidth() / 7
+					Resource.spike1.getSubimage(Resource.spike1.getWidth() / 9
 							* frameCount, 0, frameWidth, frameHeight), null, x,
 					y);
 		}

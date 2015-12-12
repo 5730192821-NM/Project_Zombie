@@ -1,4 +1,4 @@
-package entity;
+package entity.skill;
 
 import java.awt.Graphics2D;
 

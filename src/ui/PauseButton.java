@@ -5,7 +5,7 @@ import java.awt.Graphics2D;
 import render.Renderable;
 import render.Resource;
 
-public class Pause implements Renderable {
+public class PauseButton implements Renderable {
 
 	public boolean isPause = false;
 	

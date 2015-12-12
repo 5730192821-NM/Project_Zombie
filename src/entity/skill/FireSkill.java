@@ -1,21 +1,21 @@
-package entity;
+package entity.skill;
 
 import java.awt.Graphics2D;
 
 import render.Renderable;
 import render.Resource;
 
-public class SpikeSkill extends Skill implements Renderable {
+public class FireSkill extends Skill implements Renderable {
 
-	public SpikeSkill(int x, int y, int direction) {
+	public FireSkill(int x, int y, int direction) {
 		if (direction == 1)
-			this.x = x - 220;
+			this.x = x + 300;
 		else
-			this.x = x - 240;
-		this.y = 328;
+			this.x = x - 270;
+		this.y = 350;
 		try {
-			frameWidth = Resource.spike1.getWidth() / 9;
-			frameHeight = Resource.spike1.getHeight();
+			frameWidth = Resource.fire1.getWidth() / 4;
+			frameHeight = Resource.fire1.getHeight();
 		} catch (NullPointerException e) {
 			frameWidth = 0;
 			frameHeight = 0;
@@ -28,7 +28,7 @@ public class SpikeSkill extends Skill implements Renderable {
 			if (count == 10) {
 				count = 0;
 				frameCount++;
-				if (frameCount == 9)
+				if (frameCount == 4)
 					stop();
 			}
 			count++;
@@ -37,9 +37,9 @@ public class SpikeSkill extends Skill implements Renderable {
 
 	@Override
 	public void draw(Graphics2D g) {
-		if (isPlaying && (Resource.spike1 != null)) {
+		if (isPlaying && (Resource.fire1 != null)) {
 			g.drawImage(
-					Resource.spike1.getSubimage(Resource.spike1.getWidth() / 9
+					Resource.fire1.getSubimage(Resource.fire1.getWidth() / 4
 							* frameCount, 0, frameWidth, frameHeight), null, x,
 					y);
 		}

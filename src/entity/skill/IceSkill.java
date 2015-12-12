@@ -1,21 +1,21 @@
-package entity;
+package entity.skill;
 
 import java.awt.Graphics2D;
 
 import render.Renderable;
 import render.Resource;
 
-public class FireSkill extends Skill implements Renderable {
-
-	public FireSkill(int x, int y, int direction) {
+public class IceSkill extends Skill implements Renderable {
+	
+	public IceSkill(int x, int y, int direction) {
 		if (direction == 1)
 			this.x = x + 300;
 		else
 			this.x = x - 270;
-		this.y = 350;
+		this.y = 320;
 		try {
-			frameWidth = Resource.fire1.getWidth() / 4;
-			frameHeight = Resource.fire1.getHeight();
+			frameWidth = Resource.ice1.getWidth() / 7;
+			frameHeight = Resource.ice1.getHeight();
 		} catch (NullPointerException e) {
 			frameWidth = 0;
 			frameHeight = 0;
@@ -28,7 +28,7 @@ public class FireSkill extends Skill implements Renderable {
 			if (count == 10) {
 				count = 0;
 				frameCount++;
-				if (frameCount == 4)
+				if (frameCount == 7)
 					stop();
 			}
 			count++;
@@ -37,9 +37,9 @@ public class FireSkill extends Skill implements Renderable {
 
 	@Override
 	public void draw(Graphics2D g) {
-		if (isPlaying && (Resource.fire1 != null)) {
+		if (isPlaying && (Resource.ice1 != null)) {
 			g.drawImage(
-					Resource.fire1.getSubimage(Resource.fire1.getWidth() / 4
+					Resource.ice1.getSubimage(Resource.ice1.getWidth() / 7
 							* frameCount, 0, frameWidth, frameHeight), null, x,
 					y);
 		}

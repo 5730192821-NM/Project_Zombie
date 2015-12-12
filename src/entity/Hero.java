@@ -5,9 +5,8 @@ import input.InputUtility;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
-import render.Renderable;
-import render.RenderableHolder;
-import render.Resource;
+import entity.skill.*;
+import render.*;
 
 public class Hero extends Moving implements Renderable {
 
