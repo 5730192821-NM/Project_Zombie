@@ -24,7 +24,7 @@ public class GameLogic {
 
 	public GameLogic() {
 		this.land = new Land(0, 0);
-		this.background=new Background(0,0);
+		this.background = new Background(0, 0);
 		this.hero = new Hero(20, 370, this.land, this.background);
 		this.heroStatus = new HeroStatus();
 		this.skillStatus = new SkillStatus();

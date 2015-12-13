@@ -49,10 +49,5 @@ public class IceSkill extends Skill implements Renderable {
 	public boolean isVisible() {
 		return isPlaying;
 	}
-
-	@Override
-	public int getZ() {
-		return 0;
-	}
-
+	
 }

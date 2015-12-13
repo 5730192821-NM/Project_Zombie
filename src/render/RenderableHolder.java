@@ -32,8 +32,6 @@ public class RenderableHolder {
 
 	public List<Renderable> getRenderableList() {
 		return entities;
-
 	}
-
 
 }

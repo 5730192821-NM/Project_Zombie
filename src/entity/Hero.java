@@ -10,35 +10,36 @@ import render.*;
 
 public class Hero extends Moving implements Renderable {
 
-	private int frameCount = 0, count = 0, countA=0,frameCountA=0, direction = 1, temp, countSpell = 0;
+	private int frameCount = 0, count = 0, countA = 0, frameCountA = 0,
+			direction = 1, temp, countSpell = 0;
 	private int gravity = 1, velocityY;
 	private boolean isJumped;
-	private boolean isRight,isLeft;
-	private boolean isSkill,isCasting;
+	private boolean isRight, isLeft;
+	private boolean isSkill, isCasting;
 	private Land land;
 	private Background background;
 	private Skill[] skills = new Skill[5];
-	private static Word [] words = new Word[5];
-	
+	private static Word[] words = new Word[5];
+
 	// direction 1 : RIGHT direction 2 : LEFT
 
 	public Hero(int x, int y, Land land, Background background) {
 		super(x, y);
 		this.land = land;
-		this.background=background;
+		this.background = background;
 		temp = y;
 		isJumped = false;
 		velocityY = 0;
 		isRight = false;
 		isSkill = false;
-		isCasting=false;
+		isCasting = false;
 
 		skills[0] = new IceSkill(x, y, direction);
 		skills[1] = new FireSkill(x, y, direction);
 		skills[2] = new MeteorSkill(x, y, direction);
 		skills[3] = new PoisonSkill(x, y, direction);
 		skills[4] = new SpikeSkill(x, y, direction);
-		
+
 		words[0] = new Word("ICE");
 		words[1] = new Word("FIRE");
 		words[2] = new Word("METEOR");
@@ -50,18 +51,18 @@ public class Hero extends Moving implements Renderable {
 	public void update() {
 
 		// Idle Spell Animation
-		if(isCasting){
+		if (isCasting) {
 			if (countA == 8) {
 				countA = 0;
 				frameCountA++;
-				if (frameCountA >= 10){
-					isCasting=false;
-					frameCountA=0;
-					countA=0;
+				if (frameCountA >= 10) {
+					isCasting = false;
+					frameCountA = 0;
+					countA = 0;
 				}
 			}
 			countA++;
-		} else{
+		} else {
 			// Idle Animation Controller
 			if (count == 10) {
 				count = 0;
@@ -70,14 +71,14 @@ public class Hero extends Moving implements Renderable {
 			}
 			count++;
 		}
-		
+
 		// Spell Time Casting
-		if(countSpell == 200){
+		if (countSpell == 200) {
 			countSpell = 0;
-			//InputUtility.clearSpell();
+			// InputUtility.clearSpell();
 		}
 		countSpell++;
-		
+
 		// Clear by yourself
 		if (InputUtility.getKeyPressed(KeyEvent.VK_ENTER)) {
 			countSpell = 0;
@@ -104,11 +105,11 @@ public class Hero extends Moving implements Renderable {
 		// Moving
 		if (InputUtility.getKeyPressed(KeyEvent.VK_LEFT)) {
 			direction = 2;
-			if (x > 200 || land.isStart()){
-				if(x+20>0)
+			if (x > 200 || land.isStart()) {
+				if (x + 20 > 0)
 					x -= 5;
-			} else if (!(x > 200 || land.isStart())){
-				isLeft=true;
+			} else if (!(x > 200 || land.isStart())) {
+				isLeft = true;
 				land.setX(-5);
 				background.setX(-2);
 				land.setEnd(false);
@@ -119,7 +120,7 @@ public class Hero extends Moving implements Renderable {
 			if (x < 400 || land.isEnd()) {
 				if (x < 720)
 					x += 5;
-			} else if(!(x < 400 || land.isEnd())){
+			} else if (!(x < 400 || land.isEnd())) {
 				isRight = true;
 				land.setX(5);
 				background.setX(2);
@@ -135,8 +136,7 @@ public class Hero extends Moving implements Renderable {
 				skills[2].setX(5);
 				skills[3].setX(5);
 				skills[4].setX(5);
-			}
-			else if( x<=200 && isLeft){
+			} else if (x <= 200 && isLeft) {
 				skills[0].setX(-5);
 				skills[1].setX(-5);
 				skills[2].setX(-5);
@@ -155,110 +155,115 @@ public class Hero extends Moving implements Renderable {
 				isSkill = false;
 			}
 		} else {
-			if((words[0].getWord().length == InputUtility.getSpell().length())){
-				if(words[0].cast(InputUtility.getSpell())){
+			if ((words[0].getWord().length == InputUtility.getSpell().length())) {
+				if (words[0].cast(InputUtility.getSpell())) {
 					skills[0] = new IceSkill(x, y, direction);
 					RenderableHolder.getInstance().add(skills[0]);
 					skills[0].play();
 					isSkill = true;
-					countSpell=200;
-					isCasting=true;
+					countSpell = 200;
+					isCasting = true;
 					InputUtility.clearSpell();
 				}
 			}
-			if((words[1].getWord().length == InputUtility.getSpell().length())){
-				if(words[1].cast(InputUtility.getSpell())){
+			if ((words[1].getWord().length == InputUtility.getSpell().length())) {
+				if (words[1].cast(InputUtility.getSpell())) {
 					skills[1] = new FireSkill(x, y, direction);
 					RenderableHolder.getInstance().add(skills[1]);
 					skills[1].play();
 					isSkill = true;
-					countSpell=200;
-					isCasting=true;
+					countSpell = 200;
+					isCasting = true;
 					InputUtility.clearSpell();
 				}
 			}
-			if((words[2].getWord().length == InputUtility.getSpell().length())){
-				if(words[2].cast(InputUtility.getSpell())){
+			if ((words[2].getWord().length == InputUtility.getSpell().length())) {
+				if (words[2].cast(InputUtility.getSpell())) {
 					skills[2] = new MeteorSkill(x, y, direction);
 					RenderableHolder.getInstance().add(skills[2]);
 					skills[2].play();
 					isSkill = true;
-					countSpell=200;
-					isCasting=true;
+					countSpell = 200;
+					isCasting = true;
 					InputUtility.clearSpell();
 				}
 			}
-			if((words[3].getWord().length == InputUtility.getSpell().length())){
-				if(words[3].cast(InputUtility.getSpell())){
+			if ((words[3].getWord().length == InputUtility.getSpell().length())) {
+				if (words[3].cast(InputUtility.getSpell())) {
 					skills[3] = new PoisonSkill(x, y, direction);
 					RenderableHolder.getInstance().add(skills[3]);
 					skills[3].play();
 					isSkill = true;
-					countSpell=200;
-					isCasting=true;
+					countSpell = 200;
+					isCasting = true;
 					InputUtility.clearSpell();
 				}
 			}
-			if((words[4].getWord().length == InputUtility.getSpell().length())){
-				if(words[4].cast(InputUtility.getSpell())){		
+			if ((words[4].getWord().length == InputUtility.getSpell().length())) {
+				if (words[4].cast(InputUtility.getSpell())) {
 					skills[4] = new SpikeSkill(x, y, direction);
 					RenderableHolder.getInstance().add(skills[4]);
 					skills[4].play();
 					isSkill = true;
-					countSpell=200;
-					isCasting=true;
+					countSpell = 200;
+					isCasting = true;
 					InputUtility.clearSpell();
 				}
 			}
-			
-		} 
-		
+
+		}
+
 		isRight = false;
 		isLeft = false;
 	}
 
 	@Override
 	public void draw(Graphics2D g) {
-		if(isCasting){
+		if (isCasting) {
 			if (direction == 2) {
-			g.drawImage(Resource.hero_a.getSubimage(Resource.hero_a.getWidth() / 10
-					* frameCountA, 0, Resource.hero_a.getWidth() / 10,
-					Resource.hero_a.getHeight()), null, x-20, y-20);
+				g.drawImage(Resource.hero_a.getSubimage(
+						Resource.hero_a.getWidth() / 10 * frameCountA, 0,
+						Resource.hero_a.getWidth() / 10,
+						Resource.hero_a.getHeight()), null, x - 20, y - 20);
 			} else if (direction == 1) {
-			g.drawImage(Resource.hero_af.getSubimage(Resource.hero_af.getWidth()
-					/ 10 * (9 - frameCountA), 0, Resource.hero_af.getWidth() / 10,
-					Resource.hero_af.getHeight()), null, x-20, y-20);
+				g.drawImage(Resource.hero_af.getSubimage(
+						Resource.hero_af.getWidth() / 10 * (9 - frameCountA),
+						0, Resource.hero_af.getWidth() / 10,
+						Resource.hero_af.getHeight()), null, x - 20, y - 20);
 			}
-		}
-		else { 
+		} else {
 			if (direction == 2) {
-				g.drawImage(Resource.hero.getSubimage(Resource.hero.getWidth() / 6
-						* frameCount, 0, Resource.hero.getWidth() / 6,
+				g.drawImage(Resource.hero.getSubimage(Resource.hero.getWidth()
+						/ 6 * frameCount, 0, Resource.hero.getWidth() / 6,
 						Resource.hero.getHeight()), null, x, y);
 			} else if (direction == 1) {
-				g.drawImage(Resource.hero_f.getSubimage(Resource.hero_f.getWidth()
-						/ 6 * (5 - frameCount), 0, Resource.hero_f.getWidth() / 6,
-						Resource.hero.getHeight()), null, x, y);
+				g.drawImage(
+						Resource.hero_f.getSubimage(Resource.hero_f.getWidth()
+								/ 6 * (5 - frameCount), 0,
+								Resource.hero_f.getWidth() / 6,
+								Resource.hero.getHeight()), null, x, y);
 			}
 		}
 	}
-	
-	public int getX(){
+
+	public int getX() {
 		return x;
 	}
-	
-	public boolean isLeft(){
+
+	public boolean isLeft() {
 		return isLeft;
 	}
-	public void setLeft(boolean isLeft){
-		this.isLeft=isLeft;
+
+	public void setLeft(boolean isLeft) {
+		this.isLeft = isLeft;
 	}
-	
-	public boolean isRight(){
+
+	public boolean isRight() {
 		return isRight;
 	}
-	public void setRight(boolean isRight){
-		this.isRight=isRight;
+
+	public void setRight(boolean isRight) {
+		this.isRight = isRight;
 	}
 
 	@Override
@@ -268,7 +273,7 @@ public class Hero extends Moving implements Renderable {
 
 	@Override
 	public int getZ() {
-		return 0;
+		return 1;
 	}
 
 	public boolean getIsMid() {

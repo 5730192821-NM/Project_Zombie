@@ -32,4 +32,5 @@ public class Cage {
 	public List<Monster> getCage() {
 		return cage;
 	}
+	
 }

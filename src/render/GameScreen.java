@@ -49,12 +49,16 @@ public class GameScreen extends JComponent {
 
 		((Graphics2D) g).setBackground(Color.BLACK);
 		for (Renderable e : RenderableHolder.getInstance().getRenderableList()) {
-			if (e.isVisible())
+			if (e.isVisible() && e.getZ() < -1)
 				e.draw((Graphics2D) g);
 		}
 		for (Monster m : Cage.getInstance().getCage()) {
 			if (m.isVisible())
 				m.draw((Graphics2D) g);
+		}
+		for (Renderable e : RenderableHolder.getInstance().getRenderableList()) {
+			if (e.isVisible() && e.getZ() >= -1)
+				e.draw((Graphics2D) g);
 		}
 	}
 

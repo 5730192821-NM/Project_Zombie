@@ -7,7 +7,8 @@ import javax.imageio.ImageIO;
 
 public class Resource {
 	
-	public static final Font standardFont = new Font("Tahoma", Font.BOLD, 30);
+	public static final Font wordFont = new Font("Tahoma", Font.BOLD, 45);
+	public static final Font standardFont = new Font("Tahoma", Font.PLAIN, 15);
 	
 	//Hero
 	public static BufferedImage hero = getImage("res/Hero/Hero_2.png");

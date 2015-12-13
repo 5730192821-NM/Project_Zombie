@@ -7,7 +7,7 @@ import render.Resource;
 
 public class Land extends Moving implements Renderable {
 	private int xc;
-	private boolean isEnd,isStart;
+	private boolean isEnd, isStart;
 
 	public Land(int x, int y) {
 		super(x, y);
@@ -19,21 +19,21 @@ public class Land extends Moving implements Renderable {
 	public void setX(int x) {
 		this.xc += x;
 	}
-	
-	public boolean isStart(){
+
+	public boolean isStart() {
 		return isStart;
 	}
-	
-	public void setStart(boolean isStart){
-		this.isStart=isStart;
+
+	public void setStart(boolean isStart) {
+		this.isStart = isStart;
 	}
 
 	public boolean isEnd() {
 		return isEnd;
 	}
-	
-	public void setEnd(boolean isEnd){
-		this.isEnd=isEnd;
+
+	public void setEnd(boolean isEnd) {
+		this.isEnd = isEnd;
 	}
 
 	@Override
@@ -41,18 +41,20 @@ public class Land extends Moving implements Renderable {
 		if (x + xc <= Resource.land1.getWidth() - 800) {
 			x += xc;
 		}
-		if (x + xc >= Resource.land1.getWidth() - 800){
+		if (x + xc >= Resource.land1.getWidth() - 800) {
 			isEnd = true;
 		}
-		if(x+xc<=0){
+		if (x + xc <= 0) {
 			isStart = true;
 		}
-		xc=0;
+		xc = 0;
 	}
 
 	@Override
 	public void draw(Graphics2D g) {
-		g.drawImage(Resource.land1.getSubimage(x, 0, 800,Resource.land1.getHeight()), null, 0, 435);
+		g.drawImage(
+				Resource.land1.getSubimage(x, 0, 800,
+						Resource.land1.getHeight()), null, 0, 435);
 	}
 
 	@Override
@@ -62,7 +64,7 @@ public class Land extends Moving implements Renderable {
 
 	@Override
 	public int getZ() {
-		return -500;
+		return -1;
 	}
 
 }

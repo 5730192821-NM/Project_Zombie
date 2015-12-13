@@ -84,9 +84,4 @@ public class MeteorSkill extends Skill implements Renderable {
 		return isPlaying;
 	}
 
-	@Override
-	public int getZ() {
-		return 0;
-	}
-
 }

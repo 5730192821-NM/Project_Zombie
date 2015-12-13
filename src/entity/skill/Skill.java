@@ -28,5 +28,9 @@ public abstract class Skill implements Renderable {
 	public boolean isPlaying() {
 		return isPlaying;
 	}
+	
+	public int getZ() {
+		return 1;
+	}
 
 }

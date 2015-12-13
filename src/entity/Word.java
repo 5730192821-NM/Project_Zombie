@@ -42,12 +42,21 @@ public class Word implements Renderable {
 
 	@Override
 	public void draw(Graphics2D g) {
-		g.setFont(Resource.standardFont);
+		g.setFont(Resource.wordFont);
 		for (int i = 0; i < words.length; i++) {
-			if (press[i])
-				g.setColor(Color.RED);
-			else
-				g.setColor(Color.BLACK);
+			if (press[i]) {
+				if (words[0].equalsIgnoreCase("I"))
+					g.setColor(Color.BLUE);
+				else if (words[0].equalsIgnoreCase("F"))
+					g.setColor(Color.PINK);
+				else if (words[0].equalsIgnoreCase("M"))
+					g.setColor(Color.ORANGE);
+				else if (words[0].equalsIgnoreCase("P"))
+					g.setColor(Color.GREEN);
+				else 
+					g.setColor(new Color(156, 93, 82));
+			} else
+				g.setColor(Color.WHITE);
 			g.drawString(words[i], 400 + x[i], 200);
 		}
 	}

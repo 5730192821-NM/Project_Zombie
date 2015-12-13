@@ -74,21 +74,18 @@ public class HeroStatus implements Renderable {
 	public void draw(Graphics2D g) {
 		g.drawImage(Resource.statusBG, null, 0,0);
 		g.setColor(Color.WHITE);
+		g.setFont(Resource.standardFont);
 		g.drawString("SCORE: " + score, 100, 80);
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
-		return Integer.MAX_VALUE;
+		return 2;
 	}
 
 }

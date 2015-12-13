@@ -9,4 +9,5 @@ public interface Renderable {
 	public boolean isVisible();
 	
 	public int getZ();
+	
 }
