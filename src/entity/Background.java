@@ -5,19 +5,20 @@ import java.awt.Graphics2D;
 import render.Renderable;
 import render.Resource;
 
-public class Land extends Moving implements Renderable {
-	private int xc;
-	private boolean isEnd,isStart;
+public class Background extends Moving implements Renderable{
+	private  int xc;
+	private  boolean isEnd,isStart;
 
-	public Land(int x, int y) {
+	public Background(int x, int y) {
 		super(x, y);
-		xc = 0;
-		isEnd = false;
-		isStart = true;
+		xc=0;
+		isEnd=false;
+		isStart=false;
+		// TODO Auto-generated constructor stub
 	}
-
-	public void setX(int x) {
-		this.xc += x;
+	
+	public void setX(int x){
+		this.xc+=x;
 	}
 	
 	public boolean isStart(){
@@ -28,7 +29,8 @@ public class Land extends Moving implements Renderable {
 		this.isStart=isStart;
 	}
 
-	public boolean isEnd() {
+	
+	public boolean isEnd(){
 		return isEnd;
 	}
 	
@@ -38,31 +40,29 @@ public class Land extends Moving implements Renderable {
 
 	@Override
 	public void update() {
+		// TODO Auto-generated method stub
 		if (x + xc <= Resource.land1.getWidth() - 800) {
 			x += xc;
-		}
-		if (x + xc >= Resource.land1.getWidth() - 800){
-			isEnd = true;
-		}
-		if(x+xc<=0){
-			isStart = true;
 		}
 		xc=0;
 	}
 
 	@Override
 	public void draw(Graphics2D g) {
-		g.drawImage(Resource.land1.getSubimage(x, 0, 800,Resource.land1.getHeight()), null, 0, 435);
+		// TODO Auto-generated method stub
+		g.drawImage(Resource.background1.getSubimage(x, 0, 800, Resource.background1.getHeight()), null, 0, 0);
 	}
 
 	@Override
 	public boolean isVisible() {
+		// TODO Auto-generated method stub
 		return true;
 	}
 
 	@Override
 	public int getZ() {
-		return -500;
+		// TODO Auto-generated method stub
+		return Integer.MIN_VALUE;
 	}
 
 }

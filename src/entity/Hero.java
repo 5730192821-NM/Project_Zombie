@@ -13,21 +13,23 @@ public class Hero extends Moving implements Renderable {
 	private int frameCount = 0, count = 0, countA=0,frameCountA=0, direction = 1, temp, countSpell = 0;
 	private int gravity = 1, velocityY;
 	private boolean isJumped;
-	private boolean isMid;
+	private boolean isRight,isLeft;
 	private boolean isSkill,isCasting;
 	private Land land;
+	private Background background;
 	private Skill[] skills = new Skill[5];
 	private static Word [] words = new Word[5];
 	
 	// direction 1 : RIGHT direction 2 : LEFT
 
-	public Hero(int x, int y, Land land) {
+	public Hero(int x, int y, Land land, Background background) {
 		super(x, y);
 		this.land = land;
+		this.background=background;
 		temp = y;
 		isJumped = false;
 		velocityY = 0;
-		isMid = false;
+		isRight = false;
 		isSkill = false;
 		isCasting=false;
 
@@ -46,8 +48,8 @@ public class Hero extends Moving implements Renderable {
 
 	@Override
 	public void update() {
-		
-		// Spell Animation
+
+		// Idle Spell Animation
 		if(isCasting){
 			if (countA == 8) {
 				countA = 0;
@@ -102,29 +104,44 @@ public class Hero extends Moving implements Renderable {
 		// Moving
 		if (InputUtility.getKeyPressed(KeyEvent.VK_LEFT)) {
 			direction = 2;
-			if (x + 20 > 0)
-				x -= 5;
-			isMid = false;
+			if (x > 200 || land.isStart()){
+				if(x+20>0)
+					x -= 5;
+			} else if (!(x > 200 || land.isStart())){
+				isLeft=true;
+				land.setX(-5);
+				background.setX(-2);
+				land.setEnd(false);
+			}
 		}
 		if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
 			direction = 1;
 			if (x < 400 || land.isEnd()) {
 				if (x < 720)
 					x += 5;
-			} else {
-				isMid = true;
+			} else if(!(x < 400 || land.isEnd())){
+				isRight = true;
 				land.setX(5);
+				background.setX(2);
+				land.setStart(false);
 			}
 		}
 
 		// Casting Skill
 		if (isSkill) {
-			if (x >= 400 && isMid) {
+			if (x >= 400 && isRight) {
 				skills[0].setX(5);
 				skills[1].setX(5);
 				skills[2].setX(5);
 				skills[3].setX(5);
 				skills[4].setX(5);
+			}
+			else if( x<=200 && isLeft){
+				skills[0].setX(-5);
+				skills[1].setX(-5);
+				skills[2].setX(-5);
+				skills[3].setX(-5);
+				skills[4].setX(-5);
 			}
 			skills[0].update();
 			skills[1].update();
@@ -196,7 +213,8 @@ public class Hero extends Moving implements Renderable {
 			
 		} 
 		
-		isMid = false;
+		isRight = false;
+		isLeft = false;
 	}
 
 	@Override
@@ -229,11 +247,18 @@ public class Hero extends Moving implements Renderable {
 		return x;
 	}
 	
-	public boolean isMid(){
-		return isMid;
+	public boolean isLeft(){
+		return isLeft;
 	}
-	public void setMid(boolean isMid){
-		this.isMid=isMid;
+	public void setLeft(boolean isLeft){
+		this.isLeft=isLeft;
+	}
+	
+	public boolean isRight(){
+		return isRight;
+	}
+	public void setRight(boolean isRight){
+		this.isRight=isRight;
 	}
 
 	@Override
@@ -247,7 +272,7 @@ public class Hero extends Moving implements Renderable {
 	}
 
 	public boolean getIsMid() {
-		return isMid;
+		return isRight;
 	}
 
 }

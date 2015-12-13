@@ -20,15 +20,18 @@ public class GameLogic {
 	private Word ice = null, fire = null, meteor = null, poison = null,
 			spike = null;
 	private int tick = 0;
+	private Background background;
 
 	public GameLogic() {
 		this.land = new Land(0, 0);
-		this.hero = new Hero(20, 370, this.land);
+		this.background=new Background(0,0);
+		this.hero = new Hero(20, 370, this.land, this.background);
 		this.heroStatus = new HeroStatus();
 		this.skillStatus = new SkillStatus();
 		this.pauseButton = new PauseButton();
 
 		RenderableHolder.getInstance().add(land);
+		RenderableHolder.getInstance().add(background);
 		RenderableHolder.getInstance().add(hero);
 		RenderableHolder.getInstance().add(heroStatus);
 		RenderableHolder.getInstance().add(skillStatus);
@@ -138,10 +141,10 @@ public class GameLogic {
 			Cage.getInstance().add("golem", this.land, this.hero);
 			Cage.getInstance().add("yeti", this.land, this.hero);
 		}
-
 		Cage.getInstance().updateAll();
-		land.update();
 		hero.update();
+		background.update();
+		land.update();
 		tick++;
 	}
 }

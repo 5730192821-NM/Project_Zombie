@@ -20,7 +20,7 @@ public class RenderableHolder {
 
 			@Override
 			public int compare(Renderable o1, Renderable o2) {
-				return Integer.compare(o2.getZ(), o1.getZ());
+				return Integer.compare(o1.getZ(), o2.getZ());
 			}
 		});
 	}

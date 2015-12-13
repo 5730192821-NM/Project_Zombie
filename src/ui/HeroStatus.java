@@ -88,7 +88,7 @@ public class HeroStatus implements Renderable {
 	@Override
 	public int getZ() {
 		// TODO Auto-generated method stub
-		return 1;
+		return Integer.MAX_VALUE;
 	}
 
 }

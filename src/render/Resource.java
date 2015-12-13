@@ -10,35 +10,43 @@ public class Resource {
 	public static final Font standardFont = new Font("Tahoma", Font.BOLD, 30);
 	
 	//Hero
-	public static BufferedImage hero = getImage("res/Hero_2.png");
-	public static BufferedImage hero_f = getImage("res/Hero_2_2.png");
-	public static BufferedImage hero_a = getImage("res/Hero_2_3.png");
-	public static BufferedImage hero_af = getImage("res/Hero_2_4.png");
+	public static BufferedImage hero = getImage("res/Hero/Hero_2.png");
+	public static BufferedImage hero_f = getImage("res/Hero/Hero_2_2.png");
+	public static BufferedImage hero_a = getImage("res/Hero/Hero_2_3.png");
+	public static BufferedImage hero_af = getImage("res/Hero/Hero_2_4.png");
 	
 	//Monster
-	public static BufferedImage monster_golem_1_1 = getImage("res/golem_1_1.png");
-	public static BufferedImage monster_golem_1_2 = getImage("res/golem_1_2.png");
-	public static BufferedImage monster_golem_1_3 = getImage("res/golem_1_3.png");
-	public static BufferedImage monster_yeti_1_1 = getImage("res/yeti_1_1.png");
-	public static BufferedImage monster_yeti_1_2 = getImage("res/yeti_1_2.png");
-	public static BufferedImage monster_yeti_1_3 = getImage("res/yeti_1_3.png");
-	public static BufferedImage monster_yeti_1_4 = getImage("res/yeti_1_4.png");
+	public static BufferedImage monster_golem_1_1 = getImage("res/monster/golem_1_1.png");
+	public static BufferedImage monster_golem_1_2 = getImage("res/monster/golem_1_2.png");
+	public static BufferedImage monster_golem_1_3 = getImage("res/monster/golem_1_3.png");
+	public static BufferedImage monster_golem_1_1_f = getImage("res/monster/golem_1_1_f.png");
+	public static BufferedImage monster_golem_1_2_f = getImage("res/monster/golem_1_2_f.png");
+	public static BufferedImage monster_golem_1_3_f = getImage("res/monster/golem_1_3_f.png");
+	public static BufferedImage monster_yeti_1_1 = getImage("res/monster/yeti_1_1.png");
+	public static BufferedImage monster_yeti_1_2 = getImage("res/monster/yeti_1_2.png");
+	public static BufferedImage monster_yeti_1_3 = getImage("res/monster/yeti_1_3.png");
+	public static BufferedImage monster_yeti_1_4 = getImage("res/monster/yeti_1_4.png");
+	public static BufferedImage monster_yeti_1_1_f = getImage("res/monster/yeti_1_1_f.png");
+	public static BufferedImage monster_yeti_1_2_f = getImage("res/monster/yeti_1_2_f.png");
+	public static BufferedImage monster_yeti_1_3_f = getImage("res/monster/yeti_1_3_f.png");
+	public static BufferedImage monster_yeti_1_4_f = getImage("res/monster/yeti_1_4_f.png");
 	
 	//UI
-	public static BufferedImage statusBG = getImage("res/herostatus.png");
-	public static BufferedImage skillBox = getImage("res/skill.png");
-	public static BufferedImage pause = getImage("res/pause.png");
+	public static BufferedImage statusBG = getImage("res/ui/herostatus.png");
+	public static BufferedImage skillBox = getImage("res/ui/skill.png");
+	public static BufferedImage pause = getImage("res/ui/pause.png");
 	
 	//BG
-	public static BufferedImage land1 = getImage("res/land1.png");
+	public static BufferedImage land1 = getImage("res/map/land1.png");
+	public static BufferedImage background1 = getImage("res/map/background1.png");
 	
 	//Skill
-	public static BufferedImage ice1 = getImage("res/ice1.png");
-	public static BufferedImage fire1 = getImage("res/fire1.png");
-	public static BufferedImage meteor1 = getImage("res/meteor1.png");
-	public static BufferedImage meteor1_2 = getImage("res/meteor1.2.png");
-	public static BufferedImage poison1 = getImage("res/poison1.png");
-	public static BufferedImage spike1 = getImage("res/spike1.png");
+	public static BufferedImage ice1 = getImage("res/skill/ice1.png");
+	public static BufferedImage fire1 = getImage("res/skill/fire1.png");
+	public static BufferedImage meteor1 = getImage("res/skill/meteor1.png");
+	public static BufferedImage meteor1_2 = getImage("res/skill/meteor1_2.png");
+	public static BufferedImage poison1 = getImage("res/skill/poison1.png");
+	public static BufferedImage spike1 = getImage("res/skill/spike1.png");
 
 	static BufferedImage getImage(String directory) {
 		BufferedImage b;
