@@ -20,14 +20,14 @@ public class GameLogic {
 	private Word ice = null, fire = null, meteor = null, poison = null,
 			spike = null;
 	private int tick = 0;
-	
+
 	public GameLogic() {
 		this.land = new Land(0, 0);
 		this.hero = new Hero(20, 370, this.land);
 		this.heroStatus = new HeroStatus();
 		this.skillStatus = new SkillStatus();
 		this.pauseButton = new PauseButton();
-		
+
 		RenderableHolder.getInstance().add(land);
 		RenderableHolder.getInstance().add(hero);
 		RenderableHolder.getInstance().add(heroStatus);
@@ -36,6 +36,10 @@ public class GameLogic {
 	}
 
 	public void update() {
+
+		if (InputUtility.getSpell().length() > 6)
+			InputUtility.clearSpell();
+
 		if (castFail) {
 			castFail = false;
 			iCast = false;
@@ -46,35 +50,39 @@ public class GameLogic {
 			InputUtility.clearSpell();
 		}
 
+		boolean cast = iCast || fCast || mCast || pCast || sCast;
+
 		// Add Word
 		if (InputUtility.getSpell() != "") {
-			if (InputUtility.getSpell().equalsIgnoreCase("I")) {
-				ice = new Word("ICE");
-				ice.setVisible(true);
-				iCast = true;
-				RenderableHolder.getInstance().add(ice);
-			} else if (InputUtility.getSpell().equalsIgnoreCase("F")) {
-				fire = new Word("FIRE");
-				fire.setVisible(true);
-				fCast = true;
-				RenderableHolder.getInstance().add(fire);
-			} else if (InputUtility.getSpell().equalsIgnoreCase("M")) {
-				meteor = new Word("METEOR");
-				meteor.setVisible(true);
-				mCast = true;
-				RenderableHolder.getInstance().add(meteor);
-			} else if (InputUtility.getSpell().equalsIgnoreCase("P")) {
-				poison = new Word("POISON");
-				poison.setVisible(true);
-				pCast = true;
-				RenderableHolder.getInstance().add(poison);
-			} else if (InputUtility.getSpell().equalsIgnoreCase("S")) {
-				spike = new Word("SPIKE");
-				spike.setVisible(true);
-				sCast = true;
-				RenderableHolder.getInstance().add(spike);
-			} else if (InputUtility.getSpell().length() == 1) {
-				castFail = true;
+			if (!cast) {
+				if (InputUtility.getSpell().equalsIgnoreCase("I")) {
+					ice = new Word("ICE");
+					ice.setVisible(true);
+					iCast = true;
+					RenderableHolder.getInstance().add(ice);
+				} else if (InputUtility.getSpell().equalsIgnoreCase("F")) {
+					fire = new Word("FIRE");
+					fire.setVisible(true);
+					fCast = true;
+					RenderableHolder.getInstance().add(fire);
+				} else if (InputUtility.getSpell().equalsIgnoreCase("M")) {
+					meteor = new Word("METEOR");
+					meteor.setVisible(true);
+					mCast = true;
+					RenderableHolder.getInstance().add(meteor);
+				} else if (InputUtility.getSpell().equalsIgnoreCase("P")) {
+					poison = new Word("POISON");
+					poison.setVisible(true);
+					pCast = true;
+					RenderableHolder.getInstance().add(poison);
+				} else if (InputUtility.getSpell().equalsIgnoreCase("S")) {
+					spike = new Word("SPIKE");
+					spike.setVisible(true);
+					sCast = true;
+					RenderableHolder.getInstance().add(spike);
+				} else if (InputUtility.getSpell().length() == 1) {
+					castFail = true;
+				}
 			}
 
 			// Fill Color
@@ -109,19 +117,25 @@ public class GameLogic {
 					castFail = true;
 				}
 				if (((Word) e).getString().equalsIgnoreCase(
-						InputUtility.getSpell()))
+						InputUtility.getSpell())) {
 					RenderableHolder.getInstance().remove(e);
+					iCast = false;
+					fCast = false;
+					mCast = false;
+					pCast = false;
+					sCast = false;
+				}
 			}
+
 		}
 		if (tick >= 200) {
 			tick = 0;
 
-			//How to summon here;
+			// How to summon here;
 			Cage.getInstance().add("golem", this.land, this.hero);
 			Cage.getInstance().add("yeti", this.land, this.hero);
 		}
-		
-		
+
 		Cage.getInstance().updateAll();
 		land.update();
 		hero.update();
