@@ -72,7 +72,7 @@ public class Hero extends Moving implements Renderable {
 		// Spell Time Casting
 		if(countSpell == 200){
 			countSpell = 0;
-			InputUtility.clearSpell();
+			//InputUtility.clearSpell();
 		}
 		countSpell++;
 		
@@ -146,6 +146,7 @@ public class Hero extends Moving implements Renderable {
 					isSkill = true;
 					countSpell=200;
 					isCasting=true;
+					InputUtility.clearSpell();
 				}
 			}
 			if((words[1].getWord().length == InputUtility.getSpell().length())){
@@ -156,6 +157,7 @@ public class Hero extends Moving implements Renderable {
 					isSkill = true;
 					countSpell=200;
 					isCasting=true;
+					InputUtility.clearSpell();
 				}
 			}
 			if((words[2].getWord().length == InputUtility.getSpell().length())){
@@ -166,6 +168,7 @@ public class Hero extends Moving implements Renderable {
 					isSkill = true;
 					countSpell=200;
 					isCasting=true;
+					InputUtility.clearSpell();
 				}
 			}
 			if((words[3].getWord().length == InputUtility.getSpell().length())){
@@ -176,6 +179,7 @@ public class Hero extends Moving implements Renderable {
 					isSkill = true;
 					countSpell=200;
 					isCasting=true;
+					InputUtility.clearSpell();
 				}
 			}
 			if((words[4].getWord().length == InputUtility.getSpell().length())){
@@ -186,6 +190,7 @@ public class Hero extends Moving implements Renderable {
 					isSkill = true;
 					countSpell=200;
 					isCasting=true;
+					InputUtility.clearSpell();
 				}
 			}
 			

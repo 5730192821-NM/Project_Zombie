@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import render.Renderable;
-import render.RenderableHolder;
 import render.Resource;
 
 public class Word implements Renderable {
@@ -19,7 +18,6 @@ public class Word implements Renderable {
 		x = new int[s.length()];
 		press = new boolean[s.length()];
 		press[0] = true;
-
 
 		for (int i = 0; i < s.length(); i++) {
 			words[i] = s.substring(i, i + 1);
@@ -40,7 +38,6 @@ public class Word implements Renderable {
 			}
 
 		}
-		RenderableHolder.getInstance().add(this);
 	}
 
 	@Override
@@ -54,55 +51,56 @@ public class Word implements Renderable {
 			g.drawString(words[i], 400 + x[i], 200);
 		}
 	}
-	
-	public void setVisible(boolean b){
+
+	public void setVisible(boolean b) {
 		this.isVisible = b;
 	}
 
 	@Override
 	public boolean isVisible() {
-		// TODO Auto-generated method stub
 		return isVisible;
 	}
 
 	@Override
 	public int getZ() {
-		// TODO Auto-generated method stub
 		return 0;
 	}
-	
-	public boolean isEqual(Word w){
+
+	public boolean isEqual(Word w) {
 		if (this.words.length != w.words.length)
 			return false;
 		return true;
 	}
-	
-	public String[] getWord(){
+
+	public String[] getWord() {
 		return words;
 	}
 
-	//Don't used yet
 	public boolean cast(String s) {
-		boolean in = false;
-		int w=0;
+		int w = 0;
 		for (int i = 0; i < words.length; i++) {
-			if (!press[i] && words[i].equalsIgnoreCase(s)) {
-				in = true;
+			if (!press[i] && words[i].equalsIgnoreCase(s))
 				press[i] = true;
-			}
 		}
-		if(words.length == s.length()){
-			for(int i=0;i<words.length;i++)
-				if(s.substring(i, i+1).equalsIgnoreCase(words[i]))
+		if (words.length == s.length()) {
+			for (int i = 0; i < words.length; i++)
+				if (s.substring(i, i + 1).equalsIgnoreCase(words[i]))
 					w++;
-			if(w==words.length)
+			if (w == words.length)
 				return true;
 		}
-		if (!in) {
-			// Disappear
-			return false;
-		}
 		return false;
+	}
+
+	public String getString() {
+		String str = "";
+		for (String e : words)
+			str += e;
+		return str;
+	}
+
+	public void setRed(int i) {
+		press[i - 1] = true;
 	}
 
 }
