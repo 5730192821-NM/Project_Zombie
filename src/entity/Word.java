@@ -20,6 +20,7 @@ public class Word implements Renderable {
 		press = new boolean[s.length()];
 		press[0] = true;
 
+
 		for (int i = 0; i < s.length(); i++) {
 			words[i] = s.substring(i, i + 1);
 		}
@@ -75,20 +76,33 @@ public class Word implements Renderable {
 			return false;
 		return true;
 	}
+	
+	public String[] getWord(){
+		return words;
+	}
 
 	//Don't used yet
-	public void cast(String s) {
+	public boolean cast(String s) {
 		boolean in = false;
+		int w=0;
 		for (int i = 0; i < words.length; i++) {
 			if (!press[i] && words[i].equalsIgnoreCase(s)) {
 				in = true;
 				press[i] = true;
 			}
 		}
+		if(words.length == s.length()){
+			for(int i=0;i<words.length;i++)
+				if(s.substring(i, i+1).equalsIgnoreCase(words[i]))
+					w++;
+			if(w==words.length)
+				return true;
+		}
 		if (!in) {
 			// Disappear
-			return;
+			return false;
 		}
+		return false;
 	}
 
 }

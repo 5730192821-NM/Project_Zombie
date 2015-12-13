@@ -28,6 +28,9 @@ public class GameScreen extends JComponent {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				InputUtility.setKeyPressed(e.getKeyCode(), true);
+				if(e.getKeyCode()>=65 && e.getKeyCode()<=90){
+					InputUtility.setSpell(KeyEvent.getKeyText(e.getKeyCode()));
+				}
 			}
 
 			@Override
