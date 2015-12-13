@@ -36,9 +36,12 @@ public class GameLogic {
 	}
 
 	public void update() {
-
-		if (InputUtility.getSpell().length() > 6)
-			InputUtility.clearSpell();
+		if (InputUtility.getSpell() != "") {
+			if (InputUtility.getSpell().length() > 6
+					|| ("IFMPS").indexOf(InputUtility.getSpell()
+							.substring(0, 1)) < 0)
+				InputUtility.clearSpell();
+		}
 
 		if (castFail) {
 			castFail = false;
