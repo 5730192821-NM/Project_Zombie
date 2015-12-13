@@ -26,7 +26,7 @@ public class PauseButton implements Renderable {
 	@Override
 	public int getZ() {
 		// TODO Auto-generated method stub
-		return -1;
+		return 1;
 	}
 
 }

@@ -2,8 +2,7 @@ package entity;
 
 import java.util.List;
 
-import entity.monster.Golem;
-import entity.monster.Yeti;
+import entity.monster.Cage;
 import input.InputUtility;
 import render.Renderable;
 import render.RenderableHolder;
@@ -21,20 +20,17 @@ public class GameLogic {
 	private Word ice = null, fire = null, meteor = null, poison = null,
 			spike = null;
 	
-	private Yeti yeti;
-	private Golem golem;
-
 	public GameLogic() {
 		this.land = new Land(0, 0);
 		this.hero = new Hero(20, 370, this.land);
 		this.heroStatus = new HeroStatus();
 		this.skillStatus = new SkillStatus();
 		this.pauseButton = new PauseButton();
-		golem = new Golem(800,265,this.land,this.hero);
-		yeti = new Yeti(800,243,this.land,this.hero);
-		golem.summon();
-		yeti.summon();
-
+		
+		//How to summon here;
+		Cage.getInstance().add("golem", this.land, this.hero);
+		Cage.getInstance().add("yeti", this.land, this.hero);
+		
 		RenderableHolder.getInstance().add(land);
 		RenderableHolder.getInstance().add(hero);
 		RenderableHolder.getInstance().add(heroStatus);
@@ -93,8 +89,10 @@ public class GameLogic {
 				ice.cast(lastWord);
 			else if (fCast)
 				fire.cast(lastWord);
-			else if (mCast)
+			else if (mCast && !lastWord.equalsIgnoreCase("E"))
 				meteor.cast(lastWord);
+			else if (mCast)
+				meteor.setRed(InputUtility.getSpell().length());
 			else if (pCast && !lastWord.equalsIgnoreCase("O"))
 				poison.cast(lastWord);
 			else if (pCast)
@@ -118,8 +116,7 @@ public class GameLogic {
 					RenderableHolder.getInstance().remove(e);
 			}
 		}
-		golem.update();
-		yeti.update();
+		Cage.getInstance().updateAll();
 		land.update();
 		hero.update();
 	}

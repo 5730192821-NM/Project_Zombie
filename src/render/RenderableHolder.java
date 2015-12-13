@@ -14,19 +14,15 @@ public class RenderableHolder {
 		return instance;
 	}
 
-	public RenderableHolder() {
-	}
-
 	public void add(Renderable o) {
 		entities.add(o);
-		/*Collections.sort(entities, new Comparator<IRenderable>() {
+		Collections.sort(entities, new Comparator<Renderable>() {
 
 			@Override
-			public int compare(IRenderable o1, IRenderable o2) {
-				// TODO Auto-generated method stub
+			public int compare(Renderable o1, Renderable o2) {
 				return Integer.compare(o2.getZ(), o1.getZ());
 			}
-		});*/
+		});
 	}
 	
 	public void remove(Renderable o) {
