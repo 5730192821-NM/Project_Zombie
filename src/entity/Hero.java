@@ -224,6 +224,17 @@ public class Hero extends Moving implements Renderable {
 			}
 		}
 	}
+	
+	public int getX(){
+		return x;
+	}
+	
+	public boolean isMid(){
+		return isMid;
+	}
+	public void setMid(boolean isMid){
+		this.isMid=isMid;
+	}
 
 	@Override
 	public boolean isVisible() {

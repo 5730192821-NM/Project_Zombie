@@ -2,6 +2,8 @@ package entity;
 
 import java.util.List;
 
+import entity.monster.Golem;
+import entity.monster.Yeti;
 import input.InputUtility;
 import render.Renderable;
 import render.RenderableHolder;
@@ -18,6 +20,9 @@ public class GameLogic {
 			mCast = false, pCast = false, sCast = false;
 	private Word ice = null, fire = null, meteor = null, poison = null,
 			spike = null;
+	
+	private Yeti yeti;
+	private Golem golem;
 
 	public GameLogic() {
 		this.land = new Land(0, 0);
@@ -25,6 +30,10 @@ public class GameLogic {
 		this.heroStatus = new HeroStatus();
 		this.skillStatus = new SkillStatus();
 		this.pauseButton = new PauseButton();
+		golem = new Golem(800,265,this.land,this.hero);
+		yeti = new Yeti(800,243,this.land,this.hero);
+		golem.summon();
+		yeti.summon();
 
 		RenderableHolder.getInstance().add(land);
 		RenderableHolder.getInstance().add(hero);
@@ -109,6 +118,8 @@ public class GameLogic {
 					RenderableHolder.getInstance().remove(e);
 			}
 		}
+		golem.update();
+		yeti.update();
 		land.update();
 		hero.update();
 	}

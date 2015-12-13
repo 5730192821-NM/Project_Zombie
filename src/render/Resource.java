@@ -15,6 +15,15 @@ public class Resource {
 	public static BufferedImage hero_a = getImage("res/Hero_2_3.png");
 	public static BufferedImage hero_af = getImage("res/Hero_2_4.png");
 	
+	//Monster
+	public static BufferedImage monster_golem_1_1 = getImage("res/golem_1_1.png");
+	public static BufferedImage monster_golem_1_2 = getImage("res/golem_1_2.png");
+	public static BufferedImage monster_golem_1_3 = getImage("res/golem_1_3.png");
+	public static BufferedImage monster_yeti_1_1 = getImage("res/yeti_1_1.png");
+	public static BufferedImage monster_yeti_1_2 = getImage("res/yeti_1_2.png");
+	public static BufferedImage monster_yeti_1_3 = getImage("res/yeti_1_3.png");
+	public static BufferedImage monster_yeti_1_4 = getImage("res/yeti_1_4.png");
+	
 	//UI
 	public static BufferedImage statusBG = getImage("res/herostatus.png");
 	public static BufferedImage skillBox = getImage("res/skill.png");
