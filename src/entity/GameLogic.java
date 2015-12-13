@@ -19,6 +19,7 @@ public class GameLogic {
 			mCast = false, pCast = false, sCast = false;
 	private Word ice = null, fire = null, meteor = null, poison = null,
 			spike = null;
+	private int tick = 0;
 	
 	public GameLogic() {
 		this.land = new Land(0, 0);
@@ -26,10 +27,6 @@ public class GameLogic {
 		this.heroStatus = new HeroStatus();
 		this.skillStatus = new SkillStatus();
 		this.pauseButton = new PauseButton();
-		
-		//How to summon here;
-		Cage.getInstance().add("golem", this.land, this.hero);
-		Cage.getInstance().add("yeti", this.land, this.hero);
 		
 		RenderableHolder.getInstance().add(land);
 		RenderableHolder.getInstance().add(hero);
@@ -116,8 +113,18 @@ public class GameLogic {
 					RenderableHolder.getInstance().remove(e);
 			}
 		}
+		if (tick >= 200) {
+			tick = 0;
+
+			//How to summon here;
+			Cage.getInstance().add("golem", this.land, this.hero);
+			Cage.getInstance().add("yeti", this.land, this.hero);
+		}
+		
+		
 		Cage.getInstance().updateAll();
 		land.update();
 		hero.update();
+		tick++;
 	}
 }
