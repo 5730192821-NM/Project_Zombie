@@ -12,6 +12,8 @@ public class Resource {
 	//Hero
 	public static BufferedImage hero = getImage("res/Hero_2.png");
 	public static BufferedImage hero_f = getImage("res/Hero_2_2.png");
+	public static BufferedImage hero_a = getImage("res/Hero_2_3.png");
+	public static BufferedImage hero_af = getImage("res/Hero_2_4.png");
 	
 	//UI
 	public static BufferedImage statusBG = getImage("res/herostatus.png");

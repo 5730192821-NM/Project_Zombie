@@ -28,7 +28,7 @@ public class MeteorSkill extends Skill implements Renderable {
 	@Override
 	public void update() {
 		if (isPlaying) {
-			if (count == 7) {
+			if (count == 8) {
 				count = 0;
 				frameCountX++;
 				if (frameCountY == 1 && frameCountX == 7) {
