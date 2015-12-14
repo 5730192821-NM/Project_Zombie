@@ -7,8 +7,11 @@ import javax.imageio.ImageIO;
 
 public class Resource {
 	
+	public static final int screenWidth = 800, screenHeight = 600;
 	public static final Font wordFont = new Font("Tahoma", Font.BOLD, 45);
 	public static final Font standardFont = new Font("Tahoma", Font.PLAIN, 15);
+	public static final Font biggerFont = new Font("Tahoma", Font.PLAIN, 25);
+
 	
 	//Hero
 	public static BufferedImage hero = getImage("res/Hero/Hero_2.png");

@@ -21,11 +21,8 @@ public class GameScreen extends JComponent {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public static final int screenWidth = 800, screenHeight = 600;
-
 	public GameScreen() {
-		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-		this.requestFocus();
+		this.setPreferredSize(new Dimension(Resource.screenWidth, Resource.screenHeight));
 
 		this.addKeyListener(new KeyAdapter() {
 			@Override
