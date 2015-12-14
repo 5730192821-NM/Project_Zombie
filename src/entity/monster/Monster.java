@@ -14,6 +14,10 @@ public abstract class Monster implements Renderable {
 	protected Land land;
 	protected Hero hero;
 
+	public int getLevel(){
+		return level;
+	}
+	
 	public void killed() {
 		isDead = true;
 	}

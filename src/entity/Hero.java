@@ -27,7 +27,7 @@ public class Hero extends Moving implements Renderable {
 	private HeroStatus heroStatus;
 	private Skill[] skills = new Skill[6];
 	private static Word[] words = new Word[5];
-	private int STR, INT, hp, attack, attackRange = 0, mana, manaTick = 0;
+	private int STR, INT,level, hp, attack, attackRange = 0, mana, manaTick = 0,maxMp,maxHp;
 	private Monster nearMon;
 
 	// direction 1 : RIGHT direction 2 : LEFT
@@ -45,14 +45,19 @@ public class Hero extends Moving implements Renderable {
 		isSkill = false;
 		isCasting = false;
 		isDead = false;
+		this.heroStatus.resetLevel();
+		level=this.heroStatus.getLevel();
 		STR = 10;
 		INT = 10;
-		hp = STR * 20;
-		mana = INT * 20;
-		this.heroStatus.setMaxHp(hp);
-		this.heroStatus.setMaxMp(mana);
+		maxHp = STR * 20;
+		maxMp = INT * 20;
+		hp=maxHp;
+		mana=maxMp;
+		this.heroStatus.setMaxHp(maxHp);
+		this.heroStatus.setMaxMp(maxMp);
 		this.heroStatus.setCurrentHp(hp);
 		this.heroStatus.setCurrentMp(mana);
+		this.heroStatus.setMaxXp();
 		attack = INT;
 
 		skills[0] = new IceSkill(x, y, direction);
@@ -73,6 +78,21 @@ public class Hero extends Moving implements Renderable {
 
 	@Override
 	public void update() {
+		
+		if(level != heroStatus.getLevel()){
+			level=heroStatus.getLevel();
+			STR=(int)(10+1.5*level);
+			INT=(int)(10+2.5*level);
+			maxHp = STR * 20;
+			maxMp = INT * 20;
+			hp=maxHp;
+			mana=maxMp;
+			heroStatus.setMaxHp(maxHp);
+			heroStatus.setMaxMp(maxMp);
+			heroStatus.setCurrentHp(hp);
+			heroStatus.setCurrentMp(mana);
+			heroStatus.setMaxXp();
+		}
 
 		heroStatus.setCurrentHp(hp);
 		heroStatus.setCurrentMp(mana);
@@ -335,8 +355,9 @@ public class Hero extends Moving implements Renderable {
 
 		for (int j = 0; j < Cage.getInstance().getCage().size(); j++) {
 			if (Cage.getInstance().getCage().get(j).isDead()) {
+				heroStatus.addScore(20*Cage.getInstance().getCage().get(j).getLevel());
+				heroStatus.addtXp(20*Cage.getInstance().getCage().get(j).getLevel());
 				Cage.getInstance().getCage().remove(j);
-				heroStatus.addScore(20);
 			}
 		}
 
@@ -428,8 +449,8 @@ public class Hero extends Moving implements Renderable {
 
 	public void manaRegen() {
 		mana += 2;
-		if (mana > INT * 20) {
-			mana = INT * 20;
+		if (mana > maxMp) {
+			mana = maxMp;
 		}
 	}
 
