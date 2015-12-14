@@ -8,15 +8,35 @@ import render.Resource;
 
 public class HeroStatus implements Renderable {
 
-	private int score, health, mana, level;
+	private int score, health, mana, level,maxHp,maxMp;
+	private double xHp,xMp;
 	private boolean isDead;
 
 	public HeroStatus() {
 		score = 0;
-		health = 100;
-		mana = 100;
 		level = 1;
 		isDead = false;
+	}
+	
+	public void update(){
+		xHp= (health*1.0)/(maxHp*1.0);
+		xMp= (mana*1.0)/(maxMp*1.0);
+	}
+	
+	public void setMaxHp(int x){
+		maxHp = x;
+	}
+	
+	public void setCurrentHp(int x){
+		health = x;
+	}
+	
+	public void setMaxMp(int x){
+		maxMp = x;
+	}
+	
+	public void setCurrentMp(int x){
+		mana = x;
 	}
 
 	public boolean isDead() {
@@ -25,21 +45,6 @@ public class HeroStatus implements Renderable {
 
 	public void addScore(int score) {
 		this.score += score;
-	}
-
-	public void regenMana(int rate) {
-		if (this.mana + rate <= 100)
-			this.mana += rate;
-		else
-			this.mana = 100;
-	}
-
-	public boolean lossMana(int mana) {
-		if (this.mana - mana >= 0) {
-			this.mana -= mana;
-			return true;
-		}
-		return false;
 	}
 
 	public void changeLevel() {
@@ -53,29 +58,21 @@ public class HeroStatus implements Renderable {
 	public void resetLevel() {
 		level = 1;
 	}
-	
-	public void regenHealth(int rate) {
-		if (this.health + rate <= 100)
-			this.health += rate;
-		else
-			this.health = 100;
-	}
-
-	public boolean lossHealth(int health) {
-		if (this.health - health >= 0) {
-			this.health -= health;
-			return true;
-		}
-		this.isDead = true;
-		return false;
-	}
 
 	@Override
 	public void draw(Graphics2D g) {
-		g.drawImage(Resource.statusBG, null, 0,0);
+		//g.drawImage(Resource.statusBG, null, 0,0);
 		g.setColor(Color.WHITE);
 		g.setFont(Resource.standardFont);
 		g.drawString("SCORE: " + score, 100, 80);
+		g.setColor(Color.BLACK);
+		g.fillRect(90,20,120,15);
+		g.setColor(Color.RED);
+		g.fillRect(93, 23, (int)(xHp*114), 9);
+		g.setColor(Color.BLACK);
+		g.fillRect(90,40,120,15);
+		g.setColor(Color.BLUE);
+		g.fillRect(93, 43, (int)(xMp*114), 9);
 	}
 
 	@Override

@@ -18,6 +18,8 @@ public class Resource {
 	public static BufferedImage hero_f = getImage("res/Hero/Hero_2_2.png");
 	public static BufferedImage hero_a = getImage("res/Hero/Hero_2_3.png");
 	public static BufferedImage hero_af = getImage("res/Hero/Hero_2_4.png");
+	public static BufferedImage hero_d = getImage("res/Hero/Hero_2_5.png");
+	public static BufferedImage hero_df = getImage("res/Hero/Hero_2_5_f.png");
 	
 	//Monster
 	public static BufferedImage monster_golem_1_1 = getImage("res/monster/golem_1_1.png");

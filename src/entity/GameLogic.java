@@ -29,15 +29,15 @@ public class GameLogic {
 
 		this.land = new Land(0, 0);
 		this.background = new Background(0, 0);
-		this.hero = new Hero(20, 370, this.land, this.background);
 		this.heroStatus = new HeroStatus();
+		this.hero = new Hero(20, 370, this.land, this.background,this.heroStatus);
 		this.skillStatus = new SkillStatus();
 		this.pauseButton = new PauseButton();
 
 		RenderableHolder.getInstance().add(land);
 		RenderableHolder.getInstance().add(background);
-		RenderableHolder.getInstance().add(hero);
 		RenderableHolder.getInstance().add(heroStatus);
+		RenderableHolder.getInstance().add(hero);
 		RenderableHolder.getInstance().add(skillStatus);
 		RenderableHolder.getInstance().add(pauseButton);
 	}
@@ -164,6 +164,7 @@ public class GameLogic {
 
 		Cage.getInstance().updateAll();
 		hero.update();
+		heroStatus.update();
 		background.update();
 		land.update();
 		tick++;
