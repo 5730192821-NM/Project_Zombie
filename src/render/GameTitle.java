@@ -78,7 +78,6 @@ public class GameTitle extends JPanel {
 		}
 		for (int i = 0; i < 255; i++) {
 			if (InputUtility.getKeyPressed(i)) {
-				System.out.println("Swap");
 				setTitle(false);
 				setSwap(true);
 				return;
