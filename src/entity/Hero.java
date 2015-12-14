@@ -388,17 +388,20 @@ public class Hero extends Moving implements Renderable {
 		}
 
 		// Find near
-		if (nearMon.isDead() || nearMon.getHp() == 0
+		if (nearMon.isDead() || nearMon.getHp() <= 0
 				|| this.direction != nearMon.getDirection())
 			nearMon = new Yeti(1000, 1000, land, this);
 
 		for (Monster m : Cage.getInstance().getCage()) {
 			boolean skip = false;
 			if (skills[i].getFrameCount() != 0 || m.getX() < -100
-					|| m.getX() > 800) 
+					|| m.getX() > 800)
 				skip = true;
 			if (Math.abs(m.getX() + 120 - x) <= Math.abs(nearMon.getX() + 120
-					- x) && !skip && m.getDirection() == this.direction && !m.isDead())
+					- x)
+					&& !skip
+					&& m.getDirection() == this.direction
+					&& !m.isDead() && !(m.getHp() <= 0))
 				nearMon = m;
 		}
 
