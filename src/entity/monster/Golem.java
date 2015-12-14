@@ -57,12 +57,14 @@ public class Golem extends Monster implements Renderable {
 				frameCountWalk %= 4;
 			}
 			countWalk++;
-			if (x + 70 > hero.getX()) {
-				direction = 1;
-				x -= 1;
-			} else if (x + 90 < hero.getX()) {
-				direction = 2;
-				x += 1;
+			if (countWalk % 2 == 0) {
+				if (x + 70 > hero.getX()) {
+					direction = 1;
+					x -= 1;
+				} else if (x + 90 < hero.getX()) {
+					direction = 2;
+					x += 1;
+				}
 			}
 		}
 
@@ -125,26 +127,27 @@ public class Golem extends Monster implements Renderable {
 			}
 		}
 	}
-	
-	public void hit(Hero hero ,Skill skill){
-		if(skill instanceof FireSkill){
-			damageTaken = hero.getAttack()*1;
-		} else if(skill instanceof IceSkill){
-			damageTaken = hero.getAttack()*2;
-		} else if(skill instanceof PoisonSkill){
-			damageTaken = hero.getAttack()*1;
-		} else if(skill instanceof MeteorSkill){
-			damageTaken = hero.getAttack()*3;
-		} else if(skill instanceof SpikeSkill){
-			damageTaken = hero.getAttack()*2;
+
+	public void hit(Hero hero, Skill skill) {
+		if (!isPanic) {
+			if (skill instanceof FireSkill) {
+				damageTaken = hero.getAttack() * 1;
+			} else if (skill instanceof IceSkill) {
+				damageTaken = hero.getAttack() * 2;
+			} else if (skill instanceof PoisonSkill) {
+				damageTaken = hero.getAttack() * 1;
+			} else if (skill instanceof MeteorSkill) {
+				damageTaken = hero.getAttack() * 3;
+			} else if (skill instanceof SpikeSkill) {
+				damageTaken = hero.getAttack() * 2;
+			}
+			hp -= damageTaken;
+			isPanic = true;
+			if (hp <= 0) {
+				hp = 0;
+				isPanic = false;
+			}
 		}
-		hp -= damageTaken;
-		isPanic = true;
-		if (hp <= 0){
-			hp = 0;
-			isPanic=false;
-		}
-		damageTaken=0;
 	}
 
 	@Override
