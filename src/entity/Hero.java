@@ -168,7 +168,7 @@ public class Hero extends Moving implements Renderable {
 				land.setEnd(false);
 			}
 		}
-		if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
+		else if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
 			direction = 1;
 			if (x < 400 || land.isEnd()) {
 				if (x < 720)

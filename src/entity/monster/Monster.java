@@ -9,7 +9,7 @@ public abstract class Monster implements Renderable {
 
 	protected int x, y, hp, type, attack, level, direction, countWalk = 0,
 			frameCountWalk = 0, countDead = 0, frameCountDead = 0,
-			countPanic = 0, damageTaken = 0, debuff = 0;
+			countPanic = 0, damageTaken = 0;
 	protected boolean isDead = false, isPanic = false;
 	protected Land land;
 	protected Hero hero;

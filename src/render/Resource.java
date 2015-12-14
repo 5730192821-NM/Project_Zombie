@@ -53,6 +53,9 @@ public class Resource {
 	public static BufferedImage meteor1_2 = getImage("res/skill/meteor1_2.png");
 	public static BufferedImage poison1 = getImage("res/skill/poison1.png");
 	public static BufferedImage spike1 = getImage("res/skill/spike1.png");
+	public static BufferedImage burn = getImage("res/skill/burn.png");
+	public static BufferedImage poison = getImage("res/skill/poisoned.png");
+	public static BufferedImage freeze = getImage("res/skill/freeze.png");
 
 	static BufferedImage getImage(String directory) {
 		BufferedImage b;
