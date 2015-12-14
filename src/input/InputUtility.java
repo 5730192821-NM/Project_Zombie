@@ -28,4 +28,23 @@ public class InputUtility {
 	public static void clearSpell() {
 		spell = "";
 	}
+	
+	//Temp
+	
+	private static boolean spaceTriggered = false;
+	private static boolean spacePressed = false;
+	
+	public static boolean getSpaceTriggered() {
+		return spaceTriggered;
+	}
+	public static void setSpaceTriggered(boolean x) {
+		spaceTriggered = x;
+	}
+	public static boolean getSpacePressed() {
+		return spacePressed;
+	}
+	public static void setSpacePressed(boolean x) {
+		spacePressed = x;
+	}
+
 }

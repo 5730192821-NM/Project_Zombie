@@ -22,7 +22,7 @@ public class Main {
 
 		while (true) {
 			try {
-				Thread.sleep(20);
+				Thread.sleep(logic.getSpeed());
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -32,7 +32,7 @@ public class Main {
 				screen.requestFocus();
 				title.setSwap(false);
 			}
-
+			
 			if (!(title.isTitle())) {
 				logic.update();
 				screen.repaint();

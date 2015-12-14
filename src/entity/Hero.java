@@ -13,7 +13,7 @@ import render.*;
 public class Hero extends Moving implements Renderable {
 
 	private int frameCount = 0, count = 0, countA = 0, frameCountA = 0,
-			direction = 1, temp, countSpell = 0,i=5;
+			direction = 1, temp, countSpell = 0, i = 5;
 	private int gravity = 1, velocityY;
 	private boolean isJumped;
 	private boolean isRight, isLeft;
@@ -22,7 +22,7 @@ public class Hero extends Moving implements Renderable {
 	private Background background;
 	private Skill[] skills = new Skill[5];
 	private static Word[] words = new Word[5];
-	private int STR,INT,hp,attack,attackRange=0;
+	private int STR, INT, hp, attack, attackRange = 0;
 
 	// direction 1 : RIGHT direction 2 : LEFT
 
@@ -36,10 +36,10 @@ public class Hero extends Moving implements Renderable {
 		isRight = false;
 		isSkill = false;
 		isCasting = false;
-		STR=10;
-		INT=10;
-		hp=STR*20;
-		attack=INT*2000;
+		STR = 10;
+		INT = 10;
+		hp = STR * 20;
+		attack = INT * 2000;
 
 		skills[0] = new IceSkill(x, y, direction);
 		skills[1] = new FireSkill(x, y, direction);
@@ -142,23 +142,31 @@ public class Hero extends Moving implements Renderable {
 			} else if (x <= 200 && isLeft) {
 				skills[i].setX(-5);
 			}
-			//interaction
-			for(int j=0; j<Cage.getInstance().getCage().size() ; j++){
+			// interaction
+			for (int j = 0; j < Cage.getInstance().getCage().size(); j++) {
 				Monster m = Cage.getInstance().getCage().get(j);
-				if(i==0 || i==1){
-					if((skills[i].getAttackRange()-10<m.getX()+50) && (m.getX()<skills[i].getAttackRange()+10)){
+
+				// ice + fire
+				if (i == 0 || i == 1) {
+					if ((skills[i].getAttackRange() < m.getX() + 100)
+							&& (m.getX() + 220 < skills[i].getAttackRange())) {
 						m.hit(this, skills[i]);
 					}
-				} else if(i==2){
-					if(skills[i].getAttackRange()!=-1000 &&(skills[i].getAttackRange()-20<m.getX()+150) && (m.getX()<skills[i].getAttackRange()+100)){
+				} else if (i == 2) { // meteor
+					if (skills[i].getAttackRange() != -1000
+							&& (skills[i].getAttackRange() - 20 < m.getX() + 150)
+							&& (m.getX() < skills[i].getAttackRange() + 100)) {
 						m.hit(this, skills[i]);
 					}
-				} else if(i==3){
-					if(skills[i].getAttackRange()!=-1000 &&(skills[i].getAttackRange()-5<m.getX()+150) && (m.getX()<skills[i].getAttackRange()+5)){
+				} else if (i == 3) { // poison
+					if (skills[i].getAttackRange() != -1000
+							&& (skills[i].getAttackRange() - 5 < m.getX() + 150)
+							&& (m.getX() < skills[i].getAttackRange() + 5)) {
 						m.hit(this, skills[i]);
 					}
-				} else if(i==4){
-					if((skills[i].getAttackRange()<m.getX()+100) && (m.getX()<skills[i].getAttackRange()+450)){
+				} else if (i == 4) { // spike
+					if ((skills[i].getAttackRange() < m.getX() + 100)
+							&& (m.getX() < skills[i].getAttackRange() + 450)) {
 						m.hit(this, skills[i]);
 					}
 				}
@@ -169,7 +177,7 @@ public class Hero extends Moving implements Renderable {
 					&& !skills[2].isPlaying() && !skills[3].isPlaying()
 					&& !skills[4].isPlaying()) {
 				isSkill = false;
-				i=5;
+				i = 5;
 			}
 		} else {
 			if ((words[0].getWord().length == InputUtility.getSpell().length())) {
@@ -180,7 +188,7 @@ public class Hero extends Moving implements Renderable {
 					isSkill = true;
 					countSpell = 200;
 					isCasting = true;
-					i=0;
+					i = 0;
 					InputUtility.clearSpell();
 				}
 			}
@@ -192,7 +200,7 @@ public class Hero extends Moving implements Renderable {
 					isSkill = true;
 					countSpell = 200;
 					isCasting = true;
-					i=1;
+					i = 1;
 					InputUtility.clearSpell();
 				}
 			}
@@ -204,7 +212,7 @@ public class Hero extends Moving implements Renderable {
 					isSkill = true;
 					countSpell = 200;
 					isCasting = true;
-					i=2;
+					i = 2;
 					InputUtility.clearSpell();
 				}
 			}
@@ -216,7 +224,7 @@ public class Hero extends Moving implements Renderable {
 					isSkill = true;
 					countSpell = 200;
 					isCasting = true;
-					i=3;
+					i = 3;
 					InputUtility.clearSpell();
 				}
 			}
@@ -228,15 +236,15 @@ public class Hero extends Moving implements Renderable {
 					isSkill = true;
 					countSpell = 200;
 					isCasting = true;
-					i=4;
+					i = 4;
 					InputUtility.clearSpell();
 				}
 			}
 
 		}
-		
-		for(int j=0; j<Cage.getInstance().getCage().size() ; j++){
-			if(Cage.getInstance().getCage().get(j).isDead()){
+
+		for (int j = 0; j < Cage.getInstance().getCage().size(); j++) {
+			if (Cage.getInstance().getCage().get(j).isDead()) {
 				Cage.getInstance().getCage().remove(j);
 			}
 		}
@@ -273,12 +281,12 @@ public class Hero extends Moving implements Renderable {
 			}
 		}
 	}
-	
-	public int getInt(){
+
+	public int getInt() {
 		return INT;
 	}
-	
-	public int getAttack(){
+
+	public int getAttack() {
 		return attack;
 	}
 

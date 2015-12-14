@@ -1,5 +1,6 @@
 package entity;
 
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 import entity.monster.Cage;
@@ -21,14 +22,19 @@ public class GameLogic {
 			spike = null;
 	private int tick = 0;
 	private Background background;
+	private boolean isPause = false;
+	private int speed = 20;
 
 	public GameLogic() {
+
 		this.land = new Land(0, 0);
 		this.background = new Background(0, 0);
 		this.hero = new Hero(20, 370, this.land, this.background);
 		this.heroStatus = new HeroStatus();
 		this.skillStatus = new SkillStatus();
 		this.pauseButton = new PauseButton();
+
+		Cage.getInstance().add("yeti", this.land, this.hero);
 
 		RenderableHolder.getInstance().add(land);
 		RenderableHolder.getInstance().add(background);
@@ -39,6 +45,21 @@ public class GameLogic {
 	}
 
 	public void update() {
+
+		// Sleep speed
+		if (InputUtility.getKeyPressed(KeyEvent.VK_1))
+			setSpeed(speed+1);
+		else if (InputUtility.getKeyPressed(KeyEvent.VK_2))
+			setSpeed(speed-1);
+
+		// Pause
+		if (InputUtility.getSpaceTriggered())
+			this.setPause(!isPause);
+		InputUtility.setSpaceTriggered(false);
+
+		if (this.isPause())
+			return;
+
 		if (InputUtility.getSpell() != "") {
 			if (InputUtility.getSpell().length() > 6
 					|| ("IFMPS").indexOf(InputUtility.getSpell()
@@ -134,17 +155,37 @@ public class GameLogic {
 			}
 
 		}
-		if (tick >= 200) {
-			tick = 0;
 
-			// How to summon here;
-			Cage.getInstance().add("golem", this.land, this.hero);
-			Cage.getInstance().add("yeti", this.land, this.hero);
-		}
+		/*
+		 * if (tick >= 200) { tick = 0;
+		 * 
+		 * // How to summon here; Cage.getInstance().add("golem", this.land,
+		 * this.hero); Cage.getInstance().add("yeti", this.land, this.hero); }
+		 */
 		Cage.getInstance().updateAll();
 		hero.update();
 		background.update();
 		land.update();
 		tick++;
 	}
+
+	public boolean isPause() {
+		return isPause;
+	}
+
+	public void setPause(boolean isPause) {
+		this.isPause = isPause;
+	}
+
+	public int getSpeed() {
+		return speed;
+	}
+
+	public void setSpeed(int speed) {
+		if (speed > 0)
+			this.speed = speed;
+		else
+			this.speed = 0;
+	}
+
 }

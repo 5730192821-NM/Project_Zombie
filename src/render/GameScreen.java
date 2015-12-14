@@ -13,6 +13,7 @@ import javax.swing.JComponent;
 
 import entity.monster.Cage;
 import entity.monster.Monster;
+import entity.skill.Skill;
 
 public class GameScreen extends JComponent {
 
@@ -22,7 +23,8 @@ public class GameScreen extends JComponent {
 	private static final long serialVersionUID = 1L;
 
 	public GameScreen() {
-		this.setPreferredSize(new Dimension(Resource.screenWidth, Resource.screenHeight));
+		this.setPreferredSize(new Dimension(Resource.screenWidth,
+				Resource.screenHeight));
 
 		this.addKeyListener(new KeyAdapter() {
 			@Override
@@ -31,11 +33,20 @@ public class GameScreen extends JComponent {
 				if (e.getKeyCode() >= 65 && e.getKeyCode() <= 90) {
 					InputUtility.setSpell(KeyEvent.getKeyText(e.getKeyCode()));
 				}
+
+				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
+					InputUtility.setSpaceTriggered(!InputUtility
+							.getSpacePressed());
+					InputUtility.setSpacePressed(true);
+				}
+
 			}
 
 			@Override
 			public void keyReleased(KeyEvent e) {
 				InputUtility.setKeyPressed(e.getKeyCode(), false);
+
+				InputUtility.setSpacePressed(false);
 			}
 		});
 
@@ -50,13 +61,21 @@ public class GameScreen extends JComponent {
 				e.draw((Graphics2D) g);
 		}
 		for (Monster m : Cage.getInstance().getCage()) {
-			if (m.isVisible())
+			if (m.isVisible()) {
 				m.draw((Graphics2D) g);
+				g.setFont(Resource.biggerFont);
+				g.drawString(m.getX() + "", m.getX(), 300);
+			}
 		}
 		for (Renderable e : RenderableHolder.getInstance().getRenderableList()) {
 			if (e.isVisible() && e.getZ() >= -1)
 				e.draw((Graphics2D) g);
+			if (e.isVisible() && e instanceof Skill) {
+				g.drawString(((Skill) e).getAttackRange() + "",
+						((Skill) e).getAttackRange(), 300);
+				g.setFont(Resource.biggerFont);
+			}
+
 		}
 	}
-
 }
