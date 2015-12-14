@@ -159,7 +159,7 @@ public class Hero extends Moving implements Renderable {
 							&& nearMon.getX() - 50 <= m.getX()) 
 							m.hit(this, skills[i]);
 				} else if (i == 2) { // meteor
-					if (skills[i].getAttackRange() != -1000
+					if (skills[i].getFrameCount() < 3 && skills[i].getAttackRange() != -1000
 							&& (skills[i].getAttackRange() - 20 < m.getX() + 150)
 							&& (m.getX() < skills[i].getAttackRange() + 100)) {
 						m.hit(this, skills[i]);
@@ -171,7 +171,7 @@ public class Hero extends Moving implements Renderable {
 						m.hit(this, skills[i]);
 					}
 				} else if (i == 4) { // spike
-					if ((skills[i].getAttackRange() < m.getX() + 100)
+					if (skills[i].getFrameCount() < 5 && (skills[i].getAttackRange() < m.getX() + 100)
 							&& (m.getX() < skills[i].getAttackRange() + 450)) {
 						m.hit(this, skills[i]);
 					}

@@ -74,11 +74,11 @@ public class GameScreen extends JComponent {
 			if (e.isVisible() && e instanceof Skill) {
 				g.setFont(Resource.biggerFont);
 				g.drawString(((Skill) e).getAttackRange() + "",
-						((Skill) e).getAttackRange(), 300);
+						((Skill) e).getAttackRange(), 350);
 			}
 			if (e.isVisible() && e instanceof Hero) {
 				g.setFont(Resource.biggerFont);
-				g.drawString(((Hero) e).getX() + "", ((Hero) e).getX(), 300);
+				g.drawString(((Hero) e).getX() + "", ((Hero) e).getX(), 360);
 			}
 
 		}

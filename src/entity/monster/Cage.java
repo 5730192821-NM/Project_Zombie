@@ -16,14 +16,19 @@ public class Cage {
 	}
 
 	public void add(String n, Land l, Hero h) {
+		int x = 800;
+		if (((int) (Math.random() * 1000)) % 2 == 0)
+			x = 0;
+
 		if (n.equalsIgnoreCase("golem"))
-			cage.add(new Golem(800, 265, l, h));
+			cage.add(new Golem(x, 265, l, h));
 		else if (n.equalsIgnoreCase("yeti"))
-			cage.add(new Yeti(800, 243, l, h));
+			cage.add(new Yeti(x, 243, l, h));
 		else
 			return;
 	}
-	public synchronized void remove(int i){
+
+	public synchronized void remove(int i) {
 		cage.remove(i);
 	}
 
@@ -35,5 +40,5 @@ public class Cage {
 	public List<Monster> getCage() {
 		return cage;
 	}
-	
+
 }
