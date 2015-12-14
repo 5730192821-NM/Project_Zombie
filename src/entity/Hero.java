@@ -17,9 +17,9 @@ public class Hero extends Moving implements Renderable {
 
 	private int frameCount = 0, count = 0, countA = 0, frameCountA = 0,
 			direction = 1, temp, countSpell = 0, i = 5, countD = 0,
-			frameCountD = 0 , tick=0;
+			frameCountD = 0, tick = 0;
 	private int gravity = 1, velocityY;
-	private boolean isJumped, isDead, isOutOfMana=false;
+	private boolean isJumped, isDead, isOutOfMana = false;
 	private boolean isRight, isLeft;
 	private boolean isSkill, isCasting;
 	private Land land;
@@ -82,12 +82,12 @@ public class Hero extends Moving implements Renderable {
 		}
 		manaTick++;
 
-		if(tick == 100){
+		if (tick == 100) {
 			tick = 0;
-			isOutOfMana=false;
+			isOutOfMana = false;
 		}
 		tick++;
-		
+
 		// Dead Animation
 		if (hp == 0) {
 			if (countD == 10) {
@@ -196,26 +196,31 @@ public class Hero extends Moving implements Renderable {
 				if (i == 0 || i == 1) {
 					if (skills[i].getFrameCount() == 1
 							&& m.getX() <= nearMon.getX() + 50
-							&& nearMon.getX() - 50 <= m.getX())
+							&& nearMon.getX() - 50 <= m.getX()) {
 						m.hit(this, skills[i]);
+						nearMon = new Yeti(1000, 1000, land, this);
+					}
 				} else if (i == 2) { // meteor
 					if (skills[i].getFrameCount() < 3
 							&& skills[i].getAttackRange() != -1000
 							&& (skills[i].getAttackRange() - 20 < m.getX() + 150)
 							&& (m.getX() < skills[i].getAttackRange() + 100)) {
 						m.hit(this, skills[i]);
+						nearMon = new Yeti(1000, 1000, land, this);
 					}
 				} else if (i == 3) { // poison
 					if (skills[i].getAttackRange() != -1000
 							&& (skills[i].getAttackRange() - 5 < m.getX() + 150)
 							&& (m.getX() < skills[i].getAttackRange() + 5)) {
 						m.hit(this, skills[i]);
+						nearMon = new Yeti(1000, 1000, land, this);
 					}
 				} else if (i == 4) { // spike
 					if (skills[i].getFrameCount() < 5
 							&& (skills[i].getAttackRange() < m.getX() + 100)
 							&& (m.getX() < skills[i].getAttackRange() + 450)) {
 						m.hit(this, skills[i]);
+						nearMon = new Yeti(1000, 1000, land, this);
 					}
 				}
 			}
@@ -240,10 +245,10 @@ public class Hero extends Moving implements Renderable {
 						isCasting = true;
 						i = 0;
 						lossMana(10);
-						isOutOfMana=false;
+						isOutOfMana = false;
 						InputUtility.clearSpell();
-					} else{
-						isOutOfMana=true;
+					} else {
+						isOutOfMana = true;
 						InputUtility.clearSpell();
 					}
 				}
@@ -260,10 +265,10 @@ public class Hero extends Moving implements Renderable {
 						isCasting = true;
 						i = 1;
 						lossMana(10);
-						isOutOfMana=false;
+						isOutOfMana = false;
 						InputUtility.clearSpell();
-					} else{
-						isOutOfMana=true;
+					} else {
+						isOutOfMana = true;
 						InputUtility.clearSpell();
 					}
 				}
@@ -280,9 +285,9 @@ public class Hero extends Moving implements Renderable {
 						i = 2;
 						lossMana(20);
 						InputUtility.clearSpell();
-						isOutOfMana=false;
-					} else{
-						isOutOfMana=true;
+						isOutOfMana = false;
+					} else {
+						isOutOfMana = true;
 						InputUtility.clearSpell();
 					}
 				}
@@ -298,10 +303,10 @@ public class Hero extends Moving implements Renderable {
 						isCasting = true;
 						i = 3;
 						lossMana(20);
-						isOutOfMana=false;
+						isOutOfMana = false;
 						InputUtility.clearSpell();
-					} else{
-						isOutOfMana=true;
+					} else {
+						isOutOfMana = true;
 						InputUtility.clearSpell();
 					}
 				}
@@ -317,10 +322,10 @@ public class Hero extends Moving implements Renderable {
 						isCasting = true;
 						i = 4;
 						lossMana(30);
-						isOutOfMana=false;
+						isOutOfMana = false;
 						InputUtility.clearSpell();
-					}else{
-						isOutOfMana=true;
+					} else {
+						isOutOfMana = true;
 						InputUtility.clearSpell();
 					}
 				}
@@ -383,27 +388,31 @@ public class Hero extends Moving implements Renderable {
 		}
 
 		// Find near
+		if (nearMon.isDead() || nearMon.getHp() == 0
+				|| this.direction != nearMon.getDirection())
+			nearMon = new Yeti(1000, 1000, land, this);
 
 		for (Monster m : Cage.getInstance().getCage()) {
-			if (skills[i].getFrameCount() != 0)
-				break;
-			if (nearMon.isDead() || nearMon.getHp() == 0)
-				nearMon = new Yeti(1000, 1000, land, this);
-			if (this.direction == m.getDirection())
-				if (Math.abs(m.getX() + 120 - x) <= Math.abs(nearMon.getX()
-						+ 120 - x))
-					nearMon = m;
+			boolean skip = false;
+			if (skills[i].getFrameCount() != 0 || m.getX() < -100
+					|| m.getX() > 800) 
+				skip = true;
+			if (Math.abs(m.getX() + 120 - x) <= Math.abs(nearMon.getX() + 120
+					- x) && !skip && m.getDirection() == this.direction && !m.isDead())
+				nearMon = m;
 		}
-		
-		if(isOutOfMana){
+
+		if (isOutOfMana) {
 			g.setColor(Color.RED);
 			g.setFont(Resource.biggerFont);
-			g.drawString("OUT OF MANA", x, y-20);
+			g.drawString("OUT OF MANA", x, y - 20);
 		}
 
 		g.setColor(Color.RED);
 		g.setFont(Resource.biggerFont);
 		g.drawString("NearMon X : " + nearMon.getX(), 50, 150);
+		g.drawString("NearMonDirect : " + nearMon.getDirection(), 50, 170);
+		g.drawString("HeroDirection : " + this.direction, 50, 190);
 
 	}
 
