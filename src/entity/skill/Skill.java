@@ -5,9 +5,13 @@ import render.Renderable;
 public abstract class Skill implements Renderable {
 
 	protected boolean isPlaying = false;
-	protected int x, y, frameCount, count, frameWidth, frameHeight;
+	protected int x, y, frameCount, count, frameWidth, frameHeight, attackRange;
 
 	public abstract void update();
+	
+	public int getAttackRange(){
+		return attackRange;
+	}
 	
 	public void setX(int x){
 		this.x -= x; 

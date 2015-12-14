@@ -7,12 +7,18 @@ import java.awt.event.KeyEvent;
 
 import entity.Hero;
 import entity.Land;
+import entity.skill.FireSkill;
+import entity.skill.IceSkill;
+import entity.skill.MeteorSkill;
+import entity.skill.PoisonSkill;
+import entity.skill.Skill;
+import entity.skill.SpikeSkill;
 import render.Renderable;
 import render.Resource;
 
 public class Yeti extends Monster implements Renderable {
 
-	private int countAttack = 0, frameCountAttack = 0, attackDirection;
+	private int countAttack = 0, frameCountAttack = 0, attackDirection,countDebuff=0,speedDecrease=0,timeCountDebuff=0;
 	private boolean isAttack = false;
 
 	public Yeti(int x, int y, Land land, Hero hero) {
@@ -21,9 +27,9 @@ public class Yeti extends Monster implements Renderable {
 		this.land = land;
 		this.hero = hero;
 		level = (int) (Math.random() * 5) + 1; // monster has level.
-		hp = 200 * level;// level involve to hp.
+		hp = 20 * level;// level involve to hp.
 		attack = 20 * level;// level involve to attack.
-		type = 1; // immune to debuff.
+		type = 2; // Ice Monster Type.
 
 	}
 
@@ -66,13 +72,13 @@ public class Yeti extends Monster implements Renderable {
 			countWalk++;
 			if (x + 50 > hero.getX()) {
 				direction = 1;
-				x -= 1;
+				x -= 2 + speedDecrease;
 			} else if (x + 50 <= hero.getX() && x + 120 >= hero.getX()) {
 				isAttack = true;
 				attackDirection = direction;
 			} else if (x + 120 < hero.getX()) {
 				direction = 2;
-				x += 1;
+				x += 2 + speedDecrease;
 			}
 		}
 
@@ -91,6 +97,26 @@ public class Yeti extends Monster implements Renderable {
 		if (hero.getX() <= 200 && hero.isLeft()) {
 			setX(-5);
 		}
+		
+		/*// Debuff
+		if(debuff!=0){
+			if(countDebuff==20){
+				countDebuff=0;
+				timeCountDebuff++;
+				if(debuff==2){
+					speedDecrease=1;
+				} else {
+					this.damageFormDebuff(hero, debuff);
+				}
+				if(timeCountDebuff==3){
+					speedDecrease=0;
+					timeCountDebuff=0;
+					countDebuff=0;
+					debuff=0;
+				}
+			}
+			countDebuff++;
+		}*/
 	}
 
 	@Override
@@ -148,6 +174,53 @@ public class Yeti extends Monster implements Renderable {
 						Resource.monster_yeti_1_1_f.getHeight()), null, x, y);
 			}
 		}
+	}
+	
+	public void damageFormDebuff(Hero hero,int debuff){
+		double Dmg=0;
+		if(debuff==1){
+			Dmg=0.5*type;
+		} else if(debuff==3){
+			Dmg=0.5;
+		}
+		hp-=hero.getInt()*Dmg;
+	}
+	
+	public void hit(Hero hero ,Skill skill){
+		if(skill instanceof FireSkill){
+			damageTaken = hero.getAttack()*2;
+			debuff=1; // burn
+			timeCountDebuff=0;
+			countDebuff=0;
+		} else if(skill instanceof IceSkill){
+			damageTaken = hero.getAttack()*1;
+			if(((int)Math.random()*4+1) == 1){
+				debuff=2; // slow
+				timeCountDebuff=0;
+				countDebuff=0;
+			}
+		} else if(skill instanceof PoisonSkill){
+			damageTaken = hero.getAttack()*1;
+			if(((int)Math.random()*4+1) == 1){
+				debuff=3; // poisoned
+				timeCountDebuff=0;
+				countDebuff=0;
+			}
+		} else if(skill instanceof MeteorSkill){
+			damageTaken = hero.getAttack()*4;
+			debuff=1;
+			timeCountDebuff=0;
+			countDebuff=0;
+		} else if(skill instanceof SpikeSkill){
+			damageTaken = hero.getAttack()*2;
+		}
+		hp -= damageTaken;
+		isPanic = true;
+		if (hp <= 0){
+			hp = 0;
+			isPanic=false;
+		}
+		damageTaken=0;
 	}
 
 	@Override

@@ -34,10 +34,14 @@ public class PoisonSkill extends Skill implements Renderable {
 				if (frameCount == 7)
 					stop();
 			}
-			if (direction == 1)
+			if (direction == 1){
 				x += 5;
-			else
+				attackRange=x;
+			}
+			else{
 				x -= 5;
+				attackRange=x;
+			}
 			count++;
 		}
 	}

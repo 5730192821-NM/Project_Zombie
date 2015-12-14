@@ -5,13 +5,15 @@ import input.InputUtility;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
+import entity.monster.Cage;
+import entity.monster.Monster;
 import entity.skill.*;
 import render.*;
 
 public class Hero extends Moving implements Renderable {
 
 	private int frameCount = 0, count = 0, countA = 0, frameCountA = 0,
-			direction = 1, temp, countSpell = 0;
+			direction = 1, temp, countSpell = 0,i=5;
 	private int gravity = 1, velocityY;
 	private boolean isJumped;
 	private boolean isRight, isLeft;
@@ -20,6 +22,7 @@ public class Hero extends Moving implements Renderable {
 	private Background background;
 	private Skill[] skills = new Skill[5];
 	private static Word[] words = new Word[5];
+	private int STR,INT,hp,attack,attackRange=0;
 
 	// direction 1 : RIGHT direction 2 : LEFT
 
@@ -33,6 +36,10 @@ public class Hero extends Moving implements Renderable {
 		isRight = false;
 		isSkill = false;
 		isCasting = false;
+		STR=10;
+		INT=10;
+		hp=STR*20;
+		attack=INT*2000;
 
 		skills[0] = new IceSkill(x, y, direction);
 		skills[1] = new FireSkill(x, y, direction);
@@ -131,28 +138,48 @@ public class Hero extends Moving implements Renderable {
 		// Casting Skill
 		if (isSkill) {
 			if (x >= 400 && isRight) {
-				skills[0].setX(5);
-				skills[1].setX(5);
-				skills[2].setX(5);
-				skills[3].setX(5);
-				skills[4].setX(5);
+				skills[i].setX(5);
 			} else if (x <= 200 && isLeft) {
-				skills[0].setX(-5);
-				skills[1].setX(-5);
-				skills[2].setX(-5);
-				skills[3].setX(-5);
-				skills[4].setX(-5);
+				skills[i].setX(-5);
 			}
-			skills[0].update();
-			skills[1].update();
-			skills[2].update();
-			skills[3].update();
-			skills[4].update();
+			//interaction
+			for(int j=0; j<Cage.getInstance().getCage().size() ; j++){
+				Monster m = Cage.getInstance().getCage().get(j);
+				synchronized(Cage.getInstance()){
+				if(i==0 || i==1 || i==3){
+					if((skills[i].getAttackRange()<m.getX()) && (m.getX()<skills[i].getAttackRange()+200)){
+						m.hit(this, skills[i]);
+						if(m.isDead()){
+							Cage.getInstance().remove(i);
+						}
+						System.out.println(m);
+					}
+				} else if(i==2){
+					if((skills[i].getAttackRange()<m.getX()) && (m.getX()<skills[i].getAttackRange()+220)){
+						m.hit(this, skills[i]);
+						if(m.isDead()){
+							Cage.getInstance().remove(i);
+						}
+						System.out.println(m);
+					}
+				} else if(i==4){
+					if((skills[i].getAttackRange()-250<m.getX()) && (m.getX()<skills[i].getAttackRange()+250)){
+						m.hit(this, skills[i]);
+						if(m.isDead()){
+							Cage.getInstance().remove(i);
+						}
+						System.out.println(m);
+					}
+				}
+				}
+			}
+			skills[i].update();
 
 			if (!skills[0].isPlaying() && !skills[1].isPlaying()
 					&& !skills[2].isPlaying() && !skills[3].isPlaying()
 					&& !skills[4].isPlaying()) {
 				isSkill = false;
+				i=5;
 			}
 		} else {
 			if ((words[0].getWord().length == InputUtility.getSpell().length())) {
@@ -163,6 +190,7 @@ public class Hero extends Moving implements Renderable {
 					isSkill = true;
 					countSpell = 200;
 					isCasting = true;
+					i=0;
 					InputUtility.clearSpell();
 				}
 			}
@@ -174,6 +202,7 @@ public class Hero extends Moving implements Renderable {
 					isSkill = true;
 					countSpell = 200;
 					isCasting = true;
+					i=1;
 					InputUtility.clearSpell();
 				}
 			}
@@ -185,6 +214,7 @@ public class Hero extends Moving implements Renderable {
 					isSkill = true;
 					countSpell = 200;
 					isCasting = true;
+					i=2;
 					InputUtility.clearSpell();
 				}
 			}
@@ -196,6 +226,7 @@ public class Hero extends Moving implements Renderable {
 					isSkill = true;
 					countSpell = 200;
 					isCasting = true;
+					i=3;
 					InputUtility.clearSpell();
 				}
 			}
@@ -207,6 +238,7 @@ public class Hero extends Moving implements Renderable {
 					isSkill = true;
 					countSpell = 200;
 					isCasting = true;
+					i=4;
 					InputUtility.clearSpell();
 				}
 			}
@@ -244,6 +276,14 @@ public class Hero extends Moving implements Renderable {
 								Resource.hero.getHeight()), null, x, y);
 			}
 		}
+	}
+	
+	public int getInt(){
+		return INT;
+	}
+	
+	public int getAttack(){
+		return attack;
 	}
 
 	public int getX() {

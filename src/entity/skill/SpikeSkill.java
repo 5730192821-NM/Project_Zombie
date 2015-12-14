@@ -8,10 +8,14 @@ import render.Resource;
 public class SpikeSkill extends Skill implements Renderable {
 
 	public SpikeSkill(int x, int y, int direction) {
-		if (direction == 1)
+		if (direction == 1){
 			this.x = x - 220;
-		else
+			attackRange=x;
+		}
+		else{
 			this.x = x - 240;
+			attackRange=x;
+		}
 		this.y = 328;
 		try {
 			frameWidth = Resource.spike1.getWidth() / 9;

@@ -37,10 +37,14 @@ public class MeteorSkill extends Skill implements Renderable {
 				if (frameCountX == 7) {
 					frameCountX = 0;
 					frameCountY++;
-					if (direction == 1)
+					if (direction == 1){
 						x += 250;
-					else
+						attackRange=x;
+					}
+					else {
 						x -= 200;
+						attackRange=x;
+					}
 				}
 			}
 			count++;

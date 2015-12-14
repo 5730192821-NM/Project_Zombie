@@ -23,6 +23,9 @@ public class Cage {
 		else
 			return;
 	}
+	public void remove(int i){
+		cage.remove(i);
+	}
 
 	public void updateAll() {
 		for (Monster m : cage)

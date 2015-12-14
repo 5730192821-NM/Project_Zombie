@@ -7,6 +7,12 @@ import java.awt.event.KeyEvent;
 
 import entity.Hero;
 import entity.Land;
+import entity.skill.FireSkill;
+import entity.skill.IceSkill;
+import entity.skill.MeteorSkill;
+import entity.skill.PoisonSkill;
+import entity.skill.Skill;
+import entity.skill.SpikeSkill;
 import render.Renderable;
 import render.Resource;
 
@@ -118,6 +124,27 @@ public class Golem extends Monster implements Renderable {
 						Resource.monster_golem_1_1_f.getHeight()), null, x, y);
 			}
 		}
+	}
+	
+	public void hit(Hero hero ,Skill skill){
+		if(skill instanceof FireSkill){
+			damageTaken = hero.getAttack()*1;
+		} else if(skill instanceof IceSkill){
+			damageTaken = hero.getAttack()*2;
+		} else if(skill instanceof PoisonSkill){
+			damageTaken = hero.getAttack()*1;
+		} else if(skill instanceof MeteorSkill){
+			damageTaken = hero.getAttack()*3;
+		} else if(skill instanceof SpikeSkill){
+			damageTaken = hero.getAttack()*2;
+		}
+		hp -= damageTaken;
+		isPanic = true;
+		if (hp <= 0){
+			hp = 0;
+			isPanic=false;
+		}
+		damageTaken=0;
 	}
 
 	@Override

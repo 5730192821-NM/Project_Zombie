@@ -8,10 +8,14 @@ import render.Resource;
 public class IceSkill extends Skill implements Renderable {
 	
 	public IceSkill(int x, int y, int direction) {
-		if (direction == 1)
+		if (direction == 1){
 			this.x = x + 300;
-		else
+			attackRange=x;
+		}
+		else{
 			this.x = x - 270;
+			attackRange=x;
+		}
 		this.y = 320;
 		try {
 			frameWidth = Resource.ice1.getWidth() / 7;
