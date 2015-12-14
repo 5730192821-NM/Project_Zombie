@@ -41,5 +41,9 @@ public abstract class Skill implements Renderable {
 	public int getZ() {
 		return 1;
 	}
+	
+	public int getFrameCount(){
+		return frameCount;
+	}
 
 }

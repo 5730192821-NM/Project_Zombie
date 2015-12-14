@@ -2,6 +2,7 @@ package entity;
 
 import input.InputUtility;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
@@ -21,7 +22,7 @@ public class Hero extends Moving implements Renderable {
 	private boolean isSkill, isCasting;
 	private Land land;
 	private Background background;
-	private Skill[] skills = new Skill[5];
+	private Skill[] skills = new Skill[6];
 	private static Word[] words = new Word[5];
 	private int STR, INT, hp, attack, attackRange = 0;
 	private Monster nearMon;
@@ -48,6 +49,7 @@ public class Hero extends Moving implements Renderable {
 		skills[2] = new MeteorSkill(x, y, direction);
 		skills[3] = new PoisonSkill(x, y, direction);
 		skills[4] = new SpikeSkill(x, y, direction);
+		skills[5] = new SpikeSkill(x, y, direction); // dummy For Exception
 
 		words[0] = new Word("ICE");
 		words[1] = new Word("FIRE");
@@ -146,16 +148,16 @@ public class Hero extends Moving implements Renderable {
 			} else if (x <= 200 && isLeft) {
 				skills[i].setX(-5);
 			}
+
 			// interaction
-			for (int j = 0; j < Cage.getInstance().getCage().size(); j++) {
-				Monster m = Cage.getInstance().getCage().get(j);
+			for (Monster m : Cage.getInstance().getCage()) {
 
 				// ice + fire
 				if (i == 0 || i == 1) {
-					if ((skills[i].getAttackRange() < m.getX() + 100)
-							&& (m.getX() + 220 < skills[i].getAttackRange())) {
-						m.hit(this, skills[i]);
-					}
+					if (skills[i].getFrameCount() == 1
+							&& m.getX() <= nearMon.getX() + 50
+							&& nearMon.getX() - 50 <= m.getX()) 
+							m.hit(this, skills[i]);
 				} else if (i == 2) { // meteor
 					if (skills[i].getAttackRange() != -1000
 							&& (skills[i].getAttackRange() - 20 < m.getX() + 150)
@@ -287,12 +289,22 @@ public class Hero extends Moving implements Renderable {
 			}
 		}
 
+		// Find near
+
 		for (Monster m : Cage.getInstance().getCage()) {
-			if (this.direction == m.getDirection() && !m.isDead())
+			if (skills[i].getFrameCount() != 0)
+				break;
+			if (nearMon.isDead() || nearMon.getHp() == 0)
+				nearMon = new Yeti(1000, 1000, land, this);
+			if (this.direction == m.getDirection())
 				if (Math.abs(m.getX() + 120 - x) <= Math.abs(nearMon.getX()
 						+ 120 - x))
 					nearMon = m;
 		}
+
+		g.setColor(Color.RED);
+		g.setFont(Resource.biggerFont);
+		g.drawString("NearMon X : " + nearMon.getX(), 50, 150);
 
 	}
 

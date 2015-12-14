@@ -154,7 +154,7 @@ public class GameLogic {
 
 		}
 
-		if (tick >= 500) {
+		if (tick >= 300) {
 			tick = 0;
 
 			// How to summon here;

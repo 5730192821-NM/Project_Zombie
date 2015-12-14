@@ -10,7 +10,7 @@ public class FireSkill extends Skill implements Renderable {
 	public FireSkill(int x, int y, int direction) {
 		this.direction=direction;
 	
-		this.x = x + 70;
+		this.x = x + 80;
 			attackRange=this.x;
 		
 		this.y = 350;
