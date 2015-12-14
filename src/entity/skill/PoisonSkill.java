@@ -7,14 +7,16 @@ import render.Resource;
 
 public class PoisonSkill extends Skill implements Renderable {
 
-	private int direction;
-
 	public PoisonSkill(int x, int y, int direction) {
 		this.direction = direction;
-		if (direction == 1)
-			this.x = x + 100;
-		else
+		if (direction == 1){
+			this.x = x + 50;
+			attackRange=-1000;
+		}
+		else {
 			this.x = x - 100;
+			attackRange=-1000;
+		}
 		this.y = 340;
 		try {
 			frameWidth = Resource.poison1.getWidth() / 7;
@@ -35,12 +37,12 @@ public class PoisonSkill extends Skill implements Renderable {
 					stop();
 			}
 			if (direction == 1){
-				x += 5;
-				attackRange=x;
+				x += 3;
+				attackRange=this.x;
 			}
 			else{
-				x -= 5;
-				attackRange=x;
+				x -= 3;
+				attackRange=this.x;
 			}
 			count++;
 		}

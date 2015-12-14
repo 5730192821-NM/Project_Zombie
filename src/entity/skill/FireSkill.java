@@ -8,13 +8,14 @@ import render.Resource;
 public class FireSkill extends Skill implements Renderable {
 
 	public FireSkill(int x, int y, int direction) {
+		this.direction=direction;
 		if (direction == 1){
 			this.x = x + 300;
-			attackRange=x;
+			attackRange=this.x;
 		}
 		else{
-			this.x = x - 270;
-			attackRange=x;
+			this.x = x - 350;
+			attackRange=this.x;
 		}
 		this.y = 350;
 		try {

@@ -23,7 +23,7 @@ public class Cage {
 		else
 			return;
 	}
-	public void remove(int i){
+	public synchronized void remove(int i){
 		cage.remove(i);
 	}
 

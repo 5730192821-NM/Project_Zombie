@@ -7,14 +7,18 @@ import render.Resource;
 
 public class MeteorSkill extends Skill implements Renderable {
 
-	private int frameCountX, frameCountY, direction;
+	private int frameCountX, frameCountY;
 
 	public MeteorSkill(int x, int y, int direction) {
 		this.direction = direction;
-		if (direction == 1)
+		if (direction == 1){
 			this.x = x + 50;
-		else
+			attackRange=-1000;
+		}
+		else {
 			this.x = x - 100;
+			attackRange=-1000;
+		}
 		this.y = 305;
 		try {
 			frameWidth = Resource.meteor1.getWidth() / 7;
@@ -39,11 +43,11 @@ public class MeteorSkill extends Skill implements Renderable {
 					frameCountY++;
 					if (direction == 1){
 						x += 250;
-						attackRange=x;
+						attackRange=this.x;
 					}
 					else {
 						x -= 200;
-						attackRange=x;
+						attackRange=this.x;
 					}
 				}
 			}

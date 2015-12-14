@@ -8,13 +8,14 @@ import render.Resource;
 public class SpikeSkill extends Skill implements Renderable {
 
 	public SpikeSkill(int x, int y, int direction) {
+		this.direction=direction;
 		if (direction == 1){
 			this.x = x - 220;
-			attackRange=x;
+			attackRange=this.x;
 		}
 		else{
 			this.x = x - 240;
-			attackRange=x;
+			attackRange=this.x;
 		}
 		this.y = 328;
 		try {

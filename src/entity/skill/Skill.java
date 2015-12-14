@@ -5,16 +5,21 @@ import render.Renderable;
 public abstract class Skill implements Renderable {
 
 	protected boolean isPlaying = false;
-	protected int x, y, frameCount, count, frameWidth, frameHeight, attackRange;
+	protected int x, y, frameCount, count, frameWidth, frameHeight, attackRange,direction;
 
 	public abstract void update();
+	
+	public int getDirection(){
+		return direction;
+	}
 	
 	public int getAttackRange(){
 		return attackRange;
 	}
 	
 	public void setX(int x){
-		this.x -= x; 
+		this.x -= x;
+		attackRange=this.x;
 	}
 	
 	public void play() {

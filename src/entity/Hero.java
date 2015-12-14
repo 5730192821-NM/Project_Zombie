@@ -145,32 +145,22 @@ public class Hero extends Moving implements Renderable {
 			//interaction
 			for(int j=0; j<Cage.getInstance().getCage().size() ; j++){
 				Monster m = Cage.getInstance().getCage().get(j);
-				synchronized(Cage.getInstance()){
-				if(i==0 || i==1 || i==3){
-					if((skills[i].getAttackRange()<m.getX()) && (m.getX()<skills[i].getAttackRange()+200)){
+				if(i==0 || i==1){
+					if((skills[i].getAttackRange()-10<m.getX()+50) && (m.getX()<skills[i].getAttackRange()+10)){
 						m.hit(this, skills[i]);
-						if(m.isDead()){
-							Cage.getInstance().remove(i);
-						}
-						System.out.println(m);
 					}
 				} else if(i==2){
-					if((skills[i].getAttackRange()<m.getX()) && (m.getX()<skills[i].getAttackRange()+220)){
+					if(skills[i].getAttackRange()!=-1000 &&(skills[i].getAttackRange()-20<m.getX()+150) && (m.getX()<skills[i].getAttackRange()+100)){
 						m.hit(this, skills[i]);
-						if(m.isDead()){
-							Cage.getInstance().remove(i);
-						}
-						System.out.println(m);
+					}
+				} else if(i==3){
+					if(skills[i].getAttackRange()!=-1000 &&(skills[i].getAttackRange()-5<m.getX()+150) && (m.getX()<skills[i].getAttackRange()+5)){
+						m.hit(this, skills[i]);
 					}
 				} else if(i==4){
-					if((skills[i].getAttackRange()-250<m.getX()) && (m.getX()<skills[i].getAttackRange()+250)){
+					if((skills[i].getAttackRange()<m.getX()+100) && (m.getX()<skills[i].getAttackRange()+450)){
 						m.hit(this, skills[i]);
-						if(m.isDead()){
-							Cage.getInstance().remove(i);
-						}
-						System.out.println(m);
 					}
-				}
 				}
 			}
 			skills[i].update();
@@ -243,6 +233,12 @@ public class Hero extends Moving implements Renderable {
 				}
 			}
 
+		}
+		
+		for(int j=0; j<Cage.getInstance().getCage().size() ; j++){
+			if(Cage.getInstance().getCage().get(j).isDead()){
+				Cage.getInstance().getCage().remove(j);
+			}
 		}
 
 		isRight = false;

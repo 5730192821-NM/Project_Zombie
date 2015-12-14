@@ -26,6 +26,10 @@ public abstract class Monster implements Renderable {
 		this.x -= x;
 	}
 	
+	public int getHp(){
+		return hp;
+	}
+	
 	public int getX(){
 		return x;
 	}
