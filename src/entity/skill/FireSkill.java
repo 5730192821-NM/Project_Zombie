@@ -9,14 +9,10 @@ public class FireSkill extends Skill implements Renderable {
 
 	public FireSkill(int x, int y, int direction) {
 		this.direction=direction;
-		if (direction == 1){
-			this.x = x + 300;
+	
+		this.x = x + 70;
 			attackRange=this.x;
-		}
-		else{
-			this.x = x - 350;
-			attackRange=this.x;
-		}
+		
 		this.y = 350;
 		try {
 			frameWidth = Resource.fire1.getWidth() / 4;

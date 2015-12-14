@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 
 import entity.monster.Cage;
 import entity.monster.Monster;
+import entity.monster.Yeti;
 import entity.skill.*;
 import render.*;
 
@@ -23,6 +24,7 @@ public class Hero extends Moving implements Renderable {
 	private Skill[] skills = new Skill[5];
 	private static Word[] words = new Word[5];
 	private int STR, INT, hp, attack, attackRange = 0;
+	private Monster nearMon;
 
 	// direction 1 : RIGHT direction 2 : LEFT
 
@@ -52,6 +54,8 @@ public class Hero extends Moving implements Renderable {
 		words[2] = new Word("METEOR");
 		words[3] = new Word("POISON");
 		words[4] = new Word("SPIKE");
+
+		nearMon = new Yeti(1000, 1000, land, this);
 	}
 
 	@Override
@@ -182,7 +186,8 @@ public class Hero extends Moving implements Renderable {
 		} else {
 			if ((words[0].getWord().length == InputUtility.getSpell().length())) {
 				if (words[0].cast(InputUtility.getSpell())) {
-					skills[0] = new IceSkill(x, y, direction);
+					skills[0] = new IceSkill(nearMon.getX(), y,
+							nearMon.getDirection());
 					RenderableHolder.getInstance().add(skills[0]);
 					skills[0].play();
 					isSkill = true;
@@ -194,7 +199,8 @@ public class Hero extends Moving implements Renderable {
 			}
 			if ((words[1].getWord().length == InputUtility.getSpell().length())) {
 				if (words[1].cast(InputUtility.getSpell())) {
-					skills[1] = new FireSkill(x, y, direction);
+					skills[1] = new FireSkill(nearMon.getX(), y,
+							nearMon.getDirection());
 					RenderableHolder.getInstance().add(skills[1]);
 					skills[1].play();
 					isSkill = true;
@@ -280,6 +286,14 @@ public class Hero extends Moving implements Renderable {
 								Resource.hero.getHeight()), null, x, y);
 			}
 		}
+
+		for (Monster m : Cage.getInstance().getCage()) {
+			if (this.direction == m.getDirection() && !m.isDead())
+				if (Math.abs(m.getX() + 120 - x) <= Math.abs(nearMon.getX()
+						+ 120 - x))
+					nearMon = m;
+		}
+
 	}
 
 	public int getInt() {

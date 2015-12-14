@@ -6,17 +6,13 @@ import render.Renderable;
 import render.Resource;
 
 public class IceSkill extends Skill implements Renderable {
-	
+
 	public IceSkill(int x, int y, int direction) {
-		this.direction=direction;
-		if (direction == 1){
-			this.x = x + 300;
-			attackRange=this.x;		
-		}
-		else{
-			this.x = x - 350;
-			attackRange=this.x;
-		}
+		this.direction = direction;
+
+		this.x = x + 70;
+		attackRange = this.x;
+
 		this.y = 320;
 		try {
 			frameWidth = Resource.ice1.getWidth() / 7;
@@ -54,5 +50,5 @@ public class IceSkill extends Skill implements Renderable {
 	public boolean isVisible() {
 		return isPlaying;
 	}
-	
+
 }

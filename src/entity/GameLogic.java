@@ -34,8 +34,6 @@ public class GameLogic {
 		this.skillStatus = new SkillStatus();
 		this.pauseButton = new PauseButton();
 
-		Cage.getInstance().add("yeti", this.land, this.hero);
-
 		RenderableHolder.getInstance().add(land);
 		RenderableHolder.getInstance().add(background);
 		RenderableHolder.getInstance().add(hero);
@@ -48,9 +46,9 @@ public class GameLogic {
 
 		// Sleep speed
 		if (InputUtility.getKeyPressed(KeyEvent.VK_1))
-			setSpeed(speed+1);
+			setSpeed(speed + 1);
 		else if (InputUtility.getKeyPressed(KeyEvent.VK_2))
-			setSpeed(speed-1);
+			setSpeed(speed - 1);
 
 		// Pause
 		if (InputUtility.getSpaceTriggered())
@@ -156,12 +154,14 @@ public class GameLogic {
 
 		}
 
-		/*
-		 * if (tick >= 200) { tick = 0;
-		 * 
-		 * // How to summon here; Cage.getInstance().add("golem", this.land,
-		 * this.hero); Cage.getInstance().add("yeti", this.land, this.hero); }
-		 */
+		if (tick >= 500) {
+			tick = 0;
+
+			// How to summon here;
+			Cage.getInstance().add("golem", this.land, this.hero);
+			Cage.getInstance().add("yeti", this.land, this.hero);
+		}
+
 		Cage.getInstance().updateAll();
 		hero.update();
 		background.update();

@@ -11,6 +11,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JComponent;
 
+import entity.Hero;
 import entity.monster.Cage;
 import entity.monster.Monster;
 import entity.skill.Skill;
@@ -75,6 +76,12 @@ public class GameScreen extends JComponent {
 						((Skill) e).getAttackRange(), 300);
 				g.setFont(Resource.biggerFont);
 			}
+			if (e.isVisible() && e instanceof Hero) {
+				g.drawString(((Hero) e).getX() + "",
+						((Hero) e).getX(), 300);
+				g.setFont(Resource.biggerFont);
+			}
+
 
 		}
 	}
