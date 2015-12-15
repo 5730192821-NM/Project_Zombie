@@ -32,7 +32,7 @@ public class GameLogic {
 	private Banner pauseBanner = new Banner();
 	private GameTitle title;
 	
-	private Thread t1;
+	private Thread t1,t2;
 	private BgmControl bgm;
 
 	public GameLogic(GameTitle title) {
@@ -46,9 +46,12 @@ public class GameLogic {
 				this.heroStatus);
 		this.skillStatus = new SkillStatus();
 		
+		
 		bgm = new BgmControl();
 		t1= new Thread(bgm);
 		t1.start();
+		t2 = new Thread(pauseBanner);
+		t2.start();
 
 		RenderableHolder.getInstance().add(land);
 		RenderableHolder.getInstance().add(background);
@@ -56,9 +59,6 @@ public class GameLogic {
 		RenderableHolder.getInstance().add(hero);
 		RenderableHolder.getInstance().add(skillStatus);
 		RenderableHolder.getInstance().add(pauseBanner);
-		
-		pauseBanner.setVisible(!pauseBanner.isVisible);
-		skillStatus.setPause(!skillStatus.isPause());
 	}
 
 	public void update() {
@@ -69,20 +69,23 @@ public class GameLogic {
 			if(!bgm.isPause()){
 				synchronized(bgm){
 					Resource.screenbgm.loop();
-					bgm.setPause(false);
-					bgm.notifyAll();
+					bgm.notify();
 				}
 			}
 		}
 
 		// Pause
-		if (InputUtility.getEscTriggered()) {
-			this.setPause(!isPause);
+		if (InputUtility.getKeyPressed(KeyEvent.VK_ESCAPE)) {
+			InputUtility.setKeyPressed(KeyEvent.VK_ESCAPE, false);
 			pauseBanner.setVisible(!pauseBanner.isVisible);
-			skillStatus.setPause(!skillStatus.isPause());
+			if(pauseBanner.isVisible){
+				synchronized(pauseBanner){
+					RenderableHolder.getInstance().add(pauseBanner);
+					pauseBanner.notify();
+				}
+			}
 		}
-
-		InputUtility.setEscTriggered(false);
+		
 
 		if (this.isPause()) {
 			if (InputUtility.getKeyPressed(KeyEvent.VK_Q)) {
@@ -102,7 +105,7 @@ public class GameLogic {
 		
 		heroStatus.update();
 
-		if (this.isPause())
+		if (pauseBanner.isVisible())
 			return;
 		
 		if (this.hero.isDead()) {
