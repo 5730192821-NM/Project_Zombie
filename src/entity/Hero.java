@@ -19,7 +19,7 @@ public class Hero extends Moving implements Renderable {
 			direction = 1, temp, countSpell = 0, i = 5, countD = 0,
 			frameCountD = 0, tick = 0;
 	private int gravity = 1, velocityY;
-	private boolean isJumped, isDead, isOutOfMana = false;
+	private boolean isJumped, isDead, isOutOfMana = false, isHitting = false;
 	private boolean isRight, isLeft;
 	private boolean isSkill, isCasting;
 	private Land land;
@@ -27,8 +27,9 @@ public class Hero extends Moving implements Renderable {
 	private HeroStatus heroStatus;
 	private Skill[] skills = new Skill[6];
 	private static Word[] words = new Word[5];
-	private int STR, INT,level, hp, attack, mana, manaTick = 0,maxMp,maxHp;
+	private int STR, INT, level, hp, attack, mana, manaTick = 0, maxMp, maxHp;
 	private Monster nearMon;
+	private int notBeHitCount = 0;
 
 	// direction 1 : RIGHT direction 2 : LEFT
 
@@ -46,19 +47,19 @@ public class Hero extends Moving implements Renderable {
 		isCasting = false;
 		isDead = false;
 		this.heroStatus.resetLevel();
-		level=this.heroStatus.getLevel();
+		level = this.heroStatus.getLevel();
 		STR = 10;
 		INT = 10;
 		maxHp = STR * 20;
 		maxMp = INT * 20;
-		hp=maxHp;
-		mana=maxMp;
+		hp = maxHp;
+		mana = maxMp;
 		this.heroStatus.setMaxHp(maxHp);
 		this.heroStatus.setMaxMp(maxMp);
 		this.heroStatus.setCurrentHp(hp);
 		this.heroStatus.setCurrentMp(mana);
 		this.heroStatus.setMaxXp();
-		attack = (int)(INT*1.5);
+		attack = (int) (INT * 1.5);
 
 		skills[0] = new IceSkill(x, y, direction);
 		skills[1] = new FireSkill(x, y, direction);
@@ -78,16 +79,16 @@ public class Hero extends Moving implements Renderable {
 
 	@Override
 	public void update() {
-		
-		if(level != heroStatus.getLevel()){
-			level=heroStatus.getLevel();
-			STR=(int)(10+1.5*level);
-			INT=(int)(10+2.5*level);
+
+		if (level != heroStatus.getLevel()) {
+			level = heroStatus.getLevel();
+			STR = (int) (10 + 1.5 * level);
+			INT = (int) (10 + 2.5 * level);
 			maxHp = STR * 20;
 			maxMp = INT * 20;
-			attack = (int)(INT*1.5);
-			hp=maxHp;
-			mana=maxMp;
+			attack = (int) (INT * 1.5);
+			hp = maxHp;
+			mana = maxMp;
 			heroStatus.setMaxHp(maxHp);
 			heroStatus.setMaxMp(maxMp);
 			heroStatus.setCurrentHp(hp);
@@ -188,8 +189,7 @@ public class Hero extends Moving implements Renderable {
 				background.setX(-2);
 				land.setEnd(false);
 			}
-		}
-		else if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
+		} else if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
 			direction = 1;
 			if (x < 400 || land.isEnd()) {
 				if (x < 720)
@@ -356,14 +356,20 @@ public class Hero extends Moving implements Renderable {
 
 		for (int j = 0; j < Cage.getInstance().getCage().size(); j++) {
 			if (Cage.getInstance().getCage().get(j).isDead()) {
-				heroStatus.addScore(20*Cage.getInstance().getCage().get(j).getLevel());
-				heroStatus.addtXp(20*Cage.getInstance().getCage().get(j).getLevel());
+				heroStatus.addScore(20 * Cage.getInstance().getCage().get(j)
+						.getLevel());
+				heroStatus.addtXp(20 * Cage.getInstance().getCage().get(j)
+						.getLevel());
 				Cage.getInstance().getCage().remove(j);
 			}
 		}
 
 		isRight = false;
 		isLeft = false;
+	}
+
+	public boolean isDead() {
+		return isDead;
 	}
 
 	@Override
@@ -433,15 +439,21 @@ public class Hero extends Moving implements Renderable {
 			g.drawString("OUT OF MANA", x, y - 20);
 		}
 
-		g.setColor(Color.RED);
-		g.setFont(Resource.biggerFont);
-		g.drawString("NearMon X : " + nearMon.getX(), 50, 150);
-		g.drawString("NearMonDirect : " + nearMon.getDirection(), 50, 170);
-		g.drawString("HeroDirection : " + this.direction, 50, 190);
+		if (isHitting) {
+			if (notBeHitCount >= 100) {
+				isHitting = false;
+				notBeHitCount = 0;
+			}
+			notBeHitCount++;
+		}
 
 	}
-	
-	public int getLevel(){
+
+	public Monster getNearMon() {
+		return nearMon;
+	}
+
+	public int getLevel() {
 		return level;
 	}
 
@@ -505,4 +517,18 @@ public class Hero extends Moving implements Renderable {
 		return isRight;
 	}
 
+	public void hit(Monster m) {
+		int i = 1;
+		if (m instanceof Yeti)
+			i++;
+		if (!isHitting) {
+			isHitting = true;
+			if (hp - m.getAttack() * i >= 0)
+				hp -= m.getAttack() * i;
+			else {
+				hp = 0;
+				isDead = true;
+			}
+		}
+	}
 }

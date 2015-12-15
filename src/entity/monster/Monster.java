@@ -27,6 +27,10 @@ public abstract class Monster implements Renderable {
 		return isDead;
 	}
 
+	public int getAttack() {
+		return attack;
+	}
+
 	public void setX(int x) {
 		this.x -= x;
 	}

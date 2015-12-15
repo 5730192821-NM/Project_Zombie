@@ -64,23 +64,11 @@ public class GameScreen extends JComponent {
 		for (Monster m : Cage.getInstance().getCage()) {
 			if (m.isVisible()) {
 				m.draw((Graphics2D) g);
-				g.setFont(Resource.biggerFont);
-				g.drawString(m.getX() + "", m.getX(), 300);
 			}
 		}
 		for (Renderable e : RenderableHolder.getInstance().getRenderableList()) {
 			if (e.isVisible() && e.getZ() >= -1)
 				e.draw((Graphics2D) g);
-			if (e.isVisible() && e instanceof Skill) {
-				g.setFont(Resource.biggerFont);
-				g.drawString(((Skill) e).getAttackRange() + "",
-						((Skill) e).getAttackRange(), 350);
-			}
-			if (e.isVisible() && e instanceof Hero) {
-				g.setFont(Resource.biggerFont);
-				g.drawString(((Hero) e).getX() + "", ((Hero) e).getX(), 360);
-			}
-
 		}
 	}
 }

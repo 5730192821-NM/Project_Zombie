@@ -305,4 +305,12 @@ public class Yeti extends Monster implements Renderable {
 		return 0;
 	}
 
+	public boolean isAttack() {
+		return isAttack;
+	}
+
+	public int getFrameCountAttack() {
+		return frameCountAttack;
+	}
+
 }

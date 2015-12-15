@@ -4,6 +4,8 @@ import java.awt.event.KeyEvent;
 import java.util.List;
 
 import entity.monster.Cage;
+import entity.monster.Golem;
+import entity.monster.Yeti;
 import input.InputUtility;
 import render.Renderable;
 import render.RenderableHolder;
@@ -30,7 +32,8 @@ public class GameLogic {
 		this.land = new Land(0, 0);
 		this.background = new Background(0, 0);
 		this.heroStatus = new HeroStatus();
-		this.hero = new Hero(20, 370, this.land, this.background,this.heroStatus);
+		this.hero = new Hero(20, 370, this.land, this.background,
+				this.heroStatus);
 		this.skillStatus = new SkillStatus();
 		this.pauseButton = new PauseButton();
 
@@ -153,6 +156,17 @@ public class GameLogic {
 			}
 
 		}
+
+		// Hitting Hero
+		if (hero.getNearMon() instanceof Golem
+				&& hero.getNearMon().getX() - 20 <= hero.getX()
+				&& hero.getX() <= hero.getNearMon().getX() + 190)
+			hero.hit(hero.getNearMon());
+		else if (hero.getNearMon() instanceof Yeti
+				&& hero.getNearMon().getX() + 50 <= hero.getX()
+				&& hero.getX() <= hero.getNearMon().getX() + 120
+				&& ((Yeti) hero.getNearMon()).getFrameCountAttack() >= 4)
+			hero.hit(hero.getNearMon());
 
 		if (tick >= 300) {
 			tick = 0;
