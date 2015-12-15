@@ -162,17 +162,25 @@ public class GameLogic {
 				&& hero.getNearMon().getX() - 20 <= hero.getX()
 				&& hero.getX() <= hero.getNearMon().getX() + 190)
 			hero.hit(hero.getNearMon());
+		else if (hero.getNearMon().getDirection() != 1
+				&& hero.getNearMon() instanceof Yeti
+				&& hero.getNearMon().getX() + 80 <= hero.getX()
+				&& hero.getX() <= hero.getNearMon().getX() + 170
+				&& (((Yeti) hero.getNearMon()).getFrameCountAttack() == 4 || ((Yeti) hero
+						.getNearMon()).getFrameCountAttack() == 5))
+			hero.hit(hero.getNearMon());
 		else if (hero.getNearMon() instanceof Yeti
-				&& hero.getNearMon().getX() + 50 <= hero.getX()
-				&& hero.getX() <= hero.getNearMon().getX() + 120
-				&& ((Yeti) hero.getNearMon()).getFrameCountAttack() >= 4)
+				&& hero.getNearMon().getX() - 10 <= hero.getX()
+				&& hero.getX() <= hero.getNearMon().getX() + 115
+				&& (((Yeti) hero.getNearMon()).getFrameCountAttack() == 4 || ((Yeti) hero
+						.getNearMon()).getFrameCountAttack() == 5))
 			hero.hit(hero.getNearMon());
 
-		if (tick >= 300) {
-			tick = 0;
+		if (tick == 300) {
+			//tick = 0;
 
 			// How to summon here;
-			Cage.getInstance().add("golem", this.land, this.hero);
+			// Cage.getInstance().add("golem", this.land, this.hero);
 			Cage.getInstance().add("yeti", this.land, this.hero);
 		}
 
