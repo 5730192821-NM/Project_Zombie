@@ -18,7 +18,7 @@ public class Cage {
 	public void add(String n, Land l, Hero h) {
 		int x = 800;
 		if (((int) (Math.random() * 1000)) % 2 == 0)
-			x = 0;
+			x = -200;
 
 		if (n.equalsIgnoreCase("golem"))
 			cage.add(new Golem(x, 265, l, h));
