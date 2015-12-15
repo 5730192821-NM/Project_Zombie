@@ -2,10 +2,10 @@ package entity;
 
 import java.awt.Graphics2D;
 
-import render.Renderable;
 import render.Resource;
 
-public class Land extends Moving implements Renderable {
+public class Land extends Moving {
+
 	private int xc;
 	private boolean isEnd, isStart;
 

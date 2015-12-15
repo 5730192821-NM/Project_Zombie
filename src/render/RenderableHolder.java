@@ -17,7 +17,6 @@ public class RenderableHolder {
 	public void add(Renderable o) {
 		entities.add(o);
 		Collections.sort(entities, new Comparator<Renderable>() {
-
 			@Override
 			public int compare(Renderable o1, Renderable o2) {
 				return Integer.compare(o1.getZ(), o2.getZ());

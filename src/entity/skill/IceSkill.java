@@ -2,10 +2,9 @@ package entity.skill;
 
 import java.awt.Graphics2D;
 
-import render.Renderable;
 import render.Resource;
 
-public class IceSkill extends Skill implements Renderable {
+public class IceSkill extends Skill {
 
 	public IceSkill(int x, int y, int direction) {
 		this.direction = direction;

@@ -1,6 +1,8 @@
 package entity;
 
-public abstract class Moving {
+import render.Renderable;
+
+public abstract class Moving implements Renderable {
 
 	protected int x;
 	protected int y;
@@ -11,5 +13,5 @@ public abstract class Moving {
 	}
 
 	public abstract void update();
-	
+
 }

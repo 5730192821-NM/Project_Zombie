@@ -2,20 +2,18 @@ package entity.skill;
 
 import java.awt.Graphics2D;
 
-import render.Renderable;
 import render.Resource;
 
-public class SpikeSkill extends Skill implements Renderable {
+public class SpikeSkill extends Skill {
 
 	public SpikeSkill(int x, int y, int direction) {
-		this.direction=direction;
-		if (direction == 1){
+		this.direction = direction;
+		if (direction == 1) {
 			this.x = x - 220;
-			attackRange=this.x;
-		}
-		else{
+			attackRange = this.x;
+		} else {
 			this.x = x - 240;
-			attackRange=this.x;
+			attackRange = this.x;
 		}
 		this.y = 328;
 		try {
@@ -30,7 +28,7 @@ public class SpikeSkill extends Skill implements Renderable {
 	@Override
 	public void update() {
 		if (isPlaying) {
-			if(count==0 && frameCount==0){
+			if (count == 0 && frameCount == 0) {
 				Resource.spikeskill.play();
 			}
 			if (count == 8) {

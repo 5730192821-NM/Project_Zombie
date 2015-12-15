@@ -7,7 +7,7 @@ import render.Renderable;
 import render.RenderableHolder;
 import render.Resource;
 
-public class Banner implements Renderable,Runnable {
+public class Banner implements Renderable, Runnable {
 
 	public boolean isVisible = false;
 
@@ -20,19 +20,21 @@ public class Banner implements Renderable,Runnable {
 		g.drawImage(Resource.banner, null, 200, 120);
 		g.setFont(Resource.wordFont);
 		g.setColor(new Color(51, 25, 0));
-		g.drawString("PAUSE", 330, 180);
+		g.drawString("PAUSE", 330, 170);
 		g.setFont(Resource.skillFont);
 		g.drawString("SKILL", 350, 300);
 		g.setFont(Resource.pauseFont);
-		g.drawString("press 'Q' : exit to MainMenu ", 260, 220);
-		g.drawString("press 'esc' : unpause ", 290, 250);
+		g.drawString("press 'Q' : Exit to MainMenu ", 270, 200);
+		g.drawString("press 'H' : to show LeaderBoard ", 270, 220);
+		g.drawString("press 'X' : to Mute/Unmute BGM", 270, 240);
+		g.drawString("press 'esc' : Pause/Unpause ", 270, 260);
 		g.drawString("-SingleTarget-", 240, 330);
-		g.drawString("F : fire", 280, 360);
-		g.drawString("I : ice", 280, 380);
+		g.drawString("F : fire", 280, 355);
+		g.drawString("I : ice", 280, 375);
 		g.drawString("-MultiTarget-", 430, 330);
-		g.drawString("M : meteor", 445, 360);
-		g.drawString("P : poison", 450, 380);
-		g.drawString("S : spike", 450, 400);
+		g.drawString("M : meteor", 445, 355);
+		g.drawString("P : poison", 450, 375);
+		g.drawString("S : spike", 450, 395);
 
 	}
 
@@ -51,15 +53,15 @@ public class Banner implements Renderable,Runnable {
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		while(true){
+		while (true) {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			if(!isVisible){
-				synchronized(this){
+			if (!isVisible) {
+				synchronized (this) {
 					try {
 						RenderableHolder.getInstance().remove(this);
 						this.wait();

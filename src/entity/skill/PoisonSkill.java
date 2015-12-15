@@ -2,10 +2,9 @@ package entity.skill;
 
 import java.awt.Graphics2D;
 
-import render.Renderable;
 import render.Resource;
 
-public class PoisonSkill extends Skill implements Renderable {
+public class PoisonSkill extends Skill {
 
 	public PoisonSkill(int x, int y, int direction) {
 		this.direction = direction;

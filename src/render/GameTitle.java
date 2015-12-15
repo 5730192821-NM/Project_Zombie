@@ -15,13 +15,12 @@ import javax.swing.JPanel;
 
 public class GameTitle extends JPanel {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+	
 	private boolean isTitle = true;
 	private boolean swap = false;
 	private int tick = 0;
+	private boolean stop = false;
 
 	private int R = 255, G = 255, B = 255;
 	private JLabel start = new JLabel("", JLabel.CENTER);
@@ -66,7 +65,7 @@ public class GameTitle extends JPanel {
 	public void update() {
 		if (!isTitle())
 			return;
-
+		
 		R -= 10;
 		G -= 10;
 		B -= 10;
@@ -78,13 +77,15 @@ public class GameTitle extends JPanel {
 			B = 255;
 		}
 
-		tick++;
+		if (!stop)
+			tick++;
 		if (tick <= 100) {
 			InputUtility.reset();
 			return;
-		} else
+		} else if (!stop) {
+			stop = true;
 			start.setText("Press 'Any Key' to Start");
-
+		}
 		for (int i = 0; i < 255; i++) {
 			if (InputUtility.getKeyPressed(i)) {
 				setTitle(false);

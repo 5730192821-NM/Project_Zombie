@@ -30,17 +30,16 @@ public class SkillStatus implements Renderable {
 		g.drawImage(Resource.pauseBox, null, 700, -20);
 		g.setFont(Resource.pauseFont);
 		g.setColor(new Color(51, 25, 0));
-		g.drawString("- ESC -", 715, 20);
+		g.drawString(" - ESC -", 715, 20);
 
 		for (int i = 0; i < 5; i++) {
 			g.drawImage(Resource.skillBoxBG, null, 252 + (i * 85), 20);
 		}
-		
 
-			AffineTransform backup = g.getTransform();
-			AffineTransform trans = new AffineTransform();
-			System.out.println(isPause);
-			if (!isPause) {
+		AffineTransform backup = g.getTransform();
+		AffineTransform trans = new AffineTransform();
+
+		if (!isPause) {
 			if (fCasting) {
 				fAngle += Math.toRadians(15);
 				while (fAngle > 2 * Math.PI)
@@ -67,24 +66,24 @@ public class SkillStatus implements Renderable {
 					sAngle -= 2 * Math.PI;
 				trans.rotate(sAngle, 630, 37);
 			}
-			}
+		}
 
-			for (int i = 0; i < 5; i++) {
-				if (i == 0) {
-					g.transform(trans);
-					if (fCasting)
-						g.drawImage(Resource.fireStatus, null, 265, 12);
-					else if (iCasting)
-						g.drawImage(Resource.iceStatus, null, 350, 12);
-					else if (mCasting)
-						g.drawImage(Resource.meteorStatus, null, 435, 12);
-					else if (pCasting)
-						g.drawImage(Resource.poisonStatus, null, 520, 12);
-					else if (sCasting)
-						g.drawImage(Resource.spikeStatus, null, 605, 12);
-				}
-				g.setTransform(backup);
+		for (int i = 0; i < 5; i++) {
+			if (i == 0) {
+				g.transform(trans);
+				if (fCasting)
+					g.drawImage(Resource.fireStatus, null, 265, 12);
+				else if (iCasting)
+					g.drawImage(Resource.iceStatus, null, 350, 12);
+				else if (mCasting)
+					g.drawImage(Resource.meteorStatus, null, 435, 12);
+				else if (pCasting)
+					g.drawImage(Resource.poisonStatus, null, 520, 12);
+				else if (sCasting)
+					g.drawImage(Resource.spikeStatus, null, 605, 12);
 			}
+			g.setTransform(backup);
+		}
 		if (!fCasting)
 			g.drawImage(Resource.fireStatus, null, 265, 12);
 		if (!iCasting)

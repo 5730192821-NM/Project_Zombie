@@ -2,22 +2,20 @@ package entity.skill;
 
 import java.awt.Graphics2D;
 
-import render.Renderable;
 import render.Resource;
 
-public class MeteorSkill extends Skill implements Renderable {
+public class MeteorSkill extends Skill {
 
 	private int frameCountX, frameCountY;
 
 	public MeteorSkill(int x, int y, int direction) {
 		this.direction = direction;
-		if (direction == 1){
+		if (direction == 1) {
 			this.x = x + 50;
-			attackRange=-1000;
-		}
-		else {
+			attackRange = -1000;
+		} else {
 			this.x = x - 100;
-			attackRange=-1000;
+			attackRange = -1000;
 		}
 		this.y = 305;
 		try {
@@ -32,7 +30,7 @@ public class MeteorSkill extends Skill implements Renderable {
 	@Override
 	public void update() {
 		if (isPlaying) {
-			if(count==1 && frameCountX==2 && frameCountY==0){
+			if (count == 1 && frameCountX == 2 && frameCountY == 0) {
 				Resource.meteorskill2.play();
 			}
 			if (count == 8) {
@@ -45,20 +43,19 @@ public class MeteorSkill extends Skill implements Renderable {
 					frameCountX = 0;
 					frameCountY++;
 					Resource.meteorskill.play();
-					if (direction == 1){
+					if (direction == 1) {
 						x += 250;
-						attackRange=this.x;
-					}
-					else {
+						attackRange = this.x;
+					} else {
 						x -= 200;
-						attackRange=this.x;
+						attackRange = this.x;
 					}
 				}
 			}
 			count++;
 		}
 	}
-	
+
 	@Override
 	public void play() {
 		isPlaying = true;
@@ -90,7 +87,7 @@ public class MeteorSkill extends Skill implements Renderable {
 						frameWidth, frameHeight), null, x, y);
 		}
 	}
-	
+
 	@Override
 	public boolean isVisible() {
 		return isPlaying;

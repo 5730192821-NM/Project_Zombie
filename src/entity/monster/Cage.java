@@ -41,7 +41,6 @@ public class Cage {
 		cage.clear();
 	}
 
-
 	public List<Monster> getCage() {
 		return cage;
 	}

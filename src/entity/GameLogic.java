@@ -3,8 +3,6 @@ package entity;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
-import javax.swing.JOptionPane;
-
 import entity.monster.Cage;
 import entity.monster.Golem;
 import entity.monster.Yeti;
@@ -31,8 +29,8 @@ public class GameLogic {
 	private final int speed = 20;
 	private Banner pauseBanner = new Banner();
 	private GameTitle title;
-	
-	private Thread t1,t2;
+
+	private Thread t1, t2;
 	private BgmControl bgm;
 
 	public GameLogic(GameTitle title) {
@@ -45,10 +43,9 @@ public class GameLogic {
 		this.hero = new Hero(20, 370, this.land, this.background,
 				this.heroStatus);
 		this.skillStatus = new SkillStatus();
-		
-		
+
 		bgm = new BgmControl();
-		t1= new Thread(bgm);
+		t1 = new Thread(bgm);
 		t1.start();
 		t2 = new Thread(pauseBanner);
 		t2.start();
@@ -59,32 +56,31 @@ public class GameLogic {
 		RenderableHolder.getInstance().add(hero);
 		RenderableHolder.getInstance().add(skillStatus);
 		RenderableHolder.getInstance().add(pauseBanner);
+		
+		//Initialize Pause
+		skillStatus.setPause(!skillStatus.isPause());
+		pauseBanner.setVisible(!pauseBanner.isVisible);
+		if (pauseBanner.isVisible) {
+			synchronized (pauseBanner) {
+				pauseBanner.notifyAll();
+			}
+		}
+		heroStatus.update();
 	}
 
 	public void update() {
-		
-		if(InputUtility.getKeyPressed(KeyEvent.VK_5)){
-			InputUtility.setKeyPressed(KeyEvent.VK_5,false);
-			bgm.setPause(!bgm.isPause());
-			if(!bgm.isPause()){
-				synchronized(bgm){
-					bgm.notifyAll();
-				}
-			}
-		}
 
 		// Pause
 		if (InputUtility.getKeyPressed(KeyEvent.VK_ESCAPE)) {
 			InputUtility.setKeyPressed(KeyEvent.VK_ESCAPE, false);
 			skillStatus.setPause(!skillStatus.isPause());
 			pauseBanner.setVisible(!pauseBanner.isVisible);
-			if(pauseBanner.isVisible){
-				synchronized(pauseBanner){
+			if (pauseBanner.isVisible) {
+				synchronized (pauseBanner) {
 					pauseBanner.notifyAll();
 				}
 			}
 		}
-		
 
 		if (pauseBanner.isVisible()) {
 			if (InputUtility.getKeyPressed(KeyEvent.VK_Q)) {
@@ -98,21 +94,28 @@ public class GameLogic {
 				skillStatus.setPause(!skillStatus.isPause());
 				RenderableHolder.getInstance().removeAll();
 				Cage.getInstance().removeAll();
+			} else if (InputUtility.getKeyPressed(KeyEvent.VK_H)) {
+				InputUtility.setKeyPressed(KeyEvent.VK_H, false);
+				HighScoreUtility.displayTop10();
+			} else if (InputUtility.getKeyPressed(KeyEvent.VK_X)) {
+				InputUtility.setKeyPressed(KeyEvent.VK_X, false);
+				bgm.setPause(!bgm.isPause());
+				if (!bgm.isPause()) {
+					synchronized (bgm) {
+						bgm.notifyAll();
+					}
+				}
 			}
 		}
 
-		if (pauseBanner.isVisible()){
+		if (pauseBanner.isVisible()) {
 			skillStatus.setPause(true);
 			return;
 		}
-		
-		heroStatus.update();
-		
+
 		if (this.hero.isDead()) {
-			String name = JOptionPane.showInputDialog(null,
-					"Ez .. Game Over!! \nYou got " + this.heroStatus.getScore() 
-							+ " points" + "\nPlease enter your name", "Game Over (Dead)",
-					JOptionPane.INFORMATION_MESSAGE);
+			HighScoreUtility.recordHighScore(this.heroStatus.getScore());
+			HighScoreUtility.displayTop10();
 			InputUtility.reset();
 			title.setTitle(true);
 			title.setSwap(true);
@@ -124,7 +127,7 @@ public class GameLogic {
 			RenderableHolder.getInstance().removeAll();
 			Cage.getInstance().removeAll();
 		}
-		
+
 		if (InputUtility.getSpell() != "") {
 			if (InputUtility.getSpell().length() > 6
 					|| ("IFMPS").indexOf(InputUtility.getSpell()
@@ -264,6 +267,7 @@ public class GameLogic {
 		}
 
 		Cage.getInstance().updateAll();
+		heroStatus.update();
 		hero.update();
 		background.update();
 		land.update();

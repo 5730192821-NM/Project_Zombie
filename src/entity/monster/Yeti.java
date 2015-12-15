@@ -14,10 +14,9 @@ import entity.skill.MeteorSkill;
 import entity.skill.PoisonSkill;
 import entity.skill.Skill;
 import entity.skill.SpikeSkill;
-import render.Renderable;
 import render.Resource;
 
-public class Yeti extends Monster implements Renderable {
+public class Yeti extends Monster {
 
 	private int countAttack = 0, frameCountAttack = 0, attackDirection,
 			speedDecrease = 0;
@@ -62,7 +61,7 @@ public class Yeti extends Monster implements Renderable {
 		}
 
 		// Debuff
-		debuffDamgage();
+		debuffDamage();
 	}
 	
 	public void deadAnimation(){
@@ -130,7 +129,7 @@ public class Yeti extends Monster implements Renderable {
 			setX(5);
 	}
 
-	public void debuffDamgage() {
+	public void debuffDamage() {
 		if (debuff[0] != 0) {
 			if (countDebuff[0] == 40) {
 				countDebuff[0] = 0;

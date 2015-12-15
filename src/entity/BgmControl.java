@@ -1,9 +1,6 @@
 package entity;
 
-import java.awt.event.KeyEvent;
-
 import render.Resource;
-import input.InputUtility;
 
 public class BgmControl implements Runnable {
 
@@ -11,15 +8,12 @@ public class BgmControl implements Runnable {
 
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
 		while (true) {
 			try {
 				Thread.sleep(10);
 			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-			//System.out.println(isPause + " " +InputUtility.getKeyPressed(KeyEvent.VK_5));
 			if (isPause) {
 				synchronized (this) {
 					try {
@@ -27,10 +21,9 @@ public class BgmControl implements Runnable {
 						this.wait();
 						Resource.screenbgm.loop();
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
+
 				}
 			}
 		}

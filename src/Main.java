@@ -11,7 +11,7 @@ public class Main {
 		GameScreen screen = new GameScreen();
 		GameTitle title = new GameTitle("Now Loading ...");
 		GameLogic logic = new GameLogic(title);
-		
+
 		f.add(title);
 		f.pack();
 		f.setResizable(false);
@@ -31,16 +31,15 @@ public class Main {
 				f.revalidate();
 				screen.requestFocus();
 				title.setSwap(false);
-					if (title.isTitle()) {
-						title = new GameTitle("Now Refreshing ...");
-						f.setContentPane(title);
-						f.revalidate();
-						title.requestFocus();
-						title.setSwap(false);
-						logic = new GameLogic(title);
-					}
+				if (title.isTitle()) {
+					title = new GameTitle("Now Refreshing ...");
+					f.setContentPane(title);
+					f.revalidate();
+					title.requestFocus();
+					title.setSwap(false);
+					logic = new GameLogic(title);
+				}
 			}
-			
 			if (!(title.isTitle())) {
 				logic.update();
 				screen.repaint();

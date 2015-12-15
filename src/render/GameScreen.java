@@ -16,9 +16,6 @@ import entity.monster.Monster;
 
 public class GameScreen extends JComponent {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	public GameScreen() {
@@ -69,4 +66,5 @@ public class GameScreen extends JComponent {
 				e.draw((Graphics2D) g);
 		}
 	}
+	
 }

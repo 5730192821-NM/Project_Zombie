@@ -13,11 +13,10 @@ import entity.skill.*;
 import render.*;
 import ui.HeroStatus;
 
-public class Hero extends Moving implements Renderable {
+public class Hero extends Moving {
 
 	private int frameCount = 0, count = 0, countA = 0, frameCountA = 0,
-			direction = 1, temp, i = 5, countD = 0,
-			frameCountD = 0, tick = 0;
+			direction = 1, temp, i = 5, countD = 0, frameCountD = 0, tick = 0;
 	private int gravity = 1, velocityY;
 	private boolean isJumped, isDead, isOutOfMana = false, isHitting = false;
 	private boolean isRight, isLeft, isStop;
@@ -127,27 +126,27 @@ public class Hero extends Moving implements Renderable {
 			checkCastingSkill();
 		}
 
-		//check and remove dead monster
+		// check and remove dead monster
 		removeMonster();
 
 		isRight = false;
 		isLeft = false;
 	}
-	
-	public void removeMonster(){
+
+	public void removeMonster() {
 		for (int j = 0; j < Cage.getInstance().getCage().size(); j++) {
 			if (Cage.getInstance().getCage().get(j).isDead()) {
 				heroStatus.addScore(20 * Cage.getInstance().getCage().get(j)
 						.getLevel());
-				heroStatus.addtXp(20 * Cage.getInstance().getCage().get(j)
+				heroStatus.addXp(20 * Cage.getInstance().getCage().get(j)
 						.getLevel());
 				Resource.score.play();
 				Cage.getInstance().getCage().remove(j);
 			}
 		}
 	}
-	
-	public void checkCastingSkill(){
+
+	public void checkCastingSkill() {
 		if ((words[0].getWord().length == InputUtility.getSpell().length())) {
 			if (words[0].cast(InputUtility.getSpell())) {
 				if (mana >= 10) {
@@ -241,8 +240,8 @@ public class Hero extends Moving implements Renderable {
 			}
 		}
 	}
-	
-	public void castingSkill(){
+
+	public void castingSkill() {
 		if (x >= 400 && isRight) {
 			skills[i].setX(5);
 		} else if (x <= 200 && isLeft) {
@@ -293,8 +292,8 @@ public class Hero extends Moving implements Renderable {
 			i = 5;
 		}
 	}
-	
-	public void walkLeft(){
+
+	public void walkLeft() {
 		direction = 2;
 		if (x > 200 || land.isStart()) {
 			if (x + 20 > 0)
@@ -305,8 +304,8 @@ public class Hero extends Moving implements Renderable {
 			land.setEnd(false);
 		}
 	}
-	
-	public void walkRight(){
+
+	public void walkRight() {
 		direction = 1;
 		if (x < 400 || land.isEnd()) {
 			if (x < 720)
@@ -317,8 +316,8 @@ public class Hero extends Moving implements Renderable {
 			land.setStart(false);
 		}
 	}
-	
-	public void jump(){
+
+	public void jump() {
 		if (InputUtility.getKeyPressed(KeyEvent.VK_UP)) {
 			if (!isJumped) {
 				isJumped = true;
@@ -336,8 +335,8 @@ public class Hero extends Moving implements Renderable {
 			}
 		}
 	}
-	
-	public void idleAnimation(){
+
+	public void idleAnimation() {
 		if (count == 10) {
 			count = 0;
 			frameCount++;
@@ -345,8 +344,8 @@ public class Hero extends Moving implements Renderable {
 		}
 		count++;
 	}
-	
-	public void idleSpellAnimation(){
+
+	public void idleSpellAnimation() {
 		if (countA == 8) {
 			countA = 0;
 			frameCountA++;
@@ -563,13 +562,13 @@ public class Hero extends Moving implements Renderable {
 			}
 		}
 	}
-	
-	public boolean getStop(){
+
+	public boolean getStop() {
 		return isStop;
 	}
-	
-	public void setStop(boolean isStop){
-		this.isStop=isStop;
+
+	public void setStop(boolean isStop) {
+		this.isStop = isStop;
 	}
-	
+
 }

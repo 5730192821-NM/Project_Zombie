@@ -14,10 +14,9 @@ import entity.skill.MeteorSkill;
 import entity.skill.PoisonSkill;
 import entity.skill.Skill;
 import entity.skill.SpikeSkill;
-import render.Renderable;
 import render.Resource;
 
-public class Golem extends Monster implements Renderable {
+public class Golem extends Monster {
 
 	public Golem(int x, int y, Land land, Hero hero) {
 		this.x = x;
@@ -95,14 +94,14 @@ public class Golem extends Monster implements Renderable {
 	}
 
 	public void walkRight() {
-		if (!(hero.getX() < 400 || land.isEnd())){
+		if (!(hero.getX() < 400 || land.isEnd())) {
 			setX(5);
 			hero.setRight(true);
 		}
 	}
 
 	public void walkLeft() {
-		if (!(hero.getX() > 200 || land.isStart())){
+		if (!(hero.getX() > 200 || land.isStart())) {
 			setX(-5);
 			hero.setLeft(true);
 		}

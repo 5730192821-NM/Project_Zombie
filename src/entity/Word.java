@@ -19,9 +19,8 @@ public class Word implements Renderable {
 		press = new boolean[s.length()];
 		press[0] = true;
 
-		for (int i = 0; i < s.length(); i++) {
+		for (int i = 0; i < s.length(); i++)
 			words[i] = s.substring(i, i + 1);
-		}
 
 		if (s.length() % 2 == 1) {
 			x[((s.length() + 1) / 2) - 1] = 0;
@@ -53,7 +52,7 @@ public class Word implements Renderable {
 					g.setColor(new Color(153, 51, 255));
 				else if (words[0].equalsIgnoreCase("P"))
 					g.setColor(new Color(0, 255, 128));
-				else 
+				else
 					g.setColor(new Color(255, 255, 51));
 			} else
 				g.setColor(Color.lightGray);

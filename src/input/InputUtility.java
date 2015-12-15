@@ -3,10 +3,9 @@ package input;
 public class InputUtility {
 
 	private static boolean[] keyPressed = new boolean[256];
-	private static String spell = "";
-	
 	private static boolean escTriggered = false;
 	private static boolean escPressed = false;
+	private static String spell = "";
 
 	public static boolean getKeyPressed(int key) {
 		if (key < 0 || key > 255)
@@ -31,21 +30,24 @@ public class InputUtility {
 	public static void clearSpell() {
 		spell = "";
 	}
-	
+
 	public static boolean getEscTriggered() {
 		return escTriggered;
 	}
+
 	public static void setEscTriggered(boolean x) {
 		escTriggered = x;
 	}
+
 	public static boolean getEscPressed() {
 		return escPressed;
 	}
+
 	public static void setEscPressed(boolean x) {
 		escPressed = x;
 	}
-	
-	public static void reset () {
+
+	public static void reset() {
 		keyPressed = new boolean[256];
 	}
 

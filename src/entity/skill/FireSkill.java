@@ -2,10 +2,9 @@ package entity.skill;
 
 import java.awt.Graphics2D;
 
-import render.Renderable;
 import render.Resource;
 
-public class FireSkill extends Skill implements Renderable {
+public class FireSkill extends Skill {
 
 	public FireSkill(int x, int y, int direction) {
 		this.direction=direction;

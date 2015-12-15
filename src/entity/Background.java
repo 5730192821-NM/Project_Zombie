@@ -6,6 +6,7 @@ import render.Renderable;
 import render.Resource;
 
 public class Background extends Moving implements Renderable {
+	
 	private int xc;
 	private boolean isEnd, isStart;
 
