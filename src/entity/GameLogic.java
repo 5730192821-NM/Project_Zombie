@@ -262,7 +262,6 @@ public class GameLogic {
 		}
 
 		Cage.getInstance().updateAll();
-		heroStatus.update();
 		hero.update();
 		background.update();
 		land.update();

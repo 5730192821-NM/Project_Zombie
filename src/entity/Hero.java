@@ -29,6 +29,7 @@ public class Hero extends Moving {
 	private int STR, INT, level, hp, attack, mana, manaTick = 0, maxMp, maxHp;
 	private Monster nearMon;
 	private int notBeHitCount = 0;
+	private boolean visible = true;
 
 	// direction 1 : RIGHT direction 2 : LEFT
 
@@ -109,21 +110,35 @@ public class Hero extends Moving {
 			idleAnimation();
 		}
 
-		// Jump
-		jump();
-
-		// Moving
-		if (InputUtility.getKeyPressed(KeyEvent.VK_LEFT)) {
-			walkLeft();
-		} else if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
-			walkRight();
+		// Invisible Phase
+		if (isHitting && hp > 0) {
+			if (notBeHitCount % 6 == 0)
+				this.visible = !this.visible;
+			if (notBeHitCount >= 100) {
+				this.visible = true;
+				isHitting = false;
+				notBeHitCount = 0;
+			}
+			notBeHitCount++;
 		}
+		if (hp > 0) {
 
-		// Casting Skill
-		if (isSkill) {
-			castingSkill();
-		} else {
-			checkCastingSkill();
+			// Jump
+			jump();
+
+			// Moving
+			if (InputUtility.getKeyPressed(KeyEvent.VK_LEFT)) {
+				walkLeft();
+			} else if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
+				walkRight();
+			}
+
+			// Casting Skill
+			if (isSkill) {
+				castingSkill();
+			} else {
+				checkCastingSkill();
+			}
 		}
 
 		// check and remove dead monster
@@ -470,14 +485,6 @@ public class Hero extends Moving {
 			g.drawString("OUT OF MANA", x, y - 20);
 		}
 
-		if (isHitting) {
-			if (notBeHitCount >= 100) {
-				isHitting = false;
-				notBeHitCount = 0;
-			}
-			notBeHitCount++;
-		}
-
 	}
 
 	public Monster getNearMon() {
@@ -536,7 +543,7 @@ public class Hero extends Moving {
 
 	@Override
 	public boolean isVisible() {
-		return !isDead;
+		return !isDead && visible;
 	}
 
 	@Override
