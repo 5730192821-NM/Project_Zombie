@@ -41,6 +41,7 @@ public class MeteorSkill extends Skill implements Renderable {
 				if (frameCountX == 7) {
 					frameCountX = 0;
 					frameCountY++;
+					Resource.meteorskill.play();
 					if (direction == 1){
 						x += 250;
 						attackRange=this.x;

@@ -30,6 +30,9 @@ public class PoisonSkill extends Skill implements Renderable {
 	@Override
 	public void update() {
 		if (isPlaying) {
+			if(count==0 && frameCount==0){
+				Resource.poisonskill.play();
+			}
 			if (count == 10) {
 				count = 0;
 				frameCount++;

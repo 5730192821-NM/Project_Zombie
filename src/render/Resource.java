@@ -1,7 +1,10 @@
 package render;
 
+import java.applet.Applet;
+import java.applet.AudioClip;
 import java.awt.Font;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
@@ -73,11 +76,32 @@ public class Resource {
 		try {
 			ClassLoader loader = Resource.class.getClassLoader();
 			b = ImageIO.read(loader.getResource(directory));
-		} catch (Exception e) {
+		} catch (IOException e) {
 			e.printStackTrace();
 			return null;
 		}
 		return b;
+	}
+	
+	public static AudioClip hit = getSound("res/sound/hitted.wav");
+	public static AudioClip jump = getSound("res/sound/jump.wav");
+	public static AudioClip levelup = getSound("res/sound/levelup.wav");
+	public static AudioClip score = getSound("res/sound/score.wav");
+	public static AudioClip iceskill = getSound("res/sound/iceskill.wav");
+	public static AudioClip meteorskill = getSound("res/sound/meteorskill.wav");
+	public static AudioClip fireskill = getSound("res/sound/fireskill.wav");
+	public static AudioClip poisonskill = getSound("res/sound/poisonskill.wav");
+	
+	static AudioClip getSound(String directory){
+		AudioClip a;
+		try {
+			ClassLoader loader = Resource.class.getClassLoader();
+			a = Applet.newAudioClip(loader.getResource(directory));
+		} catch(Exception e){
+			e.printStackTrace();
+			return null;
+		}
+		return a;
 	}
 	
 }
