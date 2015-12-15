@@ -68,8 +68,7 @@ public class GameLogic {
 			bgm.setPause(!bgm.isPause());
 			if(!bgm.isPause()){
 				synchronized(bgm){
-					Resource.screenbgm.loop();
-					bgm.notify();
+					bgm.notifyAll();
 				}
 			}
 		}
@@ -77,17 +76,17 @@ public class GameLogic {
 		// Pause
 		if (InputUtility.getKeyPressed(KeyEvent.VK_ESCAPE)) {
 			InputUtility.setKeyPressed(KeyEvent.VK_ESCAPE, false);
+			skillStatus.setPause(!skillStatus.isPause());
 			pauseBanner.setVisible(!pauseBanner.isVisible);
 			if(pauseBanner.isVisible){
 				synchronized(pauseBanner){
-					RenderableHolder.getInstance().add(pauseBanner);
-					pauseBanner.notify();
+					pauseBanner.notifyAll();
 				}
 			}
 		}
 		
 
-		if (this.isPause()) {
+		if (pauseBanner.isVisible()) {
 			if (InputUtility.getKeyPressed(KeyEvent.VK_Q)) {
 				InputUtility.reset();
 				title.setTitle(true);
@@ -99,14 +98,15 @@ public class GameLogic {
 				skillStatus.setPause(!skillStatus.isPause());
 				RenderableHolder.getInstance().removeAll();
 				Cage.getInstance().removeAll();
-				
 			}
+		}
+
+		if (pauseBanner.isVisible()){
+			skillStatus.setPause(true);
+			return;
 		}
 		
 		heroStatus.update();
-
-		if (pauseBanner.isVisible())
-			return;
 		
 		if (this.hero.isDead()) {
 			String name = JOptionPane.showInputDialog(null,

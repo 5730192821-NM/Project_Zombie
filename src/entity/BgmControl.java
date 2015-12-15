@@ -13,16 +13,24 @@ public class BgmControl implements Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		while (true) {
-			System.out.println(isPause + " " +InputUtility.getKeyPressed(KeyEvent.VK_5));
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			//System.out.println(isPause + " " +InputUtility.getKeyPressed(KeyEvent.VK_5));
 			if (isPause) {
 				synchronized (this) {
 					try {
 						Resource.screenbgm.stop();
 						this.wait();
+						Resource.screenbgm.loop();
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					
 				}
 			}
 		}

@@ -26,14 +26,6 @@ public class SkillStatus implements Renderable {
 	@Override
 	public void draw(Graphics2D g) {
 
-		if (isPause) {
-			fCasting = false;
-			iCasting = false;
-			mCasting = false;
-			pCasting = false;
-			sCasting = false;
-		}
-
 		g.drawImage(Resource.skillBoard, null, 215, -10);
 		g.drawImage(Resource.pauseBox, null, 700, -20);
 		g.setFont(Resource.pauseFont);
@@ -43,63 +35,67 @@ public class SkillStatus implements Renderable {
 		for (int i = 0; i < 5; i++) {
 			g.drawImage(Resource.skillBoxBG, null, 252 + (i * 85), 20);
 		}
+		
 
-		AffineTransform backup = g.getTransform();
-		AffineTransform trans = new AffineTransform();
-
-		if (fCasting) {
-			fAngle += Math.toRadians(15);
-			while (fAngle > 2 * Math.PI)
-				fAngle -= 2 * Math.PI;
-			trans.rotate(fAngle, 290, 37);
-		} else if (iCasting) {
-			iAngle += Math.toRadians(15);
-			while (iAngle > 2 * Math.PI)
-				iAngle -= 2 * Math.PI;
-			trans.rotate(iAngle, 375, 37);
-		} else if (mCasting) {
-			mAngle += Math.toRadians(15);
-			while (mAngle > 2 * Math.PI)
-				mAngle -= 2 * Math.PI;
-			trans.rotate(mAngle, 460, 37);
-		} else if (pCasting) {
-			pAngle += Math.toRadians(15);
-			while (pAngle > 2 * Math.PI)
-				pAngle -= 2 * Math.PI;
-			trans.rotate(pAngle, 545, 37);
-		} else if (sCasting) {
-			sAngle += Math.toRadians(15);
-			while (sAngle > 2 * Math.PI)
-				sAngle -= 2 * Math.PI;
-			trans.rotate(sAngle, 630, 37);
-		}
-
-		for (int i = 0; i < 5; i++) {
-			if (i == 0) {
-				g.transform(trans);
-				if (fCasting)
-					g.drawImage(Resource.fireStatus, null, 265, 12);
-				else if (iCasting)
-					g.drawImage(Resource.iceStatus, null, 350, 12);
-				else if (mCasting)
-					g.drawImage(Resource.meteorStatus, null, 435, 12);
-				else if (pCasting)
-					g.drawImage(Resource.poisonStatus, null, 520, 12);
-				else if (sCasting)
-					g.drawImage(Resource.spikeStatus, null, 605, 12);
+			AffineTransform backup = g.getTransform();
+			AffineTransform trans = new AffineTransform();
+			System.out.println(isPause);
+			if (!isPause) {
+			if (fCasting) {
+				fAngle += Math.toRadians(15);
+				while (fAngle > 2 * Math.PI)
+					fAngle -= 2 * Math.PI;
+				trans.rotate(fAngle, 290, 37);
+			} else if (iCasting) {
+				iAngle += Math.toRadians(15);
+				while (iAngle > 2 * Math.PI)
+					iAngle -= 2 * Math.PI;
+				trans.rotate(iAngle, 375, 37);
+			} else if (mCasting) {
+				mAngle += Math.toRadians(15);
+				while (mAngle > 2 * Math.PI)
+					mAngle -= 2 * Math.PI;
+				trans.rotate(mAngle, 460, 37);
+			} else if (pCasting) {
+				pAngle += Math.toRadians(15);
+				while (pAngle > 2 * Math.PI)
+					pAngle -= 2 * Math.PI;
+				trans.rotate(pAngle, 545, 37);
+			} else if (sCasting) {
+				sAngle += Math.toRadians(15);
+				while (sAngle > 2 * Math.PI)
+					sAngle -= 2 * Math.PI;
+				trans.rotate(sAngle, 630, 37);
 			}
-			g.setTransform(backup);
-			if (!fCasting)
-				g.drawImage(Resource.fireStatus, null, 265, 12);
-			if (!iCasting)
-				g.drawImage(Resource.iceStatus, null, 350, 12);
-			if (!mCasting)
-				g.drawImage(Resource.meteorStatus, null, 435, 12);
-			if (!pCasting)
-				g.drawImage(Resource.poisonStatus, null, 520, 12);
-			if (!sCasting)
-				g.drawImage(Resource.spikeStatus, null, 605, 12);
-		}
+			}
+
+			for (int i = 0; i < 5; i++) {
+				if (i == 0) {
+					g.transform(trans);
+					if (fCasting)
+						g.drawImage(Resource.fireStatus, null, 265, 12);
+					else if (iCasting)
+						g.drawImage(Resource.iceStatus, null, 350, 12);
+					else if (mCasting)
+						g.drawImage(Resource.meteorStatus, null, 435, 12);
+					else if (pCasting)
+						g.drawImage(Resource.poisonStatus, null, 520, 12);
+					else if (sCasting)
+						g.drawImage(Resource.spikeStatus, null, 605, 12);
+				}
+				g.setTransform(backup);
+			}
+		if (!fCasting)
+			g.drawImage(Resource.fireStatus, null, 265, 12);
+		if (!iCasting)
+			g.drawImage(Resource.iceStatus, null, 350, 12);
+		if (!mCasting)
+			g.drawImage(Resource.meteorStatus, null, 435, 12);
+		if (!pCasting)
+			g.drawImage(Resource.poisonStatus, null, 520, 12);
+		if (!sCasting)
+			g.drawImage(Resource.spikeStatus, null, 605, 12);
+
 	}
 
 	public void setfCasting(boolean fCasting) {

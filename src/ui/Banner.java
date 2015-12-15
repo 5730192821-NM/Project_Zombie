@@ -52,11 +52,18 @@ public class Banner implements Renderable,Runnable {
 	public void run() {
 		// TODO Auto-generated method stub
 		while(true){
+			try {
+				Thread.sleep(10);
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			if(!isVisible){
 				synchronized(this){
 					try {
 						RenderableHolder.getInstance().remove(this);
 						this.wait();
+						RenderableHolder.getInstance().add(this);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
