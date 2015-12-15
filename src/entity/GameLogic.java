@@ -3,6 +3,8 @@ package entity;
 import java.awt.event.KeyEvent;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import entity.monster.Cage;
 import entity.monster.Golem;
 import entity.monster.Yeti;
@@ -62,9 +64,9 @@ public class GameLogic {
 
 		if (this.isPause()) {
 			if (InputUtility.getKeyPressed(KeyEvent.VK_Q)) {
+				InputUtility.setKeyPressed(KeyEvent.VK_Q, false);
 				title.setTitle(true);
 				title.setSwap(true);
-				InputUtility.setKeyPressed(KeyEvent.VK_Q, false);
 				Resource.screenbgm.stop();
 				Resource.titlebgm.loop();
 				this.setPause(!isPause);
@@ -77,7 +79,23 @@ public class GameLogic {
 
 		if (this.isPause())
 			return;
-
+		
+		if (this.hero.isDead()) {
+			String name = JOptionPane.showInputDialog(null,
+					"Ez .. Game Over!! \nYou got " + this.heroStatus.getScore() 
+							+ " points" + "\nPlease enter your name", "Game Over (Dead)",
+					JOptionPane.INFORMATION_MESSAGE);
+			title.setTitle(true);
+			title.setSwap(true);
+			Resource.screenbgm.stop();
+			Resource.titlebgm.loop();
+			this.setPause(!isPause);
+			pauseBanner.setVisible(!pauseBanner.isVisible);
+			skillStatus.setPause(!skillStatus.isPause());
+			RenderableHolder.getInstance().removeAll();
+			Cage.getInstance().removeAll();
+		}
+		
 		if (InputUtility.getSpell() != "") {
 			if (InputUtility.getSpell().length() > 6
 					|| ("IFMPS").indexOf(InputUtility.getSpell()

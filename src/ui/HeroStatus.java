@@ -72,6 +72,10 @@ public class HeroStatus implements Renderable {
 	public void resetLevel() {
 		level = 1;
 	}
+	
+	public int getScore() {
+		return score;
+	}
 
 	@Override
 	public void draw(Graphics2D g) {

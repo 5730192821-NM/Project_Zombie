@@ -21,6 +21,7 @@ public class GameTitle extends JPanel {
 	private static final long serialVersionUID = 1L;
 	private boolean isTitle = true;
 	private boolean swap = false;
+	private int tick = 0;
 
 	private int R = 0, G = 0, B = 0;
 	private JLabel start = new JLabel("Press Any Key to Start", JLabel.CENTER);
@@ -33,11 +34,11 @@ public class GameTitle extends JPanel {
 		Resource.titlebgm.loop();
 
 		JLabel BG = new JLabel(new ImageIcon(Resource.titleBG));
-				
+
 		start.setBackground(Color.BLACK);
 		start.setOpaque(true);
 		start.setFont(Resource.biggerFont);
-		this.add(BG,BorderLayout.CENTER);
+		this.add(BG, BorderLayout.CENTER);
 		this.add(start, BorderLayout.SOUTH);
 
 		this.addKeyListener(new KeyAdapter() {
@@ -62,6 +63,7 @@ public class GameTitle extends JPanel {
 	}
 
 	public void update() {
+		tick++;
 		if (!isTitle())
 			return;
 		R += 10;
@@ -74,6 +76,8 @@ public class GameTitle extends JPanel {
 			G = 0;
 			B = 0;
 		}
+		if (tick <= 100)
+			return;
 		for (int i = 0; i < 255; i++) {
 			if (InputUtility.getKeyPressed(i)) {
 				setTitle(false);
