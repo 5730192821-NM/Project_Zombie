@@ -74,6 +74,7 @@ public class GameLogic {
 				skillStatus.setPause(!skillStatus.isPause());
 				RenderableHolder.getInstance().removeAll();
 				Cage.getInstance().removeAll();
+				
 			}
 		}
 

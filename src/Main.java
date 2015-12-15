@@ -9,7 +9,7 @@ public class Main {
 		JFrame f = new JFrame("Type Wizard");
 
 		GameScreen screen = new GameScreen();
-		GameTitle title = new GameTitle();
+		GameTitle title = new GameTitle("Now Loading ...");
 		GameLogic logic = new GameLogic(title);
 		
 		f.add(title);
@@ -32,7 +32,7 @@ public class Main {
 				screen.requestFocus();
 				title.setSwap(false);
 					if (title.isTitle()) {
-						title = new GameTitle();
+						title = new GameTitle("Now Refreshing ...");
 						f.setContentPane(title);
 						f.revalidate();
 						title.requestFocus();

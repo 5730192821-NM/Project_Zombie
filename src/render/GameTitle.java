@@ -23,10 +23,11 @@ public class GameTitle extends JPanel {
 	private boolean swap = false;
 	private int tick = 0;
 
-	private int R = 0, G = 0, B = 0;
-	private JLabel start = new JLabel("Press Any Key to Start", JLabel.CENTER);
+	private int R = 255, G = 255, B = 255;
+	private JLabel start = new JLabel("", JLabel.CENTER);
 
-	public GameTitle() {
+	public GameTitle(String s) {
+		this.start.setText(s);
 		this.setPreferredSize(new Dimension(Resource.screenWidth,
 				Resource.screenHeight));
 		this.setLayout(new BorderLayout());
@@ -63,23 +64,27 @@ public class GameTitle extends JPanel {
 	}
 
 	public void update() {
-		tick++;
 		if (!isTitle())
 			return;
-		R += 10;
-		G += 10;
-		B += 10;
-		if (R <= 255 && G <= 255 && B <= 255)
+
+		R -= 10;
+		G -= 10;
+		B -= 10;
+		if (R >= 0 && G >= 0 && B >= 0)
 			start.setForeground(new Color(R, G, B));
 		else {
-			R = 0;
-			G = 0;
-			B = 0;
+			R = 255;
+			G = 255;
+			B = 255;
 		}
+
+		tick++;
 		if (tick <= 100) {
 			InputUtility.reset();
 			return;
-		}
+		} else
+			start.setText("Press 'Any Key' to Start");
+
 		for (int i = 0; i < 255; i++) {
 			if (InputUtility.getKeyPressed(i)) {
 				setTitle(false);
@@ -88,6 +93,7 @@ public class GameTitle extends JPanel {
 				Resource.screenbgm.loop();
 				return;
 			}
+
 		}
 
 	}
@@ -107,5 +113,4 @@ public class GameTitle extends JPanel {
 	public void setSwap(boolean swap) {
 		this.swap = swap;
 	}
-
 }
