@@ -11,18 +11,35 @@ public class SkillStatus implements Renderable {
 
 	double fAngle = 0.0, iAngle = 0.0, mAngle = 0.0, pAngle = 0.0,
 			sAngle = 0.0;
-	public boolean fCasting = false, iCasting = false, mCasting = false,
+	private boolean fCasting = false, iCasting = false, mCasting = false,
 			pCasting = false, sCasting = false;
+	private boolean isPause = false;
+
+	public boolean isPause() {
+		return isPause;
+	}
+
+	public void setPause(boolean isPause) {
+		this.isPause = isPause;
+	}
 
 	@Override
 	public void draw(Graphics2D g) {
+
+		if (isPause) {
+			fCasting = false;
+			iCasting = false;
+			mCasting = false;
+			pCasting = false;
+			sCasting = false;
+		}
 
 		g.drawImage(Resource.skillBoard, null, 215, -10);
 		g.drawImage(Resource.pauseBox, null, 700, -20);
 		g.setFont(Resource.pauseFont);
 		g.setColor(new Color(51, 25, 0));
-		g.drawString("PAUSE", 715, 20);
-		
+		g.drawString("- ESC -", 715, 20);
+
 		for (int i = 0; i < 5; i++) {
 			g.drawImage(Resource.skillBoxBG, null, 252 + (i * 85), 20);
 		}

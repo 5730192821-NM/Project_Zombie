@@ -45,6 +45,7 @@ public class Resource {
 	public static BufferedImage statusBG = getImage("res/ui/herostatus.png");
 	public static BufferedImage skillBoard = getImage("res/ui/skillBoard.png");
 	public static BufferedImage pauseBox = getImage("res/ui/pauseBox.png");
+	public static BufferedImage banner = getImage("res/ui/banner.png");
 	
 	//BG
 	public static BufferedImage land1 = getImage("res/map/land1.png");

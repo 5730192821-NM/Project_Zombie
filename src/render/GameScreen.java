@@ -34,10 +34,10 @@ public class GameScreen extends JComponent {
 					InputUtility.setSpell(KeyEvent.getKeyText(e.getKeyCode()));
 				}
 
-				if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-					InputUtility.setSpaceTriggered(!InputUtility
-							.getSpacePressed());
-					InputUtility.setSpacePressed(true);
+				if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+					InputUtility.setEscTriggered(!InputUtility
+							.getEscPressed());
+					InputUtility.setEscPressed(true);
 				}
 
 			}
@@ -46,7 +46,7 @@ public class GameScreen extends JComponent {
 			public void keyReleased(KeyEvent e) {
 				InputUtility.setKeyPressed(e.getKeyCode(), false);
 
-				InputUtility.setSpacePressed(false);
+				InputUtility.setEscPressed(false);
 			}
 		});
 

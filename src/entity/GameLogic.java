@@ -1,6 +1,5 @@
 package entity;
 
-import java.awt.event.KeyEvent;
 import java.util.List;
 
 import entity.monster.Cage;
@@ -25,6 +24,7 @@ public class GameLogic {
 	private Background background;
 	private boolean isPause = false;
 	private int speed = 20;
+	private Banner pauseBanner = new Banner();
 
 	public GameLogic() {
 
@@ -34,26 +34,25 @@ public class GameLogic {
 		this.hero = new Hero(20, 370, this.land, this.background,
 				this.heroStatus);
 		this.skillStatus = new SkillStatus();
-	
+
 		RenderableHolder.getInstance().add(land);
 		RenderableHolder.getInstance().add(background);
 		RenderableHolder.getInstance().add(heroStatus);
 		RenderableHolder.getInstance().add(hero);
 		RenderableHolder.getInstance().add(skillStatus);
+		RenderableHolder.getInstance().add(pauseBanner);
 	}
 
 	public void update() {
 
-		// Sleep speed
-		if (InputUtility.getKeyPressed(KeyEvent.VK_1))
-			setSpeed(speed + 1);
-		else if (InputUtility.getKeyPressed(KeyEvent.VK_2))
-			setSpeed(speed - 1);
-
 		// Pause
-		if (InputUtility.getSpaceTriggered())
+		if (InputUtility.getEscTriggered()) {
 			this.setPause(!isPause);
-		InputUtility.setSpaceTriggered(false);
+			pauseBanner.setVisible(!pauseBanner.isVisible);
+			skillStatus.setPause(!skillStatus.isPause());
+		}
+
+		InputUtility.setEscTriggered(false);
 
 		if (this.isPause())
 			return;

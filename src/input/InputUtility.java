@@ -4,6 +4,9 @@ public class InputUtility {
 
 	private static boolean[] keyPressed = new boolean[256];
 	private static String spell = "";
+	
+	private static boolean escTriggered = false;
+	private static boolean escPressed = false;
 
 	public static boolean getKeyPressed(int key) {
 		if (key < 0 || key > 255)
@@ -29,22 +32,17 @@ public class InputUtility {
 		spell = "";
 	}
 	
-	//Temp
-	
-	private static boolean spaceTriggered = false;
-	private static boolean spacePressed = false;
-	
-	public static boolean getSpaceTriggered() {
-		return spaceTriggered;
+	public static boolean getEscTriggered() {
+		return escTriggered;
 	}
-	public static void setSpaceTriggered(boolean x) {
-		spaceTriggered = x;
+	public static void setEscTriggered(boolean x) {
+		escTriggered = x;
 	}
-	public static boolean getSpacePressed() {
-		return spacePressed;
+	public static boolean getEscPressed() {
+		return escPressed;
 	}
-	public static void setSpacePressed(boolean x) {
-		spacePressed = x;
+	public static void setEscPressed(boolean x) {
+		escPressed = x;
 	}
 
 }
