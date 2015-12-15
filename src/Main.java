@@ -6,7 +6,7 @@ import entity.*;
 public class Main {
 
 	public static void main(String[] args) {
-		JFrame f = new JFrame("Easiest Game Of My Life");
+		JFrame f = new JFrame("Type Wizard");
 
 		GameScreen screen = new GameScreen();
 		GameTitle title = new GameTitle();
