@@ -56,16 +56,9 @@ public class GameLogic {
 		RenderableHolder.getInstance().add(hero);
 		RenderableHolder.getInstance().add(skillStatus);
 		RenderableHolder.getInstance().add(pauseBanner);
-		
-		//Initialize Pause
-		skillStatus.setPause(!skillStatus.isPause());
+
 		pauseBanner.setVisible(!pauseBanner.isVisible);
-		if (pauseBanner.isVisible) {
-			synchronized (pauseBanner) {
-				pauseBanner.notifyAll();
-			}
-		}
-		heroStatus.update();
+
 	}
 
 	public void update() {
@@ -107,6 +100,8 @@ public class GameLogic {
 				}
 			}
 		}
+
+		heroStatus.update();
 
 		if (pauseBanner.isVisible()) {
 			skillStatus.setPause(true);

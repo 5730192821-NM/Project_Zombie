@@ -35,11 +35,12 @@ public class SkillStatus implements Renderable {
 		for (int i = 0; i < 5; i++) {
 			g.drawImage(Resource.skillBoxBG, null, 252 + (i * 85), 20);
 		}
-
+		
 		AffineTransform backup = g.getTransform();
 		AffineTransform trans = new AffineTransform();
 
 		if (!isPause) {
+
 			if (fCasting) {
 				fAngle += Math.toRadians(15);
 				while (fAngle > 2 * Math.PI)
