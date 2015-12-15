@@ -16,7 +16,7 @@ import ui.HeroStatus;
 public class Hero extends Moving implements Renderable {
 
 	private int frameCount = 0, count = 0, countA = 0, frameCountA = 0,
-			direction = 1, temp, countSpell = 0, i = 5, countD = 0,
+			direction = 1, temp, i = 5, countD = 0,
 			frameCountD = 0, tick = 0;
 	private int gravity = 1, velocityY;
 	private boolean isJumped, isDead, isOutOfMana = false, isHitting = false;
@@ -101,10 +101,7 @@ public class Hero extends Moving implements Renderable {
 		// Dead Animation
 		if (hp == 0) {
 			deadAnimation();
-		}
-
-		
-		if (isCasting) {
+		} else if (isCasting) {
 			// Idle Spell Animation
 			idleSpellAnimation();
 		} else {
@@ -158,7 +155,6 @@ public class Hero extends Moving implements Renderable {
 					RenderableHolder.getInstance().add(skills[0]);
 					skills[0].play();
 					isSkill = true;
-					countSpell = 200;
 					isCasting = true;
 					i = 0;
 					lossMana(10);
@@ -178,7 +174,6 @@ public class Hero extends Moving implements Renderable {
 					RenderableHolder.getInstance().add(skills[1]);
 					skills[1].play();
 					isSkill = true;
-					countSpell = 200;
 					isCasting = true;
 					i = 1;
 					lossMana(10);
@@ -197,7 +192,6 @@ public class Hero extends Moving implements Renderable {
 					RenderableHolder.getInstance().add(skills[2]);
 					skills[2].play();
 					isSkill = true;
-					countSpell = 200;
 					isCasting = true;
 					i = 2;
 					lossMana(20);
@@ -216,7 +210,6 @@ public class Hero extends Moving implements Renderable {
 					RenderableHolder.getInstance().add(skills[3]);
 					skills[3].play();
 					isSkill = true;
-					countSpell = 200;
 					isCasting = true;
 					i = 3;
 					lossMana(20);
@@ -235,7 +228,6 @@ public class Hero extends Moving implements Renderable {
 					RenderableHolder.getInstance().add(skills[4]);
 					skills[4].play();
 					isSkill = true;
-					countSpell = 200;
 					isCasting = true;
 					i = 4;
 					lossMana(30);
