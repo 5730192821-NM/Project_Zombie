@@ -64,7 +64,7 @@ public class GameLogic {
 
 		if (this.isPause()) {
 			if (InputUtility.getKeyPressed(KeyEvent.VK_Q)) {
-				InputUtility.setKeyPressed(KeyEvent.VK_Q, false);
+				InputUtility.reset();
 				title.setTitle(true);
 				title.setSwap(true);
 				Resource.screenbgm.stop();
@@ -85,6 +85,7 @@ public class GameLogic {
 					"Ez .. Game Over!! \nYou got " + this.heroStatus.getScore() 
 							+ " points" + "\nPlease enter your name", "Game Over (Dead)",
 					JOptionPane.INFORMATION_MESSAGE);
+			InputUtility.reset();
 			title.setTitle(true);
 			title.setSwap(true);
 			Resource.screenbgm.stop();

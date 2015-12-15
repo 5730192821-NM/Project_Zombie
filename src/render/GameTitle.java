@@ -76,8 +76,10 @@ public class GameTitle extends JPanel {
 			G = 0;
 			B = 0;
 		}
-		if (tick <= 100)
+		if (tick <= 100) {
+			InputUtility.reset();
 			return;
+		}
 		for (int i = 0; i < 255; i++) {
 			if (InputUtility.getKeyPressed(i)) {
 				setTitle(false);
