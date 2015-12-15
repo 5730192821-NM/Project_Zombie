@@ -17,7 +17,6 @@ public class GameLogic {
 	private Hero hero;
 	private HeroStatus heroStatus;
 	private SkillStatus skillStatus;
-	private PauseButton pauseButton;
 	private boolean castFail = false, iCast = false, fCast = false,
 			mCast = false, pCast = false, sCast = false;
 	private Word ice = null, fire = null, meteor = null, poison = null,
@@ -35,14 +34,12 @@ public class GameLogic {
 		this.hero = new Hero(20, 370, this.land, this.background,
 				this.heroStatus);
 		this.skillStatus = new SkillStatus();
-		this.pauseButton = new PauseButton();
-
+	
 		RenderableHolder.getInstance().add(land);
 		RenderableHolder.getInstance().add(background);
 		RenderableHolder.getInstance().add(heroStatus);
 		RenderableHolder.getInstance().add(hero);
 		RenderableHolder.getInstance().add(skillStatus);
-		RenderableHolder.getInstance().add(pauseButton);
 	}
 
 	public void update() {

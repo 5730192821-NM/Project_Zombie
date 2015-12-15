@@ -14,6 +14,7 @@ public class Resource {
 	public static final Font wordFont = new Font("Tahoma", Font.BOLD, 45);
 	public static final Font standardFont = new Font("Tahoma", Font.PLAIN, 15);
 	public static final Font biggerFont = new Font("Tahoma", Font.PLAIN, 25);
+	public static final Font pauseFont = new Font("Tahoma", Font.BOLD, 20);
 
 	
 	//Hero
@@ -42,8 +43,8 @@ public class Resource {
 	
 	//UI
 	public static BufferedImage statusBG = getImage("res/ui/herostatus.png");
-	public static BufferedImage skillBoxBG = getImage("res/ui/skillBoxBg.png");
-	public static BufferedImage pause = getImage("res/ui/pause.png");
+	public static BufferedImage skillBoard = getImage("res/ui/skillBoard.png");
+	public static BufferedImage pauseBox = getImage("res/ui/pauseBox.png");
 	
 	//BG
 	public static BufferedImage land1 = getImage("res/map/land1.png");
@@ -59,6 +60,7 @@ public class Resource {
 
 	
 	//SkillStatus
+	public static BufferedImage skillBoxBG = getImage("res/ui/skillBoxBg.png");
 	public static BufferedImage fireStatus = getImage("res/ui/fire.png"); 
 	public static BufferedImage iceStatus = getImage("res/ui/ice.png"); 
 	public static BufferedImage meteorStatus = getImage("res/ui/meteor.png"); 

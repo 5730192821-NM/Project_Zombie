@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
@@ -16,7 +17,15 @@ public class SkillStatus implements Renderable {
 	@Override
 	public void draw(Graphics2D g) {
 
-		g.drawImage(Resource.skillBoxBG, null, 250, 0);
+		g.drawImage(Resource.skillBoard, null, 215, -10);
+		g.drawImage(Resource.pauseBox, null, 700, -20);
+		g.setFont(Resource.pauseFont);
+		g.setColor(new Color(51, 25, 0));
+		g.drawString("PAUSE", 715, 20);
+		
+		for (int i = 0; i < 5; i++) {
+			g.drawImage(Resource.skillBoxBG, null, 252 + (i * 85), 20);
+		}
 
 		AffineTransform backup = g.getTransform();
 		AffineTransform trans = new AffineTransform();
@@ -30,39 +39,49 @@ public class SkillStatus implements Renderable {
 			iAngle += Math.toRadians(15);
 			while (iAngle > 2 * Math.PI)
 				iAngle -= 2 * Math.PI;
-			trans.rotate(iAngle, 366, 37);
+			trans.rotate(iAngle, 375, 37);
 		} else if (mCasting) {
 			mAngle += Math.toRadians(15);
 			while (mAngle > 2 * Math.PI)
 				mAngle -= 2 * Math.PI;
-			trans.rotate(mAngle, 442, 37);
+			trans.rotate(mAngle, 460, 37);
 		} else if (pCasting) {
 			pAngle += Math.toRadians(15);
 			while (pAngle > 2 * Math.PI)
 				pAngle -= 2 * Math.PI;
-			trans.rotate(pAngle, 520, 37);
+			trans.rotate(pAngle, 545, 37);
 		} else if (sCasting) {
 			sAngle += Math.toRadians(15);
 			while (sAngle > 2 * Math.PI)
 				sAngle -= 2 * Math.PI;
-			trans.rotate(sAngle, 596, 37);
+			trans.rotate(sAngle, 630, 37);
 		}
 
 		for (int i = 0; i < 5; i++) {
 			if (i == 0) {
 				g.transform(trans);
-				if (fCasting) g.drawImage(Resource.fireStatus, null, 265, 12);
-				else if (iCasting) g.drawImage(Resource.iceStatus, null, 341, 12);
-				else if (mCasting) g.drawImage(Resource.meteorStatus, null, 417, 12);
-				else if (pCasting) g.drawImage(Resource.poisonStatus, null, 495, 12);
-				else if (sCasting) g.drawImage(Resource.spikeStatus, null, 571, 12);
+				if (fCasting)
+					g.drawImage(Resource.fireStatus, null, 265, 12);
+				else if (iCasting)
+					g.drawImage(Resource.iceStatus, null, 350, 12);
+				else if (mCasting)
+					g.drawImage(Resource.meteorStatus, null, 435, 12);
+				else if (pCasting)
+					g.drawImage(Resource.poisonStatus, null, 520, 12);
+				else if (sCasting)
+					g.drawImage(Resource.spikeStatus, null, 605, 12);
 			}
 			g.setTransform(backup);
-			if (!fCasting) g.drawImage(Resource.fireStatus, null, 265, 12);
-			if (!iCasting) g.drawImage(Resource.iceStatus, null, 341, 12);
-			if (!mCasting) g.drawImage(Resource.meteorStatus, null, 417, 12);
-			if (!pCasting) g.drawImage(Resource.poisonStatus, null, 495, 12);
-			if (!sCasting) g.drawImage(Resource.spikeStatus, null, 571, 12);
+			if (!fCasting)
+				g.drawImage(Resource.fireStatus, null, 265, 12);
+			if (!iCasting)
+				g.drawImage(Resource.iceStatus, null, 350, 12);
+			if (!mCasting)
+				g.drawImage(Resource.meteorStatus, null, 435, 12);
+			if (!pCasting)
+				g.drawImage(Resource.poisonStatus, null, 520, 12);
+			if (!sCasting)
+				g.drawImage(Resource.spikeStatus, null, 605, 12);
 		}
 	}
 
