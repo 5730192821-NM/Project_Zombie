@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RenderableHolder {
-	
+
 	private static final RenderableHolder instance = new RenderableHolder();
 	private List<Renderable> entities = new CopyOnWriteArrayList<Renderable>();
 
@@ -24,11 +24,14 @@ public class RenderableHolder {
 			}
 		});
 	}
-	
+
 	public void remove(Renderable o) {
 		entities.remove(o);
 	}
 
+	public void removeAll() {
+		entities.clear();
+	}
 
 	public List<Renderable> getRenderableList() {
 		return entities;

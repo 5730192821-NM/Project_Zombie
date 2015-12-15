@@ -1,11 +1,13 @@
 package entity;
 
+import java.awt.event.KeyEvent;
 import java.util.List;
 
 import entity.monster.Cage;
 import entity.monster.Golem;
 import entity.monster.Yeti;
 import input.InputUtility;
+import render.GameTitle;
 import render.Renderable;
 import render.RenderableHolder;
 import render.Resource;
@@ -26,9 +28,12 @@ public class GameLogic {
 	private boolean isPause = false;
 	private int speed = 20;
 	private Banner pauseBanner = new Banner();
+	private GameTitle title;
 
-	public GameLogic() {
-		
+	public GameLogic(GameTitle title) {
+
+		this.title = title;
+
 		this.land = new Land(0, 0);
 		this.background = new Background(0, 0);
 		this.heroStatus = new HeroStatus();
@@ -54,6 +59,21 @@ public class GameLogic {
 		}
 
 		InputUtility.setEscTriggered(false);
+
+		if (this.isPause()) {
+			if (InputUtility.getKeyPressed(KeyEvent.VK_Q)) {
+				title.setTitle(true);
+				title.setSwap(true);
+				InputUtility.setKeyPressed(KeyEvent.VK_Q, false);
+				Resource.screenbgm.stop();
+				Resource.titlebgm.loop();
+				this.setPause(!isPause);
+				pauseBanner.setVisible(!pauseBanner.isVisible);
+				skillStatus.setPause(!skillStatus.isPause());
+				RenderableHolder.getInstance().removeAll();
+				Cage.getInstance().removeAll();
+			}
+		}
 
 		if (this.isPause())
 			return;

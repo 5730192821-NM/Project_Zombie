@@ -9,9 +9,9 @@ public class Main {
 		JFrame f = new JFrame("Easiest Game Of My Life");
 
 		GameScreen screen = new GameScreen();
-		GameLogic logic = new GameLogic();
 		GameTitle title = new GameTitle();
-
+		GameLogic logic = new GameLogic(title);
+		
 		f.add(title);
 		f.pack();
 		f.setResizable(false);
@@ -31,6 +31,14 @@ public class Main {
 				f.revalidate();
 				screen.requestFocus();
 				title.setSwap(false);
+					if (title.isTitle()) {
+						title = new GameTitle();
+						f.setContentPane(title);
+						f.revalidate();
+						title.requestFocus();
+						title.setSwap(false);
+						logic = new GameLogic(title);
+					}
 			}
 			
 			if (!(title.isTitle())) {

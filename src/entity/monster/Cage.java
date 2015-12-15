@@ -37,6 +37,11 @@ public class Cage {
 			m.update();
 	}
 
+	public void removeAll() {
+		cage.clear();
+	}
+
+
 	public List<Monster> getCage() {
 		return cage;
 	}

@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 
 import render.Renderable;
@@ -17,7 +18,11 @@ public class Banner implements Renderable {
 	public void draw(Graphics2D g) {
 		g.drawImage(Resource.banner, null, 200, 120);
 		g.setFont(Resource.wordFont);
+		g.setColor(new Color(51, 25, 0));
 		g.drawString("PAUSE", 320, 180);
+		g.setFont(Resource.pauseFont);
+		g.drawString("press 'Q' : exit to MainMenu ", 260, 250);
+		g.drawString("press 'esc' : unpause ", 290, 280);
 	}
 
 	@Override
