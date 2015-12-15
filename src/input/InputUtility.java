@@ -44,5 +44,9 @@ public class InputUtility {
 	public static void setEscPressed(boolean x) {
 		escPressed = x;
 	}
+	
+	public static void reset () {
+		keyPressed = new boolean[256];
+	}
 
 }

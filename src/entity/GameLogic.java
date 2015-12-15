@@ -27,7 +27,7 @@ public class GameLogic {
 			spike = null;
 	private int tick = 0;
 	private Background background;
-	private boolean isPause = false;
+	private boolean isPause = true;
 	private final int speed = 20;
 	private Banner pauseBanner = new Banner();
 	private GameTitle title;
@@ -49,6 +49,9 @@ public class GameLogic {
 		RenderableHolder.getInstance().add(hero);
 		RenderableHolder.getInstance().add(skillStatus);
 		RenderableHolder.getInstance().add(pauseBanner);
+		
+		pauseBanner.setVisible(!pauseBanner.isVisible);
+		skillStatus.setPause(!skillStatus.isPause());
 	}
 
 	public void update() {
@@ -64,7 +67,7 @@ public class GameLogic {
 
 		if (this.isPause()) {
 			if (InputUtility.getKeyPressed(KeyEvent.VK_Q)) {
-				InputUtility.setKeyPressed(KeyEvent.VK_Q, false);
+				InputUtility.reset();
 				title.setTitle(true);
 				title.setSwap(true);
 				Resource.screenbgm.stop();
@@ -74,8 +77,11 @@ public class GameLogic {
 				skillStatus.setPause(!skillStatus.isPause());
 				RenderableHolder.getInstance().removeAll();
 				Cage.getInstance().removeAll();
+				
 			}
 		}
+		
+		heroStatus.update();
 
 		if (this.isPause())
 			return;
@@ -85,6 +91,7 @@ public class GameLogic {
 					"Ez .. Game Over!! \nYou got " + this.heroStatus.getScore() 
 							+ " points" + "\nPlease enter your name", "Game Over (Dead)",
 					JOptionPane.INFORMATION_MESSAGE);
+			InputUtility.reset();
 			title.setTitle(true);
 			title.setSwap(true);
 			Resource.screenbgm.stop();
@@ -236,7 +243,6 @@ public class GameLogic {
 
 		Cage.getInstance().updateAll();
 		hero.update();
-		heroStatus.update();
 		background.update();
 		land.update();
 		tick++;
