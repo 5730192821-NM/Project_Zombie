@@ -2,6 +2,7 @@ package entity.monster;
 
 import input.InputUtility;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
@@ -23,15 +24,19 @@ public class Golem extends Monster implements Renderable {
 		this.y = y;
 		this.land = land;
 		this.hero = hero;
-		level = (int) (Math.random() * 5) + 1; // monster has level.
-		hp = 200 * level;// level involve to hp.
+		level = (int) (Math.random() * 5) + hero.getLevel(); // monster has level.
+		hp = 150 * level;// level involve to hp.
 		attack = 20 * level;// level involve to attack.
 		type = 1; // immune to debuff.
+		maxHp=hp;
 
 	}
 
 	@Override
 	public void update() {
+		
+		xHp = (hp*1.0)/(maxHp*1.0);
+		
 		if (hp == 0) { // dead
 			if (countDead == 15) {
 				countDead = 0;
@@ -126,6 +131,14 @@ public class Golem extends Monster implements Renderable {
 						Resource.monster_golem_1_1_f.getHeight()), null, x, y);
 			}
 		}
+		g.setColor(Color.BLACK);
+		g.fillRect(x+72, y+1,80,5);
+		g.setColor(Color.RED);
+		g.fillRect(x+73, y+2, (int)(xHp*78), 3);
+		g.setColor(Color.RED);
+		g.setFont(Resource.standardFont);
+		g.drawString("Golem", x+30,y+6);
+		g.drawString("Level : "+level, x+30, y-5);
 	}
 
 	public void hit(Hero hero, Skill skill) {

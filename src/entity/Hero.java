@@ -27,7 +27,7 @@ public class Hero extends Moving implements Renderable {
 	private HeroStatus heroStatus;
 	private Skill[] skills = new Skill[6];
 	private static Word[] words = new Word[5];
-	private int STR, INT,level, hp, attack, attackRange = 0, mana, manaTick = 0,maxMp,maxHp;
+	private int STR, INT,level, hp, attack, mana, manaTick = 0,maxMp,maxHp;
 	private Monster nearMon;
 
 	// direction 1 : RIGHT direction 2 : LEFT
@@ -58,7 +58,7 @@ public class Hero extends Moving implements Renderable {
 		this.heroStatus.setCurrentHp(hp);
 		this.heroStatus.setCurrentMp(mana);
 		this.heroStatus.setMaxXp();
-		attack = INT;
+		attack = (int)(INT*1.5);
 
 		skills[0] = new IceSkill(x, y, direction);
 		skills[1] = new FireSkill(x, y, direction);
@@ -85,6 +85,7 @@ public class Hero extends Moving implements Renderable {
 			INT=(int)(10+2.5*level);
 			maxHp = STR * 20;
 			maxMp = INT * 20;
+			attack = (int)(INT*1.5);
 			hp=maxHp;
 			mana=maxMp;
 			heroStatus.setMaxHp(maxHp);
@@ -438,6 +439,10 @@ public class Hero extends Moving implements Renderable {
 		g.drawString("NearMonDirect : " + nearMon.getDirection(), 50, 170);
 		g.drawString("HeroDirection : " + this.direction, 50, 190);
 
+	}
+	
+	public int getLevel(){
+		return level;
 	}
 
 	public void lossMana(int x) {

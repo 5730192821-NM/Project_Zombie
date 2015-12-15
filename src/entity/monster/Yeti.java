@@ -2,6 +2,7 @@ package entity.monster;
 
 import input.InputUtility;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 
@@ -30,15 +31,18 @@ public class Yeti extends Monster implements Renderable {
 		this.y = y;
 		this.land = land;
 		this.hero = hero;
-		level = (int) (Math.random() * 5) + 1; // monster has level.
+		level = (int) (Math.random() * 5) + hero.getLevel(); // monster has level.
 		hp = 200 * level;// level involve to hp.
 		attack = 20 * level;// level involve to attack.
 		type = 2; // Ice Monster Type.
-
+		maxHp=hp;
 	}
 
 	@Override
 	public void update() {
+		
+		xHp = (hp*1.0)/(maxHp*1.0);
+		
 		if (hp == 0) { // dead
 			if (countDead == 15) {
 				countDead = 0;
@@ -222,6 +226,26 @@ public class Yeti extends Monster implements Renderable {
 			} else {
 				g.drawImage(Resource.poison, null, x + 155, y + 90);
 			}
+		}
+		
+		if(direction==1){
+			g.setColor(Color.BLACK);
+			g.fillRect(x+102, y+81,80,5);
+			g.setColor(Color.RED);
+			g.fillRect(x+103, y+82, (int)(xHp*78), 3);
+			g.setColor(Color.RED);
+			g.setFont(Resource.standardFont);
+			g.drawString("Yeti", x+75,y+86);
+			g.drawString("Level : "+level, x+75, y+75);
+		} else{
+			g.setColor(Color.BLACK);
+			g.fillRect(x+52, y+81,80,5);
+			g.setColor(Color.RED);
+			g.fillRect(x+53, y+82, (int)(xHp*78), 3);
+			g.setColor(Color.RED);
+			g.setFont(Resource.standardFont);
+			g.drawString("Yeti", x+25,y+86);
+			g.drawString("Level : "+level, x+25, y+75);
 		}
 	}
 
