@@ -89,6 +89,7 @@ public class Resource {
 	public static AudioClip score = getSound("res/sound/score.wav");
 	public static AudioClip iceskill = getSound("res/sound/iceskill.wav");
 	public static AudioClip meteorskill = getSound("res/sound/meteorskill.wav");
+	public static AudioClip meteorskill2 = getSound("res/sound/meteorskill2.wav");
 	public static AudioClip fireskill = getSound("res/sound/fireskill.wav");
 	public static AudioClip poisonskill = getSound("res/sound/poisonskill.wav");
 	

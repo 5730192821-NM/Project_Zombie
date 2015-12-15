@@ -32,6 +32,9 @@ public class MeteorSkill extends Skill implements Renderable {
 	@Override
 	public void update() {
 		if (isPlaying) {
+			if(count==1 && frameCountX==2 && frameCountY==0){
+				Resource.meteorskill2.play();
+			}
 			if (count == 8) {
 				count = 0;
 				frameCountX++;

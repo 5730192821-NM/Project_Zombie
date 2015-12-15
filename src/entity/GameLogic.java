@@ -191,11 +191,11 @@ public class GameLogic {
 						.getNearMon()).getFrameCountAttack() == 5))
 			hero.hit(hero.getNearMon());
 
-		if (tick == 300) {
-			//tick = 0;
+		if (tick >= 300) {
+			tick = 0;
 
 			// How to summon here;
-			// Cage.getInstance().add("golem", this.land, this.hero);
+			Cage.getInstance().add("golem", this.land, this.hero);
 			Cage.getInstance().add("yeti", this.land, this.hero);
 		}
 
