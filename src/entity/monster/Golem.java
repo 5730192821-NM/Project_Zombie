@@ -24,69 +24,87 @@ public class Golem extends Monster implements Renderable {
 		this.y = y;
 		this.land = land;
 		this.hero = hero;
-		level = (int) (Math.random() * 5) + hero.getLevel(); // monster has level.
+		level = (int) (Math.random() * 5) + hero.getLevel(); // monster has
+																// level.
 		hp = 150 * level;// level involve to hp.
 		attack = 20 * level;// level involve to attack.
 		type = 1; // immune to debuff.
-		maxHp=hp;
+		maxHp = hp;
 
 	}
 
 	@Override
 	public void update() {
-		
-		xHp = (hp*1.0)/(maxHp*1.0);
-		
+
+		xHp = (hp * 1.0) / (maxHp * 1.0);
+
 		if (hp == 0) { // dead
-			if (countDead == 15) {
-				countDead = 0;
-				frameCountDead++;
-				if (frameCountDead == 7)
-					killed();
-			}
-			countDead++;
+			deadAnimation();
 		} else if (isPanic) { // panic
-			if (countPanic == 15) {
-				countPanic = 0;
-				isPanic = false;
-			}
-			countPanic++;
-			if (direction == 1)
-				x += 2;
-			else
-				x -= 2;
+			panicAnimation();
 		} else { // walk
-			if (countWalk == 10) {
-				countWalk = 0;
-				frameCountWalk++;
-				frameCountWalk %= 4;
-			}
-			countWalk++;
-			if (countWalk % 2 == 0) {
-				if (x + 70 > hero.getX()) {
-					direction = 1;
-					x -= 1;
-				} else if (x + 90 < hero.getX()) {
-					direction = 2;
-					x += 1;
-				}
-			}
+			walkAnimation();
 		}
 
 		if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
-			if (!(hero.getX() < 400 || land.isEnd()))
-				hero.setRight(true);
-		}
-		if (hero.getX() >= 400 && hero.isRight()) {
-			setX(5);
+			walkRight();
 		}
 		if (InputUtility.getKeyPressed(KeyEvent.VK_LEFT)) {
-			if (!(hero.getX() > 200 || land.isStart())) {
-				hero.setLeft(true);
+			walkLeft();
+		}
+	}
+
+	public void walkAnimation() {
+		if (countWalk == 10) {
+			countWalk = 0;
+			frameCountWalk++;
+			frameCountWalk %= 4;
+		}
+		countWalk++;
+		if (countWalk % 2 == 0) {
+			if (x + 70 > hero.getX()) {
+				direction = 1;
+				x -= 1;
+			} else if (x + 90 < hero.getX()) {
+				direction = 2;
+				x += 1;
 			}
 		}
-		if (hero.getX() <= 200 && hero.isLeft()) {
+	}
+
+	public void panicAnimation() {
+		if (countPanic == 15) {
+			countPanic = 0;
+			isPanic = false;
+		}
+		countPanic++;
+		if (direction == 1)
+			x += 2;
+		else
+			x -= 2;
+	}
+
+	public void deadAnimation() {
+		if (countDead == 15) {
+			countDead = 0;
+			frameCountDead++;
+			if (frameCountDead == 7)
+				killed();
+		}
+		countDead++;
+	}
+
+	public void walkRight() {
+		if (!(hero.getX() < 400 || land.isEnd())){
+			setX(5);
+			hero.setRight(true);
+		}
+	}
+
+	public void walkLeft() {
+		if (!(hero.getX() > 200 || land.isStart())){
 			setX(-5);
+			hero.setLeft(true);
 		}
 	}
 
@@ -132,13 +150,13 @@ public class Golem extends Monster implements Renderable {
 			}
 		}
 		g.setColor(Color.BLACK);
-		g.fillRect(x+72, y+1,80,5);
+		g.fillRect(x + 72, y + 1, 80, 5);
 		g.setColor(Color.RED);
-		g.fillRect(x+73, y+2, (int)(xHp*78), 3);
+		g.fillRect(x + 73, y + 2, (int) (xHp * 78), 3);
 		g.setColor(Color.RED);
 		g.setFont(Resource.standardFont);
-		g.drawString("Golem", x+30,y+6);
-		g.drawString("Level : "+level, x+30, y-5);
+		g.drawString("Golem", x + 30, y + 6);
+		g.drawString("Level : " + level, x + 30, y - 5);
 	}
 
 	public void hit(Hero hero, Skill skill) {

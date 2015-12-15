@@ -86,8 +86,8 @@ public class Resource {
 		return b;
 	}
 	
-	//public static AudioClip titlebgm = getSound("res/sound/titlebgm.wav");
-	//public static AudioClip screenbgm = getSound("res/sound/screenbgm.wav");
+	public static AudioClip titlebgm = getSound("res/sound/titlebgm.wav");
+	public static AudioClip screenbgm = getSound("res/sound/screenbgm.wav");
 	public static AudioClip hit = getSound("res/sound/hitted.wav");
 	public static AudioClip jump = getSound("res/sound/jump.wav");
 	public static AudioClip levelup = getSound("res/sound/levelup.wav");
