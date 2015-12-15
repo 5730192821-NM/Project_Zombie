@@ -20,7 +20,7 @@ public class Hero extends Moving implements Renderable {
 			frameCountD = 0, tick = 0;
 	private int gravity = 1, velocityY;
 	private boolean isJumped, isDead, isOutOfMana = false, isHitting = false;
-	private boolean isRight, isLeft;
+	private boolean isRight, isLeft, isStop;
 	private boolean isSkill, isCasting;
 	private Land land;
 	private Background background;
@@ -46,6 +46,7 @@ public class Hero extends Moving implements Renderable {
 		isSkill = false;
 		isCasting = false;
 		isDead = false;
+		isStop = false;
 		this.heroStatus.resetLevel();
 		level = this.heroStatus.getLevel();
 		STR = 10;
@@ -559,4 +560,13 @@ public class Hero extends Moving implements Renderable {
 			}
 		}
 	}
+	
+	public boolean getStop(){
+		return isStop;
+	}
+	
+	public void setStop(boolean isStop){
+		this.isStop=isStop;
+	}
+	
 }
