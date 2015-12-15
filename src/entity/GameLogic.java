@@ -31,6 +31,9 @@ public class GameLogic {
 	private final int speed = 20;
 	private Banner pauseBanner = new Banner();
 	private GameTitle title;
+	
+	private Thread t1;
+	private BgmControl bgm;
 
 	public GameLogic(GameTitle title) {
 
@@ -42,6 +45,10 @@ public class GameLogic {
 		this.hero = new Hero(20, 370, this.land, this.background,
 				this.heroStatus);
 		this.skillStatus = new SkillStatus();
+		
+		bgm = new BgmControl();
+		t1= new Thread(bgm);
+		t1.start();
 
 		RenderableHolder.getInstance().add(land);
 		RenderableHolder.getInstance().add(background);
@@ -55,6 +62,18 @@ public class GameLogic {
 	}
 
 	public void update() {
+		
+		if(InputUtility.getKeyPressed(KeyEvent.VK_5)){
+			InputUtility.setKeyPressed(KeyEvent.VK_5,false);
+			bgm.setPause(!bgm.isPause());
+			if(!bgm.isPause()){
+				synchronized(bgm){
+					Resource.screenbgm.loop();
+					bgm.setPause(false);
+					bgm.notifyAll();
+				}
+			}
+		}
 
 		// Pause
 		if (InputUtility.getEscTriggered()) {
