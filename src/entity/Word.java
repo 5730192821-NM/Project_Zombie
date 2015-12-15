@@ -46,17 +46,17 @@ public class Word implements Renderable {
 		for (int i = 0; i < words.length; i++) {
 			if (press[i]) {
 				if (words[0].equalsIgnoreCase("I"))
-					g.setColor(Color.BLUE);
+					g.setColor(new Color(51, 255, 255));
 				else if (words[0].equalsIgnoreCase("F"))
-					g.setColor(Color.PINK);
+					g.setColor(new Color(255, 51, 51));
 				else if (words[0].equalsIgnoreCase("M"))
-					g.setColor(Color.ORANGE);
+					g.setColor(new Color(153, 51, 255));
 				else if (words[0].equalsIgnoreCase("P"))
-					g.setColor(Color.GREEN);
+					g.setColor(new Color(0, 255, 128));
 				else 
-					g.setColor(new Color(156, 93, 82));
+					g.setColor(new Color(255, 255, 51));
 			} else
-				g.setColor(Color.WHITE);
+				g.setColor(Color.lightGray);
 			g.drawString(words[i], 400 + x[i], 200);
 		}
 	}
