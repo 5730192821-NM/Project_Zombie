@@ -11,10 +11,8 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.JComponent;
 
-import entity.Hero;
 import entity.monster.Cage;
 import entity.monster.Monster;
-import entity.skill.Skill;
 
 public class GameScreen extends JComponent {
 

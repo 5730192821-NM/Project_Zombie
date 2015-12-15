@@ -75,6 +75,11 @@ public class GameLogic {
 			mCast = false;
 			pCast = false;
 			sCast = false;
+			skillStatus.setiCasting(false);
+			skillStatus.setfCasting(false);
+			skillStatus.setmCasting(false);
+			skillStatus.setpCasting(false);
+			skillStatus.setsCasting(false);
 			InputUtility.clearSpell();
 		}
 
@@ -84,26 +89,31 @@ public class GameLogic {
 		if (InputUtility.getSpell() != "") {
 			if (!cast) {
 				if (InputUtility.getSpell().equalsIgnoreCase("I")) {
+					skillStatus.setiCasting(true);
 					ice = new Word("ICE");
 					ice.setVisible(true);
 					iCast = true;
 					RenderableHolder.getInstance().add(ice);
 				} else if (InputUtility.getSpell().equalsIgnoreCase("F")) {
+					skillStatus.setfCasting(true);
 					fire = new Word("FIRE");
 					fire.setVisible(true);
 					fCast = true;
 					RenderableHolder.getInstance().add(fire);
 				} else if (InputUtility.getSpell().equalsIgnoreCase("M")) {
+					skillStatus.setmCasting(true);
 					meteor = new Word("METEOR");
 					meteor.setVisible(true);
 					mCast = true;
 					RenderableHolder.getInstance().add(meteor);
 				} else if (InputUtility.getSpell().equalsIgnoreCase("P")) {
+					skillStatus.setpCasting(true);
 					poison = new Word("POISON");
 					poison.setVisible(true);
 					pCast = true;
 					RenderableHolder.getInstance().add(poison);
 				} else if (InputUtility.getSpell().equalsIgnoreCase("S")) {
+					skillStatus.setsCasting(true);
 					spike = new Word("SPIKE");
 					spike.setVisible(true);
 					sCast = true;
@@ -152,6 +162,11 @@ public class GameLogic {
 					mCast = false;
 					pCast = false;
 					sCast = false;
+					skillStatus.setiCasting(false);
+					skillStatus.setfCasting(false);
+					skillStatus.setmCasting(false);
+					skillStatus.setpCasting(false);
+					skillStatus.setsCasting(false);
 				}
 			}
 
