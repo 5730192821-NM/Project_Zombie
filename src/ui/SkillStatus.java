@@ -39,7 +39,6 @@ public class SkillStatus implements Renderable {
 
 			AffineTransform backup = g.getTransform();
 			AffineTransform trans = new AffineTransform();
-			System.out.println(isPause);
 			if (!isPause) {
 			if (fCasting) {
 				fAngle += Math.toRadians(15);

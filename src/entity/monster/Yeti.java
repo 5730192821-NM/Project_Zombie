@@ -62,7 +62,7 @@ public class Yeti extends Monster implements Renderable {
 		}
 
 		// Debuff
-		debuffDamgage();
+		debuffDamage();
 	}
 	
 	public void deadAnimation(){
@@ -130,7 +130,7 @@ public class Yeti extends Monster implements Renderable {
 			setX(5);
 	}
 
-	public void debuffDamgage() {
+	public void debuffDamage() {
 		if (debuff[0] != 0) {
 			if (countDebuff[0] == 40) {
 				countDebuff[0] = 0;

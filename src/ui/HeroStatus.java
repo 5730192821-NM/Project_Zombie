@@ -29,7 +29,7 @@ public class HeroStatus implements Renderable {
 		xXp= (xp*1.0)/(maxXp*1.0);
 	}
 	
-	public void addtXp(int x){
+	public void addXp(int x){
 		xp+=x;
 	}
 	

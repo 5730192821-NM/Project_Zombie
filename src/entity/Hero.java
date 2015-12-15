@@ -139,7 +139,7 @@ public class Hero extends Moving implements Renderable {
 			if (Cage.getInstance().getCage().get(j).isDead()) {
 				heroStatus.addScore(20 * Cage.getInstance().getCage().get(j)
 						.getLevel());
-				heroStatus.addtXp(20 * Cage.getInstance().getCage().get(j)
+				heroStatus.addXp(20 * Cage.getInstance().getCage().get(j)
 						.getLevel());
 				Resource.score.play();
 				Cage.getInstance().getCage().remove(j);

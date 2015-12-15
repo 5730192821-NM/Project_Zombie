@@ -59,6 +59,8 @@ public class GameLogic {
 		RenderableHolder.getInstance().add(hero);
 		RenderableHolder.getInstance().add(skillStatus);
 		RenderableHolder.getInstance().add(pauseBanner);
+		
+		pauseBanner.setVisible(!pauseBanner.isVisible);
 	}
 
 	public void update() {
@@ -100,13 +102,14 @@ public class GameLogic {
 				Cage.getInstance().removeAll();
 			}
 		}
+		
+		heroStatus.update();
 
 		if (pauseBanner.isVisible()){
 			skillStatus.setPause(true);
 			return;
 		}
 		
-		heroStatus.update();
 		
 		if (this.hero.isDead()) {
 			String name = JOptionPane.showInputDialog(null,
