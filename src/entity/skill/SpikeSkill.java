@@ -30,6 +30,9 @@ public class SpikeSkill extends Skill implements Renderable {
 	@Override
 	public void update() {
 		if (isPlaying) {
+			if(count==0 && frameCount==0){
+				Resource.spikeskill.play();
+			}
 			if (count == 8) {
 				count = 0;
 				frameCount++;

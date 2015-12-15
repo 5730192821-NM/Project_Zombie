@@ -24,6 +24,7 @@ public class GameScreen extends JComponent {
 	public GameScreen() {
 		this.setPreferredSize(new Dimension(Resource.screenWidth,
 				Resource.screenHeight));
+		//Resource.screenbgm.loop();
 
 		this.addKeyListener(new KeyAdapter() {
 			@Override

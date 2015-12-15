@@ -85,6 +85,8 @@ public class Resource {
 		return b;
 	}
 	
+	//public static AudioClip titlebgm = getSound("res/sound/titlebgm.wav");
+	//public static AudioClip screenbgm = getSound("res/sound/screenbgm.wav");
 	public static AudioClip hit = getSound("res/sound/hitted.wav");
 	public static AudioClip jump = getSound("res/sound/jump.wav");
 	public static AudioClip levelup = getSound("res/sound/levelup.wav");
@@ -94,6 +96,7 @@ public class Resource {
 	public static AudioClip meteorskill2 = getSound("res/sound/meteorskill2.wav");
 	public static AudioClip fireskill = getSound("res/sound/fireskill.wav");
 	public static AudioClip poisonskill = getSound("res/sound/poisonskill.wav");
+	public static AudioClip spikeskill = getSound("res/sound/spikeskill.wav");
 	
 	static AudioClip getSound(String directory){
 		AudioClip a;
