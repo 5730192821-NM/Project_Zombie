@@ -7,7 +7,7 @@ import render.Renderable;
 import render.Resource;
 
 public class Banner implements Renderable {
-	
+
 	public boolean isVisible = false;
 
 	public void setVisible(boolean isVisible) {
@@ -19,10 +19,20 @@ public class Banner implements Renderable {
 		g.drawImage(Resource.banner, null, 200, 120);
 		g.setFont(Resource.wordFont);
 		g.setColor(new Color(51, 25, 0));
-		g.drawString("PAUSE", 320, 180);
+		g.drawString("PAUSE", 330, 180);
+		g.setFont(Resource.skillFont);
+		g.drawString("SKILL", 350, 300);
 		g.setFont(Resource.pauseFont);
-		g.drawString("press 'Q' : exit to MainMenu ", 260, 250);
-		g.drawString("press 'esc' : unpause ", 290, 280);
+		g.drawString("press 'Q' : exit to MainMenu ", 260, 220);
+		g.drawString("press 'esc' : unpause ", 290, 250);
+		g.drawString("-SingleTarget-", 240, 330);
+		g.drawString("F : fire", 280, 360);
+		g.drawString("I : ice", 280, 380);
+		g.drawString("-MultiTarget-", 430, 330);
+		g.drawString("M : meteor", 445, 360);
+		g.drawString("P : poison", 450, 380);
+		g.drawString("S : spike", 450, 400);
+
 	}
 
 	@Override

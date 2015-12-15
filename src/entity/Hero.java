@@ -372,6 +372,10 @@ public class Hero extends Moving implements Renderable {
 		countD++;
 	}
 
+	public int getFrameCountD() {
+		return frameCountD;
+	}
+
 	public void setHpMp() {
 		heroStatus.setCurrentHp(hp);
 		heroStatus.setCurrentMp(mana);
@@ -556,7 +560,6 @@ public class Hero extends Moving implements Renderable {
 				hp -= m.getAttack() * i;
 			else {
 				hp = 0;
-				isDead = true;
 			}
 		}
 	}

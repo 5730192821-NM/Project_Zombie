@@ -15,6 +15,8 @@ public class Resource {
 	public static final Font standardFont = new Font("Tahoma", Font.PLAIN, 15);
 	public static final Font biggerFont = new Font("Tahoma", Font.PLAIN, 25);
 	public static final Font pauseFont = new Font("Tahoma", Font.BOLD, 20);
+	public static final Font skillFont = new Font("Tahoma", Font.BOLD, 35);
+
 
 	
 	//Hero
