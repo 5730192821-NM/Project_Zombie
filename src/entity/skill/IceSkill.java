@@ -26,6 +26,9 @@ public class IceSkill extends Skill implements Renderable {
 	@Override
 	public void update() {
 		if (isPlaying) {
+			if(frameCount==0 && count==0){
+				Resource.iceskill.play();
+			}
 			if (count == 10) {
 				count = 0;
 				frameCount++;

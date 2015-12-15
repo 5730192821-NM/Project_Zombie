@@ -32,6 +32,9 @@ public class MeteorSkill extends Skill implements Renderable {
 	@Override
 	public void update() {
 		if (isPlaying) {
+			if(count==1 && frameCountX==2 && frameCountY==0){
+				Resource.meteorskill2.play();
+			}
 			if (count == 8) {
 				count = 0;
 				frameCountX++;
@@ -41,6 +44,7 @@ public class MeteorSkill extends Skill implements Renderable {
 				if (frameCountX == 7) {
 					frameCountX = 0;
 					frameCountY++;
+					Resource.meteorskill.play();
 					if (direction == 1){
 						x += 250;
 						attackRange=this.x;

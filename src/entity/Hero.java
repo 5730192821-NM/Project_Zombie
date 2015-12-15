@@ -94,6 +94,7 @@ public class Hero extends Moving implements Renderable {
 			heroStatus.setCurrentHp(hp);
 			heroStatus.setCurrentMp(mana);
 			heroStatus.setMaxXp();
+			Resource.levelup.play();
 		}
 
 		heroStatus.setCurrentHp(hp);
@@ -165,6 +166,7 @@ public class Hero extends Moving implements Renderable {
 			if (!isJumped) {
 				isJumped = true;
 				velocityY = -17;
+				Resource.jump.play();
 			}
 		}
 		if (isJumped) {
@@ -360,6 +362,7 @@ public class Hero extends Moving implements Renderable {
 						.getLevel());
 				heroStatus.addtXp(20 * Cage.getInstance().getCage().get(j)
 						.getLevel());
+				Resource.score.play();
 				Cage.getInstance().getCage().remove(j);
 			}
 		}
@@ -522,6 +525,7 @@ public class Hero extends Moving implements Renderable {
 		if (m instanceof Yeti)
 			i++;
 		if (!isHitting) {
+			Resource.hit.play();
 			isHitting = true;
 			if (hp - m.getAttack() * i >= 0)
 				hp -= m.getAttack() * i;
