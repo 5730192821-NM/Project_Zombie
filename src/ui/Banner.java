@@ -4,9 +4,10 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 
 import render.Renderable;
+import render.RenderableHolder;
 import render.Resource;
 
-public class Banner implements Renderable {
+public class Banner implements Renderable,Runnable {
 
 	public boolean isVisible = false;
 
@@ -45,6 +46,24 @@ public class Banner implements Renderable {
 	public int getZ() {
 		// TODO Auto-generated method stub
 		return 2;
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		while(true){
+			if(!isVisible){
+				synchronized(this){
+					try {
+						RenderableHolder.getInstance().remove(this);
+						this.wait();
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
 	}
 
 }
