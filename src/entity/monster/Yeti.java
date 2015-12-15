@@ -31,84 +31,106 @@ public class Yeti extends Monster implements Renderable {
 		this.y = y;
 		this.land = land;
 		this.hero = hero;
-		level = (int) (Math.random() * 5) + hero.getLevel(); // monster has level.
+		level = (int) (Math.random() * 5) + hero.getLevel(); // monster has
+																// level.
 		hp = 200 * level;// level involve to hp.
 		attack = 20 * level;// level involve to attack.
 		type = 2; // Ice Monster Type.
-		maxHp=hp;
+		maxHp = hp;
 	}
 
 	@Override
 	public void update() {
-		
-		xHp = (hp*1.0)/(maxHp*1.0);
-		
+
+		xHp = (hp * 1.0) / (maxHp * 1.0);
+
 		if (hp == 0) { // dead
-			if (countDead == 15) {
-				countDead = 0;
-				frameCountDead++;
-				if (frameCountDead == 7)
-					killed();
-			}
-			countDead++;
+			deadAnimation();
 		} else if (isPanic) { // panic
-			if (countPanic == 15) {
-				countPanic = 0;
-				isPanic = false;
-			}
-			countPanic++;
-			if (direction == 1)
-				x += 2;
-			else
-				x -= 2;
+			panicAnimation();
 		} else if (isAttack) {
-			if (countAttack == 10) {
-				countAttack = 0;
-				frameCountAttack++;
-				if (frameCountAttack == 9) {
-					frameCountAttack = 0;
-					isAttack = false;
-				}
-			}
-			countAttack++;
+			attackAnimation();
 		} else { // walk
-			if (countWalk == 10) {
-				countWalk = 0;
-				frameCountWalk++;
-				frameCountWalk %= 4;
-			}
-			countWalk++;
-			if (countWalk % 5 == 0) {
-				if (x + 50 > hero.getX()) {
-					direction = 1;
-					x -= (4 - speedDecrease);
-				} else if (x + 50 <= hero.getX() && x + 120 >= hero.getX()) {
-					isAttack = true;
-					attackDirection = direction;
-				} else if (x + 120 < hero.getX()) {
-					direction = 2;
-					x += (4 - speedDecrease);
-				}
-			}
+			walkAnimation();
 		}
 
 		if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
-			if (!(hero.getX() < 400 || land.isEnd()))
-				hero.setRight(true);
-		}
-		if (hero.getX() >= 400 && hero.isRight()) {
-			setX(5);
+			walkRight();
 		}
 		if (InputUtility.getKeyPressed(KeyEvent.VK_LEFT)) {
-			if (!(hero.getX() > 200 || land.isStart())) {
-				hero.setLeft(true);
-			}
-		}
-		if (hero.getX() <= 200 && hero.isLeft()) {
-			setX(-5);
+			walkLeft();
 		}
 
 		// Debuff
+		debuffDamgage();
+	}
+	
+	public void deadAnimation(){
+		if (countDead == 15) {
+			countDead = 0;
+			frameCountDead++;
+			if (frameCountDead == 7)
+				killed();
+		}
+		countDead++;
+	}
+	
+	public void panicAnimation(){
+		if (countPanic == 15) {
+			countPanic = 0;
+			isPanic = false;
+		}
+		countPanic++;
+		if (direction == 1)
+			x += 2;
+		else
+			x -= 2;
+	}
+	
+	public void attackAnimation(){
+		if (countAttack == 10) {
+			countAttack = 0;
+			frameCountAttack++;
+			if (frameCountAttack == 9) {
+				frameCountAttack = 0;
+				isAttack = false;
+			}
+		}
+		countAttack++;
+	}
+	
+	public void walkAnimation(){
+		if (countWalk == 10) {
+			countWalk = 0;
+			frameCountWalk++;
+			frameCountWalk %= 4;
+		}
+		countWalk++;
+		if (countWalk % 5 == 0) {
+			if (x + 50 > hero.getX()) {
+				direction = 1;
+				x -= (4 - speedDecrease);
+			} else if (x + 50 <= hero.getX() && x + 120 >= hero.getX()) {
+				isAttack = true;
+				attackDirection = direction;
+			} else if (x + 120 < hero.getX()) {
+				direction = 2;
+				x += (4 - speedDecrease);
+			}
+		}
+	}
+
+	public void walkLeft() {
+		if (!(hero.getX() > 200 || land.isStart())) 
+			setX(-5);
+	}
+
+	public void walkRight() {
+		if (!(hero.getX() < 400 || land.isEnd()))
+			setX(5);
+	}
+
+	public void debuffDamgage() {
 		if (debuff[0] != 0) {
 			if (countDebuff[0] == 40) {
 				countDebuff[0] = 0;
@@ -227,25 +249,25 @@ public class Yeti extends Monster implements Renderable {
 				g.drawImage(Resource.poison, null, x + 155, y + 90);
 			}
 		}
-		
-		if(direction==1){
+
+		if (direction == 1) {
 			g.setColor(Color.BLACK);
-			g.fillRect(x+102, y+81,80,5);
+			g.fillRect(x + 102, y + 81, 80, 5);
 			g.setColor(Color.RED);
-			g.fillRect(x+103, y+82, (int)(xHp*78), 3);
+			g.fillRect(x + 103, y + 82, (int) (xHp * 78), 3);
 			g.setColor(Color.RED);
 			g.setFont(Resource.standardFont);
-			g.drawString("Yeti", x+75,y+86);
-			g.drawString("Level : "+level, x+75, y+75);
-		} else{
+			g.drawString("Yeti", x + 75, y + 86);
+			g.drawString("Level : " + level, x + 75, y + 75);
+		} else {
 			g.setColor(Color.BLACK);
-			g.fillRect(x+52, y+81,80,5);
+			g.fillRect(x + 52, y + 81, 80, 5);
 			g.setColor(Color.RED);
-			g.fillRect(x+53, y+82, (int)(xHp*78), 3);
+			g.fillRect(x + 53, y + 82, (int) (xHp * 78), 3);
 			g.setColor(Color.RED);
 			g.setFont(Resource.standardFont);
-			g.drawString("Yeti", x+25,y+86);
-			g.drawString("Level : "+level, x+25, y+75);
+			g.drawString("Yeti", x + 25, y + 86);
+			g.drawString("Level : " + level, x + 25, y + 75);
 		}
 	}
 

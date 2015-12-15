@@ -80,25 +80,12 @@ public class Hero extends Moving implements Renderable {
 	@Override
 	public void update() {
 
-		if (level != heroStatus.getLevel()) {
-			level = heroStatus.getLevel();
-			STR = (int) (10 + 1.5 * level);
-			INT = (int) (10 + 2.5 * level);
-			maxHp = STR * 20;
-			maxMp = INT * 20;
-			attack = (int) (INT * 1.5);
-			hp = maxHp;
-			mana = maxMp;
-			heroStatus.setMaxHp(maxHp);
-			heroStatus.setMaxMp(maxMp);
-			heroStatus.setCurrentHp(hp);
-			heroStatus.setCurrentMp(mana);
-			heroStatus.setMaxXp();
-			Resource.levelup.play();
-		}
+		// check level
+		checkLevel();
 
-		heroStatus.setCurrentHp(hp);
-		heroStatus.setCurrentMp(mana);
+		// update hp mp bar.
+		setHpMp();
+
 		if (manaTick == 20) {
 			manaTick = 0;
 			manaRegen();
@@ -113,55 +100,232 @@ public class Hero extends Moving implements Renderable {
 
 		// Dead Animation
 		if (hp == 0) {
-			if (countD == 10) {
-				countD = 0;
-				frameCountD++;
-				if (frameCountD == 5) {
-					isDead = true;
-					countD = 0;
-					frameCountD = 0;
-				}
-			}
-			countD++;
-
+			deadAnimation();
 		}
 
-		// Idle Spell Animation
+		
 		if (isCasting) {
-			if (countA == 8) {
-				countA = 0;
-				frameCountA++;
-				if (frameCountA >= 10) {
-					isCasting = false;
-					frameCountA = 0;
-					countA = 0;
-				}
-			}
-			countA++;
+			// Idle Spell Animation
+			idleSpellAnimation();
 		} else {
 			// Idle Animation Controller
-			if (count == 10) {
-				count = 0;
-				frameCount++;
-				frameCount %= 6;
-			}
-			count++;
-		}
-
-		// Spell Time Casting
-		if (countSpell == 200) {
-			countSpell = 0;
-			// InputUtility.clearSpell();
-		}
-		countSpell++;
-
-		// Clear by yourself
-		if (InputUtility.getKeyPressed(KeyEvent.VK_ENTER)) {
-			countSpell = 0;
-			InputUtility.clearSpell();
+			idleAnimation();
 		}
 
 		// Jump
+		jump();
+
+		// Moving
+		if (InputUtility.getKeyPressed(KeyEvent.VK_LEFT)) {
+			walkLeft();
+		} else if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
+			walkRight();
+		}
+
+		// Casting Skill
+		if (isSkill) {
+			castingSkill();
+		} else {
+			checkCastingSkill();
+		}
+
+		//check and remove dead monster
+		removeMonster();
+
+		isRight = false;
+		isLeft = false;
+	}
+	
+	public void removeMonster(){
+		for (int j = 0; j < Cage.getInstance().getCage().size(); j++) {
+			if (Cage.getInstance().getCage().get(j).isDead()) {
+				heroStatus.addScore(20 * Cage.getInstance().getCage().get(j)
+						.getLevel());
+				heroStatus.addtXp(20 * Cage.getInstance().getCage().get(j)
+						.getLevel());
+				Resource.score.play();
+				Cage.getInstance().getCage().remove(j);
+			}
+		}
+	}
+	
+	public void checkCastingSkill(){
+		if ((words[0].getWord().length == InputUtility.getSpell().length())) {
+			if (words[0].cast(InputUtility.getSpell())) {
+				if (mana >= 10) {
+					skills[0] = new IceSkill(nearMon.getX(), y,
+							nearMon.getDirection());
+					RenderableHolder.getInstance().add(skills[0]);
+					skills[0].play();
+					isSkill = true;
+					countSpell = 200;
+					isCasting = true;
+					i = 0;
+					lossMana(10);
+					isOutOfMana = false;
+					InputUtility.clearSpell();
+				} else {
+					isOutOfMana = true;
+					InputUtility.clearSpell();
+				}
+			}
+		}
+		if ((words[1].getWord().length == InputUtility.getSpell().length())) {
+			if (words[1].cast(InputUtility.getSpell())) {
+				if (mana >= 10) {
+					skills[1] = new FireSkill(nearMon.getX(), y,
+							nearMon.getDirection());
+					RenderableHolder.getInstance().add(skills[1]);
+					skills[1].play();
+					isSkill = true;
+					countSpell = 200;
+					isCasting = true;
+					i = 1;
+					lossMana(10);
+					isOutOfMana = false;
+					InputUtility.clearSpell();
+				} else {
+					isOutOfMana = true;
+					InputUtility.clearSpell();
+				}
+			}
+		}
+		if ((words[2].getWord().length == InputUtility.getSpell().length())) {
+			if (words[2].cast(InputUtility.getSpell())) {
+				if (mana >= 20) {
+					skills[2] = new MeteorSkill(x, y, direction);
+					RenderableHolder.getInstance().add(skills[2]);
+					skills[2].play();
+					isSkill = true;
+					countSpell = 200;
+					isCasting = true;
+					i = 2;
+					lossMana(20);
+					InputUtility.clearSpell();
+					isOutOfMana = false;
+				} else {
+					isOutOfMana = true;
+					InputUtility.clearSpell();
+				}
+			}
+		}
+		if ((words[3].getWord().length == InputUtility.getSpell().length())) {
+			if (words[3].cast(InputUtility.getSpell())) {
+				if (mana >= 20) {
+					skills[3] = new PoisonSkill(x, y, direction);
+					RenderableHolder.getInstance().add(skills[3]);
+					skills[3].play();
+					isSkill = true;
+					countSpell = 200;
+					isCasting = true;
+					i = 3;
+					lossMana(20);
+					isOutOfMana = false;
+					InputUtility.clearSpell();
+				} else {
+					isOutOfMana = true;
+					InputUtility.clearSpell();
+				}
+			}
+		}
+		if ((words[4].getWord().length == InputUtility.getSpell().length())) {
+			if (words[4].cast(InputUtility.getSpell())) {
+				if (mana >= 30) {
+					skills[4] = new SpikeSkill(x, y, direction);
+					RenderableHolder.getInstance().add(skills[4]);
+					skills[4].play();
+					isSkill = true;
+					countSpell = 200;
+					isCasting = true;
+					i = 4;
+					lossMana(30);
+					isOutOfMana = false;
+					InputUtility.clearSpell();
+				} else {
+					isOutOfMana = true;
+					InputUtility.clearSpell();
+				}
+			}
+		}
+	}
+	
+	public void castingSkill(){
+		if (x >= 400 && isRight) {
+			skills[i].setX(5);
+		} else if (x <= 200 && isLeft) {
+			skills[i].setX(-5);
+		}
+
+		// interaction
+		for (Monster m : Cage.getInstance().getCage()) {
+
+			// ice + fire
+			if (i == 0 || i == 1) {
+				if (skills[i].getFrameCount() == 1
+						&& m.getX() <= nearMon.getX() + 50
+						&& nearMon.getX() - 50 <= m.getX()) {
+					m.hit(this, skills[i]);
+					nearMon = new Yeti(1000, 1000, land, this);
+				}
+			} else if (i == 2) { // meteor
+				if (skills[i].getFrameCount() < 3
+						&& skills[i].getAttackRange() != -1000
+						&& (skills[i].getAttackRange() - 20 < m.getX() + 150)
+						&& (m.getX() < skills[i].getAttackRange() + 100)) {
+					m.hit(this, skills[i]);
+					nearMon = new Yeti(1000, 1000, land, this);
+				}
+			} else if (i == 3) { // poison
+				if (skills[i].getAttackRange() != -1000
+						&& (skills[i].getAttackRange() - 5 < m.getX() + 150)
+						&& (m.getX() < skills[i].getAttackRange() + 5)) {
+					m.hit(this, skills[i]);
+					nearMon = new Yeti(1000, 1000, land, this);
+				}
+			} else if (i == 4) { // spike
+				if (skills[i].getFrameCount() < 5
+						&& (skills[i].getAttackRange() < m.getX() + 100)
+						&& (m.getX() < skills[i].getAttackRange() + 450)) {
+					m.hit(this, skills[i]);
+					nearMon = new Yeti(1000, 1000, land, this);
+				}
+			}
+		}
+		skills[i].update();
+
+		if (!skills[0].isPlaying() && !skills[1].isPlaying()
+				&& !skills[2].isPlaying() && !skills[3].isPlaying()
+				&& !skills[4].isPlaying()) {
+			isSkill = false;
+			i = 5;
+		}
+	}
+	
+	public void walkLeft(){
+		direction = 2;
+		if (x > 200 || land.isStart()) {
+			if (x + 20 > 0)
+				x -= 5;
+		} else if (!(x > 200 || land.isStart())) {
+			land.setX(-5);
+			background.setX(-2);
+			land.setEnd(false);
+		}
+	}
+	
+	public void walkRight(){
+		direction = 1;
+		if (x < 400 || land.isEnd()) {
+			if (x < 720)
+				x += 5;
+		} else if (!(x < 400 || land.isEnd())) {
+			land.setX(5);
+			background.setX(2);
+			land.setStart(false);
+		}
+	}
+	
+	public void jump(){
 		if (InputUtility.getKeyPressed(KeyEvent.VK_UP)) {
 			if (!isJumped) {
 				isJumped = true;
@@ -178,197 +342,65 @@ public class Hero extends Moving implements Renderable {
 				velocityY = 0;
 			}
 		}
-
-		// Moving
-		if (InputUtility.getKeyPressed(KeyEvent.VK_LEFT)) {
-			direction = 2;
-			if (x > 200 || land.isStart()) {
-				if (x + 20 > 0)
-					x -= 5;
-			} else if (!(x > 200 || land.isStart())) {
-				isLeft = true;
-				land.setX(-5);
-				background.setX(-2);
-				land.setEnd(false);
-			}
-		} else if (InputUtility.getKeyPressed(KeyEvent.VK_RIGHT)) {
-			direction = 1;
-			if (x < 400 || land.isEnd()) {
-				if (x < 720)
-					x += 5;
-			} else if (!(x < 400 || land.isEnd())) {
-				isRight = true;
-				land.setX(5);
-				background.setX(2);
-				land.setStart(false);
+	}
+	
+	public void idleAnimation(){
+		if (count == 10) {
+			count = 0;
+			frameCount++;
+			frameCount %= 6;
+		}
+		count++;
+	}
+	
+	public void idleSpellAnimation(){
+		if (countA == 8) {
+			countA = 0;
+			frameCountA++;
+			if (frameCountA >= 10) {
+				isCasting = false;
+				frameCountA = 0;
+				countA = 0;
 			}
 		}
+		countA++;
+	}
 
-		// Casting Skill
-		if (isSkill) {
-			if (x >= 400 && isRight) {
-				skills[i].setX(5);
-			} else if (x <= 200 && isLeft) {
-				skills[i].setX(-5);
-			}
-
-			// interaction
-			for (Monster m : Cage.getInstance().getCage()) {
-
-				// ice + fire
-				if (i == 0 || i == 1) {
-					if (skills[i].getFrameCount() == 1
-							&& m.getX() <= nearMon.getX() + 50
-							&& nearMon.getX() - 50 <= m.getX()) {
-						m.hit(this, skills[i]);
-						nearMon = new Yeti(1000, 1000, land, this);
-					}
-				} else if (i == 2) { // meteor
-					if (skills[i].getFrameCount() < 3
-							&& skills[i].getAttackRange() != -1000
-							&& (skills[i].getAttackRange() - 20 < m.getX() + 150)
-							&& (m.getX() < skills[i].getAttackRange() + 100)) {
-						m.hit(this, skills[i]);
-						nearMon = new Yeti(1000, 1000, land, this);
-					}
-				} else if (i == 3) { // poison
-					if (skills[i].getAttackRange() != -1000
-							&& (skills[i].getAttackRange() - 5 < m.getX() + 150)
-							&& (m.getX() < skills[i].getAttackRange() + 5)) {
-						m.hit(this, skills[i]);
-						nearMon = new Yeti(1000, 1000, land, this);
-					}
-				} else if (i == 4) { // spike
-					if (skills[i].getFrameCount() < 5
-							&& (skills[i].getAttackRange() < m.getX() + 100)
-							&& (m.getX() < skills[i].getAttackRange() + 450)) {
-						m.hit(this, skills[i]);
-						nearMon = new Yeti(1000, 1000, land, this);
-					}
-				}
-			}
-			skills[i].update();
-
-			if (!skills[0].isPlaying() && !skills[1].isPlaying()
-					&& !skills[2].isPlaying() && !skills[3].isPlaying()
-					&& !skills[4].isPlaying()) {
-				isSkill = false;
-				i = 5;
-			}
-		} else {
-			if ((words[0].getWord().length == InputUtility.getSpell().length())) {
-				if (words[0].cast(InputUtility.getSpell())) {
-					if (mana >= 10) {
-						skills[0] = new IceSkill(nearMon.getX(), y,
-								nearMon.getDirection());
-						RenderableHolder.getInstance().add(skills[0]);
-						skills[0].play();
-						isSkill = true;
-						countSpell = 200;
-						isCasting = true;
-						i = 0;
-						lossMana(10);
-						isOutOfMana = false;
-						InputUtility.clearSpell();
-					} else {
-						isOutOfMana = true;
-						InputUtility.clearSpell();
-					}
-				}
-			}
-			if ((words[1].getWord().length == InputUtility.getSpell().length())) {
-				if (words[1].cast(InputUtility.getSpell())) {
-					if (mana >= 10) {
-						skills[1] = new FireSkill(nearMon.getX(), y,
-								nearMon.getDirection());
-						RenderableHolder.getInstance().add(skills[1]);
-						skills[1].play();
-						isSkill = true;
-						countSpell = 200;
-						isCasting = true;
-						i = 1;
-						lossMana(10);
-						isOutOfMana = false;
-						InputUtility.clearSpell();
-					} else {
-						isOutOfMana = true;
-						InputUtility.clearSpell();
-					}
-				}
-			}
-			if ((words[2].getWord().length == InputUtility.getSpell().length())) {
-				if (words[2].cast(InputUtility.getSpell())) {
-					if (mana >= 20) {
-						skills[2] = new MeteorSkill(x, y, direction);
-						RenderableHolder.getInstance().add(skills[2]);
-						skills[2].play();
-						isSkill = true;
-						countSpell = 200;
-						isCasting = true;
-						i = 2;
-						lossMana(20);
-						InputUtility.clearSpell();
-						isOutOfMana = false;
-					} else {
-						isOutOfMana = true;
-						InputUtility.clearSpell();
-					}
-				}
-			}
-			if ((words[3].getWord().length == InputUtility.getSpell().length())) {
-				if (words[3].cast(InputUtility.getSpell())) {
-					if (mana >= 20) {
-						skills[3] = new PoisonSkill(x, y, direction);
-						RenderableHolder.getInstance().add(skills[3]);
-						skills[3].play();
-						isSkill = true;
-						countSpell = 200;
-						isCasting = true;
-						i = 3;
-						lossMana(20);
-						isOutOfMana = false;
-						InputUtility.clearSpell();
-					} else {
-						isOutOfMana = true;
-						InputUtility.clearSpell();
-					}
-				}
-			}
-			if ((words[4].getWord().length == InputUtility.getSpell().length())) {
-				if (words[4].cast(InputUtility.getSpell())) {
-					if (mana >= 30) {
-						skills[4] = new SpikeSkill(x, y, direction);
-						RenderableHolder.getInstance().add(skills[4]);
-						skills[4].play();
-						isSkill = true;
-						countSpell = 200;
-						isCasting = true;
-						i = 4;
-						lossMana(30);
-						isOutOfMana = false;
-						InputUtility.clearSpell();
-					} else {
-						isOutOfMana = true;
-						InputUtility.clearSpell();
-					}
-				}
-			}
-
-		}
-
-		for (int j = 0; j < Cage.getInstance().getCage().size(); j++) {
-			if (Cage.getInstance().getCage().get(j).isDead()) {
-				heroStatus.addScore(20 * Cage.getInstance().getCage().get(j)
-						.getLevel());
-				heroStatus.addtXp(20 * Cage.getInstance().getCage().get(j)
-						.getLevel());
-				Resource.score.play();
-				Cage.getInstance().getCage().remove(j);
+	public void deadAnimation() {
+		if (countD == 10) {
+			countD = 0;
+			frameCountD++;
+			if (frameCountD == 5) {
+				isDead = true;
+				countD = 0;
+				frameCountD = 0;
 			}
 		}
+		countD++;
+	}
 
-		isRight = false;
-		isLeft = false;
+	public void setHpMp() {
+		heroStatus.setCurrentHp(hp);
+		heroStatus.setCurrentMp(mana);
+	}
+
+	public void checkLevel() {
+		if (level != heroStatus.getLevel()) {
+			level = heroStatus.getLevel();
+			STR = (int) (10 + 1.5 * level);
+			INT = (int) (10 + 2.5 * level);
+			maxHp = STR * 20;
+			maxMp = INT * 20;
+			attack = (int) (INT * 1.5);
+			hp = maxHp;
+			mana = maxMp;
+			heroStatus.setMaxHp(maxHp);
+			heroStatus.setMaxMp(maxMp);
+			heroStatus.setCurrentHp(hp);
+			heroStatus.setCurrentMp(mana);
+			heroStatus.setMaxXp();
+			Resource.levelup.play();
+		}
 	}
 
 	public boolean isDead() {

@@ -9,6 +9,7 @@ import entity.monster.Yeti;
 import input.InputUtility;
 import render.Renderable;
 import render.RenderableHolder;
+import render.Resource;
 import ui.*;
 
 public class GameLogic {
@@ -27,7 +28,7 @@ public class GameLogic {
 	private int speed = 20;
 
 	public GameLogic() {
-
+		
 		this.land = new Land(0, 0);
 		this.background = new Background(0, 0);
 		this.heroStatus = new HeroStatus();

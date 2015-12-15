@@ -29,7 +29,7 @@ public class GameTitle extends JPanel {
 				Resource.screenHeight));
 		this.setLayout(new BorderLayout());
 		
-		//Resource.titlebgm.loop();
+		Resource.titlebgm.loop();
 
 		// North Panel
 
@@ -82,7 +82,8 @@ public class GameTitle extends JPanel {
 			if (InputUtility.getKeyPressed(i)) {
 				setTitle(false);
 				setSwap(true);
-				//Resource.titlebgm.stop();
+				Resource.titlebgm.stop();
+				Resource.screenbgm.loop();
 				return;
 			}
 		}
