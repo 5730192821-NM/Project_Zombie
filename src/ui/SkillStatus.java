@@ -16,7 +16,7 @@ public class SkillStatus implements Renderable {
 	@Override
 	public void draw(Graphics2D g) {
 
-		g.drawImage(Resource.skillBox, null, 250, 0);
+		g.drawImage(Resource.skillBoxBG, null, 250, 0);
 
 		AffineTransform backup = g.getTransform();
 		AffineTransform trans = new AffineTransform();

@@ -39,7 +39,7 @@ public class Resource {
 	
 	//UI
 	public static BufferedImage statusBG = getImage("res/ui/herostatus.png");
-	public static BufferedImage skillBox = getImage("res/ui/skill.png");
+	public static BufferedImage skillBoxBG = getImage("res/ui/skillBoxBg.png");
 	public static BufferedImage pause = getImage("res/ui/pause.png");
 	
 	//BG
