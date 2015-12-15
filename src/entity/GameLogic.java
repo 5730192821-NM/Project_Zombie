@@ -26,7 +26,7 @@ public class GameLogic {
 	private int tick = 0;
 	private Background background;
 	private boolean isPause = false;
-	private int speed = 20;
+	private final int speed = 20;
 	private Banner pauseBanner = new Banner();
 	private GameTitle title;
 
@@ -235,12 +235,4 @@ public class GameLogic {
 	public int getSpeed() {
 		return speed;
 	}
-
-	public void setSpeed(int speed) {
-		if (speed > 0)
-			this.speed = speed;
-		else
-			this.speed = 0;
-	}
-
 }
