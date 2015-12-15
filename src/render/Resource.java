@@ -50,6 +50,8 @@ public class Resource {
 	//BG
 	public static BufferedImage land1 = getImage("res/map/land1.png");
 	public static BufferedImage background1 = getImage("res/map/background1.png");
+	public static BufferedImage titleBG = getImage("res/ui/titleBG.png");
+	
 	
 	//Skill
 	public static BufferedImage ice1 = getImage("res/skill/ice1.png");

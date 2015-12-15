@@ -9,6 +9,7 @@ import java.awt.Graphics;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -28,21 +29,16 @@ public class GameTitle extends JPanel {
 		this.setPreferredSize(new Dimension(Resource.screenWidth,
 				Resource.screenHeight));
 		this.setLayout(new BorderLayout());
-		
+
 		Resource.titlebgm.loop();
 
-		// North Panel
-
-		JLabel titleName = new JLabel("Hello .. it's Me!", JLabel.CENTER);
-		titleName.setFont(Resource.wordFont);
-		titleName.setForeground(Color.BLUE);
-
-		this.add(titleName, BorderLayout.NORTH);
-
-		// Center Panel
-
+		JLabel BG = new JLabel(new ImageIcon(Resource.titleBG));
+				
+		start.setBackground(Color.BLACK);
+		start.setOpaque(true);
 		start.setFont(Resource.biggerFont);
-		this.add(start, BorderLayout.CENTER);
+		this.add(BG,BorderLayout.CENTER);
+		this.add(start, BorderLayout.SOUTH);
 
 		this.addKeyListener(new KeyAdapter() {
 
